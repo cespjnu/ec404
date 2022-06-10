@@ -1,34 +1,35 @@
-#+TITLE: Introduction to Statistical Inference
-#+PROPERTY: header-args:R :session acj :eval never-export
 #+STARTUP: hideall inlineimages hideblocks
+#+PROPERTY: header-args:R :session acj :eval never-export
 #+HTML_HEAD: <style>#content{max-width:1200px;} </style>
 
-* Title slide                                                         :slide:
+* Title slide                                        :slide:
+
 #+BEGIN_SRC emacs-lisp-slide
-(org-show-animate '("Quantitative Methods, Part-II" "Introduction to Statistical Inference" "Vikas Rawal" "Prachi Bansal" "" "" ""))
+(org-show-animate '("Quantitative Methods, Part-II" "Introduction to Statistical Inference" "Vikas Rawal" "" "" ""))
 #+END_SRC
 
 * Sampling Distributions
 
-** Sampling Distributions                                            :slide:
+** Sampling Distributions                           :slide:
 
-# #+RESULTS: sampling2
+#+RESULTS: sampling2
+[[file:bsample2.png]]
 
 
 #+NAME: sampling2
-#+BEGIN_SRC R :results output graphics :exports results :file bsample2.png :width 2500 :height 1500  :res 300
-    library(data.table)
-    readRDS("plfsdata/plfsacjdata.rds")->worker
-    worker$standardwage->worker$wage
-    #read.table("~/ssercloud/acj2018/worker.csv",sep=",",header=T)->worker
-    c(1:nrow(worker))->worker$SamplingFrameOrder
-    worker[sex!=3,]->worker
-    library(ggplot2)
-      ggplot(worker,aes(wage))+geom_density(colour="black",size=1)+scale_y_continuous(limits=c(0,0.05))+scale_x_continuous(limits=c(0,600),breaks=c(0,mean(worker$wage),1000))->p
+#+BEGIN_SRC R :results file graphics :exports results :file bsample2.png :width 1200 :height 800  :res 200
+  library(data.table)
+  readRDS("~/ssercloud/acj2018/plfsdata/plfsacjdata.rds")->worker
+  worker$standardwage->worker$wage
+                                          #read.table("worker.csv",sep=",",header=T)->worker
+  c(1:nrow(worker))->worker$SamplingFrameOrder
+  worker[sex!=3,]->worker
+  library(ggplot2)
+  ggplot(worker,aes(wage))+geom_density(colour="black",size=1)+scale_y_continuous(limits=c(0,0.05))+scale_x_continuous(limits=c(0,600),breaks=c(0,mean(worker$wage),1000))->p
   #    p+facet_wrap(~sex)->p
-      p+annotate("text",x=380,y=0.045,
+      p+annotate("text",x=380,y=0.045,size=6,
                label=paste("Population mean = ",round(mean(worker$wage)),sep=""))->p
-      p+annotate("text",x=400,y=0.042,
+      p+annotate("text",x=400,y=0.042,size=6,
                label="Distribution of sample means:")->p
      p+theme_bw()->p
       p
@@ -50,7 +51,7 @@
           round(mean(t1$meancol)),
           "; stdev = ",
           round(sd(t1$meancol)),sep="")->lab
-    p+annotate("text",x=450,y=0.030,label=lab,colour="blue")->p
+    p+annotate("text",x=450,y=0.030,label=lab,colour="blue",size=6)->p
     p
 
     sample(1:nrow(worker),20, replace=FALSE)->a1
@@ -68,7 +69,7 @@
           round(mean(t0$meancol)),
           "; stdev = ",
           round(sd(t0$meancol)),sep="")->lab
-    p+annotate("text",x=450,y=0.033,label=lab,colour="darkolivegreen")->p
+    p+annotate("text",x=450,y=0.033,label=lab,size=6,colour="darkolivegreen")->p
     p
 
     sample(1:nrow(worker),50, replace=FALSE)->a1
@@ -86,7 +87,7 @@
           round(mean(t$meancol)),
           "; stdev = ",
           round(sd(t$meancol)),sep="")->lab
-    p+annotate("text",x=450,y=0.036,label=lab,colour="red")->p
+    p+annotate("text",x=450,y=0.036,label=lab,size=6,colour="red")->p
     p
 
     sample(1:nrow(worker),200, replace=FALSE)->a1
@@ -104,14 +105,13 @@
           round(mean(t4$meancol)),
           "; stdev = ",
           round(sd(t4$meancol)),sep="")->lab
-    p+annotate("text",x=450,y=0.039,label=lab,colour="pink")->p
+    p+annotate("text",x=450,y=0.039,label=lab,size=6,colour="pink")->p
     p
 #+end_src
 
-** Sampling Distributions                                            :slide:
+** Sampling Distributions                           :slide:
 
 + $Standard.error = \frac{\sigma}{\sqrt{n}}$
-
 
 |                                    Variable | Value |
 |---------------------------------------------+-------|
@@ -124,14 +124,37 @@
 
 
 
-* Introduction to Hypothesis Testing
-** Transforming the Distribution to Standard Normal                  :slide:
 
+|           | Settlement A | Settlement B          | Total |
+|-----------+--------------+-----------------------+-------|
+| ACJPuram  | 9000         | 1000                  | 10000 |
+| Sample-I  | 180          | 20                    |   200 |
+|           | (2%)         | (2%)                  |    2% |
+| Sample-II | 100          | 100                   |   200 |
+|           | 1/90         | 1/10                  |    2% |
+|           | Huts         | Fancy concrete houses | Total |
+
+
+
+
+
+
+
+
+
+
+
+
+
+* Introduction to Hypothesis Testing
+** Transforming the Distribution to Standard Normal :slide:
+
+#+attr_org: :width 1200px
 #+RESULTS: sampling3
 [[file:bsample3.png]]
 
 #+NAME: sampling3
-#+BEGIN_SRC R :results output graphics :exports results :file bsample3.png :width 2500 :height 2000  :res 300
+#+BEGIN_SRC R :results file graphics :exports results :file bsample3.png :width 1200 :height 800  :res 200
   library(data.table)
   readRDS("plfsdata/plfsacjdata.rds")->worker
   worker$standardwage->worker$wage
@@ -143,8 +166,8 @@
   (t9$wage-mean(t9$wage))/sd(t9$wage)->t9$wage
   ggplot(t9,aes(wage))+geom_density(colour="black",size=1)->p
   p+scale_y_continuous(limits=c(0,0.75))->p
-  p+scale_x_continuous(limits=c(-15,15)
-                      ,breaks=c(-5,0,mean(worker$wage),10,15))->p
+  p+scale_x_continuous(limits=c(-15,15),
+                       breaks=c(-5,0,mean(worker$wage),10,15))->p
   p+theme_bw()->p
   p
 
@@ -199,18 +222,20 @@
   }
 
   data.frame(sno=c(1:10000),meancol=(t4-mean(worker$wage))/sd(t4))->t4
-  p+geom_density(data=t4,aes(meancol),colour="pink",size=1)-> p
+  p+geom_density(data=t4,aes(meancol),colour="pink",size=0.3)-> p
   p
 #+end_src
 
 
-** Distribution of sample mean with unknown population variance      :slide:
+** Distribution of sample mean with unknown population variance :slide:
 
+#+attr_org: :width 1200px
+#+attr_html: :width 1200px
 #+RESULTS: sampling5
 [[file:bsample5.png]]
 
 #+NAME: sampling5
-#+BEGIN_SRC R :results output graphics :exports results :file bsample5.png :width 3500 :height 2000  :res 300
+#+BEGIN_SRC R :results file graphics :exports results :file bsample5.png :width 1200 :height 800  :res 200
   library(data.table)
   library(ggplot2)
   options(scipen=9999)
@@ -259,17 +284,17 @@
   p+geom_density(data=m,aes(modelnorm),colour="black",size=1)->p
   p+geom_density(data=t4,aes(teststat),colour="blue",size=1)-> p
   p+geom_density(data=m,aes(modelt),colour="darkolivegreen",size=1)->p
-  p+annotate("text",x=-30,y=0.42,
+  p+annotate("text",x=-30,y=0.42,size=2,
              label=paste("Normal distribution, with standard deviation",round(sd(m$modelnorm),2)),
              colour="black",hjust=0)->p
-  p+annotate("text",x=-30,y=0.40,
+  p+annotate("text",x=-30,y=0.40,size=2,
              label=paste("Statistic with known population variance, standard error =",
                          round(sd(t4$teststat2),2)),
              colour="red",hjust=0)->p
-  p+annotate("text",x=-30,y=0.38,
+  p+annotate("text",x=-30,y=0.38,size=2,
              label=paste("t distribution, with standard deviation =",round(sd(m$modelt),2)),
              colour="darkolivegreen",hjust=0)->p
-  p+annotate("text",x=-30,y=0.36,
+  p+annotate("text",x=-30,y=0.36,size=2,
              label=paste("Statistic with unknown population variance, standard error =",
                          round(sd(t4$teststat),2)),
              colour="blue",hjust=0)->p
@@ -277,7 +302,7 @@
   p
 #+end_src
 
-** T Test for means                                                  :slide:
+** T Test for means                                 :slide:
 
 ***  Testing if the mean is different from a specified value (say zero) :slide:
 
@@ -302,13 +327,12 @@ $H_{a}: \mu \neq 0$
 - 95 percent confidence interval:
 - 289.7136 292.3484
 - sample estimates:
-- mean of x 
+- mean of x
 - 291.031
 #+end_src
 
 
-*** Testing equality of means                                       :slide:
-
+*** Testing equality of means                      :slide:
 
 
 $H_{0}: \mu_{women} = \mu_{men}$
@@ -330,8 +354,7 @@ $H_{a}: \mu_{women} \neq \mu_{men}$
 - Error in eval(m$data, parent.frame()) : object 't9' not found
 #+end_src
 
-
-** Z Test for equality of proportions                                :slide:
+** Z Test for equality of proportions               :slide:
 
 
 
@@ -361,12 +384,12 @@ $H_{a}: p_{women} \neq p_{men}$
 - 95 percent confidence interval:
 - -0.1694726 -0.1525728
 - sample estimates:
-- prop 1     prop 2 
+- prop 1     prop 2
 - 0.09245986 0.25348253
 #+end_src
 
 
-** F Test for equality of variances                                  :slide:
+** F Test for equality of variances                 :slide:
 
 
 
@@ -392,7 +415,6 @@ $H_{a}: \sigma_{women}^{2} \neq \sigma_{men}^{2}$
 - 95 percent confidence interval:
 - 1.768532 1.903506
 - sample estimates:
-- ratio of variances 
+- ratio of variances
 - 1.835174
 #+end_src
-

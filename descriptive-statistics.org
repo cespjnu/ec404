@@ -6,16 +6,20 @@
 
 * Title slide                                        :slide:
 #+BEGIN_SRC emacs-lisp-slide
-(org-show-animate '("Quantitative Methods" "Descriptive Statistics" "Vikas Rawal" "Prachi Bansal" "" "" ""))
+(setq org-image-actual-width nil)
+(org-show-animate '("Quantitative Methods" "Descriptive Statistics" "Vikas Rawal" "" "" "" ""))
 #+END_SRC
-* Descriptive Statistics                                              :slide:
+
+#+RESULTS:
+
+* Descriptive Statistics                           :noslide:
 
 + Frequency
 + Measures of central tendency
 + Summary positions
 + Measures of dispersion
 
-** Frequency                                                         :slide:
+** Frequency                                      :noslide:
 
 #+NAME: worker-code0
 #+begin_src R :results value :export results :colnames yes :hline
@@ -40,24 +44,24 @@
 #+end_src
 
 #+RESULTS: worker-code0
-| sno | names    | sex | salary |
-|-----+----------+-----+--------|
-|   1 | Anil     | M   |  71000 |
-|   2 | Neeraj   | M   |  50000 |
-|   3 | Savita   | F   |  65000 |
-|   4 | Srimati  | F   |  40000 |
-|   5 | Rekha    | F   |  45000 |
-|   6 | Pooja    | F   |  42000 |
-|   7 | Alex     | M   |  46000 |
-|   8 | Shahina  | F   |  43000 |
-|   9 | Ghazal   | F   |  45000 |
-|  10 | Lakshmi  | F   |  43000 |
-|  11 | Rahul    | M   |  45000 |
-|  12 | Shahrukh | M   |  45000 |
-|  13 | Naman    | M   | 850000 |
-|  14 | Deepak   | M   |  1e+05 |
-|  15 | Shreya   | F   |  46000 |
-|  16 | Rukhsana | F   |  48000 |
+| sno | names    | sex |   salary |
+|-----+----------+-----+----------|
+|   1 | Anil     | M   |    71000 |
+|   2 | Neeraj   | M   |    50000 |
+|   3 | Savita   | F   |    65000 |
+|   4 | Srimati  | F   |    40000 |
+|   5 | Rekha    | F   |    45000 |
+|   6 | Pooja    | F   |    42000 |
+|   7 | Alex     | M   |    46000 |
+|   8 | Shahina  | F   |    43000 |
+|   9 | Ghazal   | F   |    45000 |
+|  10 | Lakshmi  | F   |    43000 |
+|  11 | Rahul    | M   |    45000 |
+|  12 | Shahrukh | M   |    45000 |
+|  13 | Naman    | M   |   850000 |
+|  14 | Deepak   | M   | 100000.0 |
+|  15 | Shreya   | F   |    46000 |
+|  16 | Rukhsana | F   |    48000 |
 
 #+NAME: freq-code
 
@@ -77,7 +81,7 @@
 | M   |         7 |
 | F   |         9 |
 
-** Measures of Central Tendency                                      :slide:
+** Measures of Central Tendency                   :noslide:
 
 #+NAME: mid-code
 #+begin_src R :results value :export results :colnames yes :hline
@@ -102,7 +106,7 @@
 | M   |    172428.6 |         50000 |
 | F   |     46333.3 |         45000 |
 
-** Measures of Position                                              :slide:
+** Measures of Position                           :noslide:
 
 + First quartile
 + Second quartile (median)
@@ -112,9 +116,9 @@
 + Quintiles
 + Percentiles
 
-** Measures of Dispersion                                            :slide:
+** Measures of Dispersion                         :noslide:
 
-*** Range and other measures based on positions                     :slide:
+*** Range and other measures based on positions  :noslide:
 
 
 $range=max-min$
@@ -131,7 +135,7 @@ $range=max-min$
                 range=max(salary)-min(salary))]
 #+end_src
 
-*** Range and other measures based on positions                     :slide:
+*** Range and other measures based on positions  :noslide:
 
 + Distance between any two positions (Deciles, Quintiles, Percentiles) can be used as a measure of dispersion.
 
@@ -139,15 +143,15 @@ $inter.quartile.range=Q3-Q1$
 
 #+RESULTS: summary-code
 #+begin_example
-  25%   75% 
+  25%   75%
 44500 53750
-  10%   90% 
+  10%   90%
 42500 85500
-   10%    95% 
+   10%    95%
  42500 287500
-   25%    95% 
+   25%    95%
  44500 287500
-   0%   75% 
+   0%   75%
 40000 53750
 #+end_example
 
@@ -197,61 +201,98 @@ $cov=\frac{standard.deviation}{mean}$
 | M   | 89680952381 |  299467.8 |       1.74 |
 | F   |    54500000 |    7382.4 |       0.16 |
 
-* Graphical Displays of Quantitative Information: Dispersion          :slide:
-** Histogram                                                         :slide:
+* Graphical Displays of Quantitative Information: Dispersion :noslide:
+** Histogram                                      :noslide:
 
-#+RESULTS: ccpc-wheat-hist1
 #+attr_html: :width 800px
+#+RESULTS: ccpc-wheat-hist1
 [[file:productionhist1.png]]
 
+#+BEGIN_SRC R :results value silent
+  readRDS("~/vikascloud/cocfbi/mysqlccpc.rds")->ccpc
+  subset(ccpc,Year_Agriculture!=0)->ccpc
+  attach(ccpc)
+  (Sample_Tehsils_in_Zone*Area_of_Selected_Crop_in_Zone_Ha)/(Area_of_Selected_Crops_in_Village_Ha*No_of_Villages_in_Tehsil*Total_No_of_Tehsils_in_Zone)->ccpc$Zone_factor
+  Total_Number_of_Grower_in_the_Cluster_Tehsil/Sample_Size_Group_No_of_Growers->ccpc$Cluster_Factor_Weight
+  detach(ccpc)
+  ccpc[ccpc$Zone_factor!=0,]->ccpc
+  ccpc[is.finite(ccpc$Zone_factor),]->ccpc
+  ccpc[ccpc$Cluster_Factor_Weight!=0,]->ccpc
+  ccpc[-is.na(ccpc$Cluster_Factor_Weight),]->ccpc
+  ccpc[ccpc$Sample_Size_Group_No_of_Growers!=0,]->ccpc
+  aggregate(Area_of_Crop_in_Zone_ha~Year_Agriculture+State+Crop_code+Zone_Code,data=ccpc,mean)->a
+  aggregate(Area_of_Crop_in_Zone_ha~Year_Agriculture+State+Crop_code,data=a,sum)->a
+  names(a)[4]<-"State_Crop_Area"
+  merge(ccpc,a,by=c("Year_Agriculture","State","Crop_code"))->ccpc
+  ccpc$Area_of_Crop_in_Zone_ha/ccpc$State_Crop_Area->ccpc$state_multiplier
+
+  ccpc$Total_Depreciation_Rs*ccpc$Ha_Month_in_Ground/ccpc$Cropped_Area_Ha_per_Month->ccpc$Depreciation_Rs
+
+  attach(ccpc)
+  Seed_Value_Rs+Fertiliser_Total_Rs+Manure_Rs+Insecticides_Rs+Own_Irrigation_Machine_Rs+Hired_Irrigation_Machine_Rs+Canal_and_Other_Irrigation_Charges_Rs+Land_Revenue_Rs+Own_Machine_Rs+Hired_Machine_Rs+Owned_Animal_Labour_Rs+Hired_Animal_Labour_Rs+Casual_Labour_Rs+Attached_Labour_Rs+Miscelaneous_Cost_Rs->ccpc$working_capital
+  detach(ccpc)
+  ccpc$working_capital+0.125*2*ccpc$working_capital/12+ccpc$Depreciation_Rs->ccpc$Cost_A1
+  ccpc$Cost_A1+ccpc$Rent_Paid_for_Leased_in_Land_Rs->ccpc$Cost_A2
+  ccpc$Cost_A1+0.1*ccpc$Total_Capital_Rs->ccpc$Cost_B1
+  ccpc$Cost_B1+ccpc$Rent_Value_of_Owned_Land_Rs+ccpc$Rent_Paid_for_Leased_in_Land_Rs->ccpc$Cost_B2
+  ccpc$Cost_B1+ccpc$Family_Labour_Rs->ccpc$Cost_C1
+  ccpc$Cost_B2+ccpc$Family_Labour_Rs->ccpc$Cost_C2
+  ccpc[ccpc$Year_Agriculture!=1993,]->ccpc
+  ifelse(ccpc$Crop=="Masur,Lentil","Lentil",ccpc$Crop)->ccpc$Crop
+  ifelse(ccpc$Crop=="Moong,Greengram","Green gram",ccpc$Crop)->ccpc$Crop
+  ifelse(ccpc$Crop=="Arhar,Redgram","Red gram",ccpc$Crop)->ccpc$Crop
+  ifelse(ccpc$Crop=="Urad,Blackgram","Black gram",ccpc$Crop)->ccpc$Crop
+#+END_SRC
+
 #+NAME: ccpc-wheat-hist1
-#+BEGIN_SRC R :results output graphics :exports results :file productionhist1.png :width 400 :height 300  :type cairo :family Garamond
+#+BEGIN_SRC R :results file graphics :exports results :file productionhist1.png :width 1200 :height 600  :type cairo :family Garamond
   subset(ccpc,Year_Agriculture==2009)->b
   subset(b,Crop_code %in% 20 )->b
   b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
   hist(b$yield,main="Histogram of wheat yields",ylim=c(0,4000))
 #+END_SRC
 
-** Histogram with relative densities                                 :slide:
+** Histogram with relative densities              :noslide:
 
-#+RESULTS: ccpc-wheat-hist2
 #+attr_html: :width 600px
+#+RESULTS: ccpc-wheat-hist2
 [[file:productionhist2.png]]
 
 #+NAME: ccpc-wheat-hist2
-#+BEGIN_SRC R :results output graphics :exports results :file productionhist2.png :width 400 :height 300  :type cairo :family Garamond
+#+BEGIN_SRC R :results file graphics :exports results :file productionhist2.png :width 1200 :height 600  :type cairo :family Garamond
   subset(ccpc,Year_Agriculture==2009)->b
   subset(b,Crop_code %in% 20)->b
   b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
   hist(b$yield,freq=F,main="Histogram of wheat yields",ylim=c(0,0.00040))
 #+END_SRC
 
-** Boxplot                                                           :slide:
+** Boxplot                                        :noslide:
 
 + Invented by John Tukey in 1970
 + Many variations proposed since then, though the essential form and idea as remained intact.
 
 
-** Boxplot of wheat yields                                           :slide:
+** Boxplot of wheat yields                        :noslide:
 
 #+RESULTS: ccpc-wheat-box1
 [[file:boxplotyield1.png]]
 
 #+NAME: ccpc-wheat-box1
-#+BEGIN_SRC R :results output graphics :exports results :file boxplotyield1.png :width 400 :height 300  :type cairo :family Garamond
+#+BEGIN_SRC R :results file graphics :exports results :file boxplotyield1.png :width 1200 :height 600  :type cairo :family Garamond
   subset(ccpc,Year_Agriculture==2009)->b
   subset(b,Crop_code %in% 20 )->b
   b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
   boxplot(b$yield,main="Boxplot of wheat yields")
 #+END_SRC
 
-** Violin plots                                                      :slide:
+** Violin plots                                   :noslide:
 
 #+RESULTS: ccpc-wheat-vio1
 [[file:vioplotyield1.png]]
 
 #+NAME: ccpc-wheat-vio1
-#+BEGIN_SRC R :results output graphics :exports results :file vioplotyield1.png :width 400 :height 300  :type cairo :family Garamond
+#+BEGIN_SRC R :results file graphics :exports results :file vioplotyield1.png :width 1200 :height 600  :type cairo :family Garamond
+
   subset(ccpc,Year_Agriculture==2009)->b
   subset(b,Crop_code %in% 20 )->b
   library(vioplot)
@@ -262,25 +303,27 @@ $cov=\frac{standard.deviation}{mean}$
 
 
 
-** Boxplots: Useful to identify extreme values                       :slide:
+** Boxplots: Useful to identify extreme values    :noslide:
 
 
 #+RESULTS: ccpc-wheat-box2
 [[file:boxplotyield2.png]]
+
 #+NAME: ccpc-wheat-box2
-#+BEGIN_SRC R :results output graphics :exports results :file boxplotyield2.png :width 400 :height 300  :type cairo :family Garamond
+#+BEGIN_SRC R :results file graphics :exports results :file boxplotyield2.png :width 1200 :height 600  :type cairo :family Garamond
   subset(ccpc,Year_Agriculture==2009)->b
   subset(b,Crop_code %in% 20 )->b
   b$Main_Product_Qtls*100/b$Crop_Area_Ha->b$yield
   boxplot(b$yield,main="Magnified tail of the boxplot",ylim=c(7000,25000))
 #+END_SRC
 
-** Boxplots: Useful for comparisons across categories                :slide:
+** Boxplots: Useful for comparisons across categories :noslide:
 
 #+RESULTS: ccpc-crop-box3
 [[file:boxplotyield3.png]]
+
 #+NAME: ccpc-crop-box3
-#+BEGIN_SRC R :results output graphics :exports results :file boxplotyield3.png :width 400 :height 280  :type cairo :family Garamond
+#+BEGIN_SRC R :results file graphics :exports results :file boxplotyield3.png :width 1200 :height 600  :type cairo :family Garamond
     subset(ccpc,Year_Agriculture==2009)->b
     subset(b,Crop_code %in% c(10,20,40,140,150,450,510,680,900))->b
     factor(b$Crop_code)->b$Crop_code
@@ -289,13 +332,13 @@ $cov=\frac{standard.deviation}{mean}$
     boxplot(yield~Crop_code,data=b,main="Boxplots of yields of various crops",las=3,ylim=c(0,8000),outline=F)
   #+END_SRC
 
-** Violin plots                                                      :slide:
+** Violin plots                                   :noslide:
 
 #+RESULTS: ccpc-crop-vio
 [[file:vioplotyield3.png]]
 
 #+NAME: ccpc-crop-vio
-#+BEGIN_SRC R :results output graphics :exports results :file vioplotyield3.png :width 400 :height 280  :type cairo :family Garamond
+#+BEGIN_SRC R :results file graphics :exports results :file vioplotyield3.png :width 1200 :height 600  :type cairo :family Garamond
   subset(ccpc,Year_Agriculture==2009)->b
   subset(b,Crop_code %in% c(10,20,40,140,150,450,510,680,900))->b
   factor(b$Crop_code)->b$Crop_code
@@ -306,87 +349,91 @@ $cov=\frac{standard.deviation}{mean}$
   #+END_SRC
 
 
-
 * Graphical Displays of Quantitative Information: Common Pitfalls
 
-** Common uses of statistical graphics                               :slide:
+** Common uses of statistical graphics              :slide:
 + To show trends over time
 + To show mid-point variations across categories
 + To show composition
 + (less commonly, though more usefully) to show/analyse dispersion
 
-** Mis-representation                                                :slide:
+** Mis-representation                               :slide:
 
 #+CAPTION: "and sometimes the fact that numbers have a magnitude as well as an order is simply forgotten"
 [[file:graphics/tufte-insanity.png]]
 
-** Mis-representation                                                :slide:
+** Mis-representation                               :slide:
 
 #+CAPTION: Another example borrowed from Tufte
 [[file:graphics/tufte-fuel.png]]
 
-** Mis-representation                                                :slide:
+** Mis-representation                               :slide:
 
 #+CAPTION: Tufte's graph on fuel economy of cars
-#+attr_html: :width 400px
+#+attr_html: :width 700px
 [[file:graphics/tufte-fuel2.png]]
 
-** Mis-representation                                                :slide:
+** Mis-representation                               :slide:
 
 #+CAPTION: Nobel prizes awarded in science (National Science Foundation, 1974)
-#+attr_html: :width 300px
+#+attr_html: :width 600px
 [[file:graphics/nobel-wrong.png]]
 
-** Mis-representation                                                :slide:
+** Mis-representation                               :slide:
 
 #+CAPTION: Nobel prizes awarded in science (corrected by Tufte)
-#+attr_html: :width 300px
+#+attr_org: :width 600px
+#+attr_html: :width 600px
 [[file:graphics/nobel-right.png]]
 
 ** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
+#+attr_org: :width 1200px
 [[file:graphics/piketty1_o.png]]
 
 ** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
+#+attr_org: :width 1200px
 [[file:graphics/piketty1_c.png]]
 
 ** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
+#+attr_org: :width 1200px
 [[file:graphics/piketty2_o.png]]
 
 ** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
+#+attr_org: :width 1100px
 [[file:graphics/piketty2_c.png]]
 
-** The problem multiplied with the coming in of spreadsheets         :slide:
+** The problem multiplied with the coming in of spreadsheets :slide:
 
-#+ATTR_html: :width 300px
+#+ATTR_html: :width 700px
 [[file:graphics/chart1.png]]
 
-#+ATTR_html: :width 300px
+#+ATTR_html: :width 700px
 [[file:graphics/chart2.png]]
 
-#+ATTR_html: :width 300px
+#+ATTR_html: :width 700px
 [[file:graphics/chart3.png]]
 
 * Paul Krugman on Fiscal Austerity
 
-** What does this graph show?                                        :slide:
+** What does this graph show?                       :slide:
 
-#+attr_html: :width 1200px
+#+attr_html: :width 1000px
 [[file:krugman1.png]]
 Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-policy-slightly-wonkish.html]]
 
 
-** What did Paul Krugman say?                                        :slide:
+** What did Paul Krugman say?                       :slide:
 
 "Here’s what fiscal policy should do: it should support demand when the economy is weak, and it should pull that support back when the economy is strong. As John Maynard Keynes said, “The boom, not the slump, is the right time for austerity.” And up until 2010 the U.S. more or less followed that prescription. Since then, however, fiscal policy has become perverse: first austerity despite high unemployment, now expansion despite low unemployment.
 
 ** How could we better show the relationship between unemployment and fiscal austerity :slide:
 
 #+name: fixed-krugman-graph
-#+attr_html: :width 1200px
+#+attr_html: :width 800px
 [[file:krugman2.png]]
 
 #+NAME: graph2
@@ -403,4 +450,3 @@ Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-po
   p+scale_y_continuous("Per cent")+theme(legend.position="bottom")->p
   p+scale_x_date("Year/Month",date_labels = "%Y")
 #+END_SRC
-
