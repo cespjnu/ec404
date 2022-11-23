@@ -2,7 +2,7 @@
 #+PROPERTY: header-args:R :session acj :eval never-export
 #+HTML_HEAD: <style>#content{max-width:1200px;} </style>
 
-* Title slide                                        :slide:
+* Title slide                                                         :slide:
 
 #+BEGIN_SRC emacs-lisp-slide
 (org-show-animate '("Quantitative Methods, Part-II" "Introduction to Statistical Inference" "Vikas Rawal" "" "" ""))
@@ -10,7 +10,7 @@
 
 * Sampling Distributions
 
-** Sampling Distributions                           :slide:
+** Sampling Distributions                                            :slide:
 
 #+RESULTS: sampling2
 [[file:bsample2.png]]
@@ -19,7 +19,7 @@
 #+NAME: sampling2
 #+BEGIN_SRC R :results file graphics :exports results :file bsample2.png :width 1200 :height 800  :res 200
   library(data.table)
-  readRDS("~/ssercloud/acj2018/plfsdata/plfsacjdata.rds")->worker
+  readRDS("plfsacjdata.rds")->worker
   worker$standardwage->worker$wage
                                           #read.table("worker.csv",sep=",",header=T)->worker
   c(1:nrow(worker))->worker$SamplingFrameOrder
@@ -109,7 +109,7 @@
     p
 #+end_src
 
-** Sampling Distributions                           :slide:
+** Sampling Distributions                                            :slide:
 
 + $Standard.error = \frac{\sigma}{\sqrt{n}}$
 
@@ -147,7 +147,7 @@
 
 
 * Introduction to Hypothesis Testing
-** Transforming the Distribution to Standard Normal :slide:
+** Transforming the Distribution to Standard Normal                  :slide:
 
 #+attr_org: :width 1200px
 #+RESULTS: sampling3
@@ -227,7 +227,7 @@
 #+end_src
 
 
-** Distribution of sample mean with unknown population variance :slide:
+** Distribution of sample mean with unknown population variance      :slide:
 
 #+attr_org: :width 1200px
 #+attr_html: :width 1200px
@@ -302,7 +302,7 @@
   p
 #+end_src
 
-** T Test for means                                 :slide:
+** T Test for means                                                  :slide:
 
 ***  Testing if the mean is different from a specified value (say zero) :slide:
 
@@ -332,7 +332,7 @@ $H_{a}: \mu \neq 0$
 #+end_src
 
 
-*** Testing equality of means                      :slide:
+*** Testing equality of means                                       :slide:
 
 
 $H_{0}: \mu_{women} = \mu_{men}$
@@ -354,7 +354,7 @@ $H_{a}: \mu_{women} \neq \mu_{men}$
 - Error in eval(m$data, parent.frame()) : object 't9' not found
 #+end_src
 
-** Z Test for equality of proportions               :slide:
+** Z Test for equality of proportions                                :slide:
 
 
 
@@ -389,7 +389,7 @@ $H_{a}: p_{women} \neq p_{men}$
 #+end_src
 
 
-** F Test for equality of variances                 :slide:
+** F Test for equality of variances                                  :slide:
 
 
 
