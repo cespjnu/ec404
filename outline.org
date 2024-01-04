@@ -1,0 +1,12 @@
+* Descriptive Statistics
+* Sampling Distributions of Estimators
+* Statistical Inference
+* Some important tests
+* ANOVA and Factor Analysis
+* Regressions
+** Assumptions of CLRM
+** Ordinary Least Square Regressions
+** Multicollinearity
+** Heteroscedasticity
+** Autocorrelation
+** Dummy Variables

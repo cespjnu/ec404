@@ -5,7 +5,7 @@
 
 * Title slide                                        :slide:
 #+BEGIN_SRC emacs-lisp-slide
-(org-show-animate '("Quantitative Methods" "Introduction" "Vikas Rawal" "Prachi Bansal" "" "" ""))
+(org-show-animate '("Quantitative Methods" "Introduction" "Vikas Rawal" "" "" "" ""))
 #+END_SRC
 
 * Title slide
@@ -13,13 +13,14 @@
 (org-show-animate '("Why do financial journalists need to know quantitative methods?" "" "" ""))
 #+END_SRC
 
-* What do we aim to achieve in this course?                           :slide:
+* What do we aim to achieve in this course?
 + Make friends with numbers
 + Learn how to read numbers, how to present them, and how to write about them
 + Learn how to use computers to work with numbers
 * Two Types of Statistics                                             :slide:
 ** Descriptive Statistics
-+ Use summaries of data for the entire population to describe a population
++ Use summaries of data to describe a phenomenon
++ Data for the entire population to describe a population
 + Use summaries of sample data to describe a sample
 ** Inferential Statistics
 + Use sample data to describe a population

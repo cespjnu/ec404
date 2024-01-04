@@ -1,8 +1,8 @@
 #+STARTUP: hideall inlineimages hideblocks
-#+PROPERTY: header-args:R :session acj :eval never-export
+#+PROPERTY: header-args:R :session quant :eval never-export
 #+HTML_HEAD: <style>#content{max-width:1200px;} </style>
 
-* Title slide                                                         :slide:
+* Title slide                                        :slide:
 
 #+BEGIN_SRC emacs-lisp-slide
 (org-show-animate '("Quantitative Methods, Part-II" "Introduction to Statistical Inference" "Vikas Rawal" "" "" ""))
@@ -10,7 +10,7 @@
 
 * Sampling Distributions
 
-** Sampling Distributions                                            :slide:
+** `Sampling Distributions of Sample Mean           :slide:
 
 #+RESULTS: sampling2
 [[file:bsample2.png]]
@@ -21,109 +21,214 @@
   library(data.table)
   readRDS("plfsacjdata.rds")->worker
   worker$standardwage->worker$wage
-                                          #read.table("worker.csv",sep=",",header=T)->worker
   c(1:nrow(worker))->worker$SamplingFrameOrder
   worker[sex!=3,]->worker
   library(ggplot2)
   ggplot(worker,aes(wage))+geom_density(colour="black",size=1)+scale_y_continuous(limits=c(0,0.05))+scale_x_continuous(limits=c(0,600),breaks=c(0,mean(worker$wage),1000))->p
+
+  #ggplot(worker,aes(wage))+geom_density(colour="black",size=1)+scale_y_continuous(limits=c(0,0.05))+scale_x_continuous(limits=c(0,600),breaks=c(0,mean(worker$wage),1000))->p
   #    p+facet_wrap(~sex)->p
-      p+annotate("text",x=380,y=0.045,size=6,
-               label=paste("Population mean = ",round(mean(worker$wage)),sep=""))->p
-      p+annotate("text",x=400,y=0.042,size=6,
-               label="Distribution of sample means:")->p
-     p+theme_bw()->p
-      p
+  p+annotate("text",x=380,y=0.045,size=6,
+             label=paste("Population mean = ",round(mean(worker$wage)),sep=""))->p
+  p+annotate("text",x=400,y=0.042,size=6,
+             label="Distribution of sample means:")->p
+  p+theme_bw()->p
+  p
 
 
 
+  sample(1:nrow(worker),5, replace=FALSE)->a1
+  worker[a1,]->s1
+  mean(s1$wage)->t1
+  for (i in c(1:9999)) {
     sample(1:nrow(worker),5, replace=FALSE)->a1
     worker[a1,]->s1
-    mean(s1$wage)->t1
-    for (i in c(1:9999)) {
-        sample(1:nrow(worker),5, replace=FALSE)->a1
-        worker[a1,]->s1
-        c(t1,mean(s1$wage))->t1
-    }
+    c(t1,mean(s1$wage))->t1
+  }
 
-    data.frame(sno=c(1:10000),meancol=t1)->t1
-    p+geom_density(data=t1,aes(meancol),colour="blue",size=1)-> p
-    paste("Sample size 5: mean = ",
-          round(mean(t1$meancol)),
-          "; stdev = ",
-          round(sd(t1$meancol)),sep="")->lab
-    p+annotate("text",x=450,y=0.030,label=lab,colour="blue",size=6)->p
-    p
+  data.frame(sno=c(1:10000),meancol=t1)->t1
+  p+geom_density(data=t1,aes(meancol),colour="blue",size=1)-> p
+  paste("Sample size 5: mean = ",
+        round(mean(t1$meancol)),
+        "; stdev = ",
+        round(sd(t1$meancol)),sep="")->lab
+  p+annotate("text",x=450,y=0.030,label=lab,colour="blue",size=6)->p
+  p
 
+  sample(1:nrow(worker),20, replace=FALSE)->a1
+  worker[a1,]->s1
+  mean(s1$wage)->t0
+  for (i in c(1:9999)) {
     sample(1:nrow(worker),20, replace=FALSE)->a1
     worker[a1,]->s1
-    mean(s1$wage)->t0
-    for (i in c(1:9999)) {
-        sample(1:nrow(worker),20, replace=FALSE)->a1
-        worker[a1,]->s1
-        c(t0,mean(s1$wage))->t0
-    }
+    c(t0,mean(s1$wage))->t0
+  }
 
-    data.frame(sno=c(1:10000),meancol=t0)->t0
-    p+geom_density(data=t0,aes(meancol),colour="darkolivegreen",size=1)-> p
-    paste("Sample size 20: mean = ",
-          round(mean(t0$meancol)),
-          "; stdev = ",
-          round(sd(t0$meancol)),sep="")->lab
-    p+annotate("text",x=450,y=0.033,label=lab,size=6,colour="darkolivegreen")->p
-    p
+  data.frame(sno=c(1:10000),meancol=t0)->t0
+  p+geom_density(data=t0,aes(meancol),colour="darkolivegreen",size=1)-> p
+  paste("Sample size 20: mean = ",
+        round(mean(t0$meancol)),
+        "; stdev = ",
+        round(sd(t0$meancol)),sep="")->lab
+  p+annotate("text",x=450,y=0.033,label=lab,size=6,colour="darkolivegreen")->p
+  p
 
+  sample(1:nrow(worker),50, replace=FALSE)->a1
+  worker[a1,]->s1
+  mean(s1$wage)->t
+  for (i in c(1:9999)) {
     sample(1:nrow(worker),50, replace=FALSE)->a1
     worker[a1,]->s1
-    mean(s1$wage)->t
-    for (i in c(1:9999)) {
-        sample(1:nrow(worker),50, replace=FALSE)->a1
-        worker[a1,]->s1
-        c(t,mean(s1$wage))->t
-    }
+    c(t,mean(s1$wage))->t
+  }
 
-    data.frame(sno=c(1:10000),meancol=t)->t
-    p+geom_density(data=t,aes(meancol),colour="red",size=1)-> p
-    paste("Sample size 50: mean = ",
-          round(mean(t$meancol)),
-          "; stdev = ",
-          round(sd(t$meancol)),sep="")->lab
-    p+annotate("text",x=450,y=0.036,label=lab,size=6,colour="red")->p
-    p
+  data.frame(sno=c(1:10000),meancol=t)->t
+  p+geom_density(data=t,aes(meancol),colour="red",size=1)-> p
+  paste("Sample size 50: mean = ",
+        round(mean(t$meancol)),
+        "; stdev = ",
+        round(sd(t$meancol)),sep="")->lab
+  p+annotate("text",x=450,y=0.036,label=lab,size=6,colour="red")->p
+  p
 
+  sample(1:nrow(worker),200, replace=FALSE)->a1
+  worker[a1,]->s1
+  mean(s1$wage)->t4
+  for (i in c(1:9999)) {
     sample(1:nrow(worker),200, replace=FALSE)->a1
     worker[a1,]->s1
-    mean(s1$wage)->t4
-    for (i in c(1:9999)) {
-      sample(1:nrow(worker),200, replace=FALSE)->a1
-      worker[a1,]->s1
-      c(t4,mean(s1$wage))->t4
-    }
+    c(t4,mean(s1$wage))->t4
+  }
 
-    data.frame(sno=c(1:10000),meancol=t4)->t4
-    p+geom_density(data=t4,aes(meancol),colour="pink",size=1)-> p
-    paste("Sample size 200: mean = ",
-          round(mean(t4$meancol)),
-          "; stdev = ",
-          round(sd(t4$meancol)),sep="")->lab
-    p+annotate("text",x=450,y=0.039,label=lab,size=6,colour="pink")->p
-    p
+  data.frame(sno=c(1:10000),meancol=t4)->t4
+  p+geom_density(data=t4,aes(meancol),colour="pink",size=1)-> p
+  paste("Sample size 200: mean = ",
+        round(mean(t4$meancol)),
+        "; stdev = ",
+        round(sd(t4$meancol)),sep="")->lab
+  p+annotate("text",x=450,y=0.039,label=lab,size=6,colour="pink")->p
+  p
 #+end_src
 
-** Sampling Distributions                                            :slide:
+** Sampling Distributions of Sample Median          :slide:
+
+#+RESULTS: sampling-median
+[[file:bsample2.png]]
+
+
+#+NAME: sampling-median
+#+BEGIN_SRC R :results file graphics :exports results :file bsamplemedian.png :width 1200 :height 800  :res 200
+  library(data.table)
+    readRDS("plfsacjdata.rds")->worker
+
+  ## library(distributions3)
+  ## set.seed(27)
+  ## X <- LogNormal(0, 1)
+  ## random(X, 100000)->t
+  ## data.frame(wage=t)->worker
+    worker$standardwage->worker$wage
+    c(1:nrow(worker))->worker$SamplingFrameOrder
+    worker[sex!=3,]->worker
+  library(ggplot2)
+  ggplot(worker,aes(wage))+geom_density(colour="black",size=1)+scale_y_continuous(limits=c(0,0.05))+scale_x_continuous(limits=c(0,600),breaks=c(0,mean(worker$wage),1000))->p
+
+  p+annotate("text",x=380,y=0.045,size=6,
+             label=paste("Population mean = ",round(mean(worker$wage)),sep=""))->p
+  p+annotate("text",x=400,y=0.042,size=6,
+             label="Distribution of sample medians:")->p
+  p+theme_bw()->p
+  p
+
+
+  sample(1:nrow(worker),5, replace=FALSE)->a1
+  worker[a1,]->s1
+  median(s1$wage)->t1
+  for (i in c(1:9999)) {
+    sample(1:nrow(worker),5, replace=FALSE)->a1
+    worker[a1,]->s1
+    c(t1,median(s1$wage))->t1
+  }
+
+  data.frame(sno=c(1:10000),mediancol=t1)->t1
+  p+geom_density(data=t1,aes(mediancol),colour="blue",size=1)-> p
+  paste("Sample size 5: mean = ",
+        round(mean(t1$mediancol)),
+        "; stdev = ",
+        round(sd(t1$mediancol)),sep="")->lab
+  p+annotate("text",x=450,y=0.030,label=lab,colour="blue",size=6)->p
+  p
+  3
+  sample(1:nrow(worker),20, replace=FALSE)->a1
+  worker[a1,]->s1
+  median(s1$wage)->t0
+  for (i in c(1:9999)) {
+    sample(1:nrow(worker),20, replace=FALSE)->a1
+    worker[a1,]->s1
+    c(t0,median(s1$wage))->t0
+  }
+
+  data.frame(sno=c(1:10000),mediancol=t0)->t0
+  p+geom_density(data=t0,aes(mediancol),colour="darkolivegreen",size=1)-> p
+  paste("Sample size 20: mean = ",
+        round(mean(t0$mediancol)),
+        "; stdev = ",
+        round(sd(t0$mediancol)),sep="")->lab
+  p+annotate("text",x=450,y=0.033,label=lab,size=6,colour="darkolivegreen")->p
+  p
+
+  sample(1:nrow(worker),50, replace=FALSE)->a1
+  worker[a1,]->s1
+  median(s1$wage)->t
+  for (i in c(1:9999)) {
+    sample(1:nrow(worker),50, replace=FALSE)->a1
+    worker[a1,]->s1
+    c(t,median(s1$wage))->t
+  }
+
+  data.frame(sno=c(1:10000),mediancol=t)->t
+  p+geom_density(data=t,aes(mediancol),colour="red",size=1)-> p
+  paste("Sample size 50: mean = ",
+        round(mean(t$mediancol)),
+        "; stdev = ",
+        round(sd(t$mediancol)),sep="")->lab
+  p+annotate("text",x=450,y=0.036,label=lab,size=6,colour="red")->p
+  p
+
+  sample(1:nrow(worker),200, replace=FALSE)->a1
+  worker[a1,]->s1
+  median(s1$wage)->t4
+  for (i in c(1:9999)) {
+    sample(1:nrow(worker),200, replace=FALSE)->a1
+    worker[a1,]->s1
+    c(t4,median(s1$wage))->t4
+  }
+
+  data.frame(sno=c(1:10000),mediancol=t4)->t4
+  p+geom_density(data=t4,aes(mediancol),colour="pink",size=1)-> p
+  paste("Sample size 200: mean = ",
+        round(mean(t4$mediancol)),
+        "; stdev = ",
+        round(sd(t4$mediancol)),sep="")->lab
+  p+annotate("text",x=450,y=0.039,label=lab,size=6,colour="pink")->p
+  p
+#+end_src
+
+
+** Sampling Distributions                           :slide:
 
 + $Standard.error = \frac{\sigma}{\sqrt{n}}$
 
-|                                    Variable | Value |
-|---------------------------------------------+-------|
-| Standard deviation of population ($\sigma$) |   130 |
-|          Standard errors of samples of size |       |
-|                                           5 |    58 |
-|                                          20 |    29 |
-|                                          50 |    18 |
-|                                         200 |     9 |
+|                           Variable | Value |
+|------------------------------------+-------|
+|   Standard deviation of population |   130 |
+| Standard errors of samples of size |       |
+|                                  5 |    58 |
+|                                 20 |    29 |
+|                                 50 |    18 |
+|                                200 |     9 |
 
 
-
+** Sampling and Choice of Statistic
 
 |           | Settlement A | Settlement B          | Total |
 |-----------+--------------+-----------------------+-------|
@@ -147,7 +252,9 @@
 
 
 * Introduction to Hypothesis Testing
-** Transforming the Distribution to Standard Normal                  :slide:
+** Transforming the Distribution to Standard Normal :slide:
+
+$Z=\frac{x_{i}-\mu}{\sigma}$
 
 #+attr_org: :width 1200px
 #+RESULTS: sampling3
@@ -227,7 +334,7 @@
 #+end_src
 
 
-** Distribution of sample mean with unknown population variance      :slide:
+** Distribution of sample mean with unknown population variance :slide:
 
 #+attr_org: :width 1200px
 #+attr_html: :width 1200px
@@ -254,7 +361,77 @@
   p
 
   data.frame(sno=c(),meancol=c(),sterr=c())->t4
-  samplesize=10
+  samplesize=5
+  for (i in c(1:20000)) {
+    sample(1:nrow(worker),samplesize, replace=FALSE)->a1
+    t9[a1,]->s1
+    rbind(t4,data.frame(
+               sno=i,
+               meancol=mean(s1$wage),
+               sterr=sd(s1$wage)/sqrt(samplesize)
+             )
+          )->t4
+  }
+
+  (t4$meancol)/t4$sterr->t4$teststat
+  (t4$meancol)/sd(t4$meancol)->t4$teststat2
+  data.frame(modelt=rt(200000,samplesize-1,ncp=mean(t4$teststat)),
+             modelnorm=rnorm(200000,mean=mean(t4$teststat2)))->m
+
+  sd(t4$teststat)
+  sd(m$modelt)
+  sd(m$modelnorm)
+  sd(t4$teststat2)
+  mean(t4$teststat)
+  mean(m$modelt)
+  mean(m$modelnorm)
+  mean(t4$teststat2)
+
+  ggplot()->p
+  p+geom_density(data=t4,aes(teststat2),colour="red",size=1)-> p
+  p+geom_density(data=m,aes(modelnorm),colour="black",size=1)->p
+  p+geom_density(data=t4,aes(teststat),colour="blue",size=1)-> p
+  p+geom_density(data=m,aes(modelt),colour="darkolivegreen",size=1)->p
+  ## p+annotate("text",x=-30,y=0.42,size=2,
+  ##            label=paste("Normal distribution, with standard deviation",round(sd(m$modelnorm),2)),
+  ##            colour="black",hjust=0)->p
+  ## p+annotate("text",x=-30,y=0.40,size=2,
+  ##            label=paste("Statistic with known population variance, standard error =",
+  ##                        round(sd(t4$teststat2),2)),
+  ##            colour="red",hjust=0)->p
+  ## p+annotate("text",x=-30,y=0.38,size=2,
+  ##            label=paste("t distribution, with standard deviation =",round(sd(m$modelt),2)),
+  ##            colour="darkolivegreen",hjust=0)->p
+  ## p+annotate("text",x=-30,y=0.36,size=2,
+  ##            label=paste("Statistic with unknown population variance, standard error =",
+  ##                        round(sd(t4$teststat),2)),
+  ##            colour="blue",hjust=0)->p
+  p+scale_x_continuous(limits=c(-30,30))+theme_bw()->p
+  p
+#+end_src
+
+
+#+NAME: sampling5
+#+BEGIN_SRC R :results file graphics :exports results :file bsample5.png :width 1200 :height 800  :res 200
+  library(data.table)
+  library(ggplot2)
+  options(scipen=9999)
+  readRDS("plfsdata/plfsacjdata.rds")->worker
+  worker$standardwage->worker$wage
+  c(1:nrow(worker))->worker$SamplingFrameOrder
+  worker[sex!=3,]->worker
+
+  worker->t9
+  (t9$wage-mean(t9$wage))/sd(t9$wage)->t9$wage
+  ggplot(t9,aes(wage))+geom_density(colour="black",size=1)->p
+  p+scale_y_continuous(limits=c(0,0.75))->p
+  p+scale_x_continuous(limits=c(-15,15)
+                      ,breaks=c(-15,0,round(mean(worker$wage)),15))->p
+  p+theme_bw()->p
+  p
+
+  data.frame(sno=c(),meancol=c(),sterr=c())->t4
+  samplesize=50
   for (i in c(1:20000)) {
     sample(1:nrow(worker),samplesize, replace=FALSE)->a1
     worker[a1,]->s1
@@ -268,7 +445,8 @@
 
   (t4$meancol)/t4$sterr->t4$teststat
   (t4$meancol)/sd(t4$meancol)->t4$teststat2
-  data.frame(modelt=rt(200000,samplesize-1,ncp=mean(t4$teststat)),modelnorm=rnorm(200000,mean=mean(t4$teststat2)))->m
+  data.frame(modelt=rt(200000,samplesize-1,ncp=mean(t4$teststat)),
+             modelnorm=rnorm(200000,mean=mean(t4$teststat2)))->m
 
   sd(t4$teststat)
   sd(m$modelt)
@@ -302,7 +480,115 @@
   p
 #+end_src
 
-** T Test for means                                                  :slide:
+
+** Finding an appropriate statistic
+
+*** Chi-square ($\chi^{2}$) distribution
+
++ $\chi^{2}$ distribution with k degrees of freedom is the distribution of a sum of the squares of k independent standard normal random variables.
+
+  + if $X$ is normally distributed with mean $\mu$ and variance ${\displaystyle \sigma^{2}}$, then:
+
+     $V=(\frac{X - \mu}{\sigma})^{2}=Z^{2}$
+
+    is distributed as a $\chi^{2}$ distribution with 1 degree of freedom.
+
+  + The degrees of freedom in the  $\chi^{2}$ distribution are equal to the number of standard normal random variables being squared and summed. So, the degrees of freedom increase as the sample size increases.
+
+  + Properties
+    + It is a right-skewed distribution.
+    + Its mean is equal to the degrees of freedom, and its variance is equal to twice the degrees of freedom.
+    + It is defined only for non-negative values.
+
+*** Student's-t distribution
++ William Gosset's 1908 Biometrika paper written with a pseudonym Student.
+
++ t-distribution with df degrees of freedom
+  + If $Z \sim N(0,1)$ and $U \sim \chi^{2}_{df}$ are independent then the ratio
+
+    $\frac{Z}{\sqrt{\frac{U}{df}}} \sim t_{df}$
+
++ Properties:
+  + It is a bell-shaped distribution that is symmetric around 0.
+  + Its mean is equal to 0, and its variance is equal to df/(df-2) for df > 2.
+  + It has heavier tails than the normal distribution.
+  + For $df=1$, it is a standard Cauchy distribution
+  + For $df \rightarrow \infty, \thickmuskip t_{df} \rightarrow N(0,1)$
+
+
+** The idea of statistical significance             :slide:
+
+*** Key components                                 :slide:
+
++ Priors/Assumptions
++ Hypotheses
++ Test statistic
++ p-value
++ Inference
+
+*** Priors/Assumptions                             :slide:
+
++ Scale: discrete/quantitative
++ Use of randomisation in generating data
++ Population distribution
+  + Various assumptions may have to be made, usually on the basis of prior information or the sample data, about the underlying population distribution
+  + For example, about the population variance
++ Sample size
+
+*** The null and the alternative hypotheses        :slide:
+
++ Null hypothesis ($H_{0}$) :: Statement that the parameter takes a particular value. Usually to capture no effect or no difference.
++ Alternative hypothesis ($H_{a}$) :: Statement that the parameter does not take this value.
++ For example
+  + For population mean taking a particular value ($\mu_{0}$)
+    + H_{0} :: $\mu = \mu_{0}$
+    + H_{a} :: $\mu \ne \mu_{0}$
+  + For the difference of population means of two groups (say, men and women) being equal to a particular value ($\mu_{0}$)
+    + H_{0} :: $\mu_{a} - \mu_{b} = \mu_{0}$
+    + H_{a} :: $\mu_{a} - \mu_{b} \ne \mu_{0}$
+  + For population mean taking a value higher than a particular value ($\mu_{0}$)
+    + H_{0} :: $\mu > \mu_{0}$
+    + H_{a} :: $\mu \ngtr \mu_{0}$
+
+*** Test statistic                                 :slide:
+
++ The difference between the estimate of the test statistic and the parameter value in $H_{0}$ in terms of number of standard error units.
+
++ For example
+  + For testing that population mean takes a particular value ($\mu_{0}$)
+
+    $t=\frac{\bar{y}-\mu{0}}{\frac{s}{\sqrt{n}}}$
+
+  + For the population means of two groups (say, men and women) being equal
+
+    $t=\frac{\bar{y_{a}}-\bar{y_{b}}}{\frac{s}{\sqrt{n}}}$
+
+*** p-value                                        :slide:
+
++ We construct the distribution of the test statistic assuming that $H_{0}$ is true.
++ Given the probability distribution, we find out the probability that the test statistic may take the estimated value.
++ This is the p-value.
++ It gives us the probability that the test statistic equals the observed value or a value even more extreme (in the direction predicted by $H_{a}$).
++ The smaller the p-value, stronger is the evidence against $H_{0}$.
++ Essentially, we are saying that the data are very unusual if $H_{0}$ is true.
++ The probability at which we reject $H_{0}$ (usually 0.05 or less) is called the $\alpha-level$ of the test.
+
+*** Type I and Type II errors                      :slide:
+
+|              | Reject $H_{0}$     |     Do not reject $H_{0}$ |
+|--------------+----------------+-----------------------|
+| $H_{0}$ is true  | Type I Error   |                       |
+| $H_{0}$ is false |                | Type II Error         |
+
++  $\alpha-level$ is the probability of Type I error.
+
+*** Chasing the p-values                           :slide:
+
++ $H_{0}$ may tell a story
++ Even if $H_{0}$ is rejected, the effect may be small
+
+
+** T Test for means                                 :slide:
 
 ***  Testing if the mean is different from a specified value (say zero) :slide:
 
@@ -332,7 +618,7 @@ $H_{a}: \mu \neq 0$
 #+end_src
 
 
-*** Testing equality of means                                       :slide:
+*** Testing equality of means                      :slide:
 
 
 $H_{0}: \mu_{women} = \mu_{men}$
@@ -354,7 +640,7 @@ $H_{a}: \mu_{women} \neq \mu_{men}$
 - Error in eval(m$data, parent.frame()) : object 't9' not found
 #+end_src
 
-** Z Test for equality of proportions                                :slide:
+** Z Test for equality of proportions               :slide:
 
 
 
@@ -389,7 +675,7 @@ $H_{a}: p_{women} \neq p_{men}$
 #+end_src
 
 
-** F Test for equality of variances                                  :slide:
+** F Test for equality of variances                 :slide:
 
 
 

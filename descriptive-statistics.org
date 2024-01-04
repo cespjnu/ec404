@@ -1,10 +1,13 @@
-q#+TITLE: Descriptive Statistics
+#+TITLE: Descriptive Statistics
 #+PROPERTY: header-args:R :session acj :eval never-export
-#+STARTUP: hideall inlineimages hideblocks
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+STARTUP: nofold
+#+STARTUP: hideblocks
+#+STARTUP: inlineimage
+#+STARTUP: latexpreview
+# #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 #+HTML_HEAD: <style>#content{max-width:1200px;} </style>
 
-* Title slide                                        :slide:
+* Title slide                                                         :slide:
 #+BEGIN_SRC emacs-lisp-slide
 (setq org-image-actual-width nil)
 (org-show-animate '("Quantitative Methods" "Descriptive Statistics" "Vikas Rawal" "" "" "" ""))
@@ -12,14 +15,17 @@ q#+TITLE: Descriptive Statistics
 
 #+RESULTS:
 
-* Descriptive Statistics                           :noslide:
+* Descriptive Statistics                                             :slidex:
 
 + Frequency
 + Measures of central tendency
 + Summary positions
 + Measures of dispersion
 
-** Frequency                                      :noslide:
+* Descriptive Statistics                                            :noslide:
+
+
+** Frequency                                                        :noslide:
 
 #+NAME: worker-code0
 #+begin_src R :results value :export results :colnames yes :hline
@@ -43,6 +49,9 @@ q#+TITLE: Descriptive Statistics
       workers[,.(sno,names,sex,salary)]
 #+end_src
 
+*** Frequency                                                        :slidex:
+
+
 #+RESULTS: worker-code0
 | sno | names    | sex |   salary |
 |-----+----------+-----+----------|
@@ -63,17 +72,17 @@ q#+TITLE: Descriptive Statistics
 |  15 | Shreya   | F   |    46000 |
 |  16 | Rukhsana | F   |    48000 |
 
+*** Frequency                                                       :noslide:
+
+
 #+NAME: freq-code
 
 #+begin_src R :results value :export results :colnames yes :hline
   workers[,.(frequency=length(sno)),.(sex)]
 #+end_src
 
-#+RESULTS:
-| sex | frequency |
-|-----+-----------|
-| M   |         7 |
-| F   |         9 |
+*** Frequency                                                        :slidex:
+
 
 #+RESULTS: freq-code
 | sex | frequency |
@@ -81,7 +90,7 @@ q#+TITLE: Descriptive Statistics
 | M   |         7 |
 | F   |         9 |
 
-** Measures of Central Tendency                   :noslide:
+** Measures of Central Tendency                                     :noslide:
 
 #+NAME: mid-code
 #+begin_src R :results value :export results :colnames yes :hline
@@ -89,24 +98,33 @@ q#+TITLE: Descriptive Statistics
               median_salary=quantile(salary,prob=0.5))]
 #+End_src
 
-#+RESULTS: mid-code
-| mean_salary | median_salary |
-|-------------+---------------|
-|      101500 |         45500 |
-
 #+NAME: mid2-code
 #+begin_src R :results value :export results :colnames yes :hline
   workers[,.(mean_salary=round(mean(salary),1),
              median_salary=quantile(salary,prob=0.5)),.(sex)]
 #+end_src
 
+
+*** Measures of Central Tendency                                     :slides:
+
++ Mean
++ Median
++ Mode
+
+$\frac{\sum{y_{i}}}{n}$
+
+#+RESULTS: mid-code
+| mean_salary | median_salary |
+|-------------+---------------|
+|      101500 |         45500 |
+
+
 #+RESULTS: mid2-code
 | sex | mean_salary | median_salary |
-|-----+-------------+---------------|
 | M   |    172428.6 |         50000 |
 | F   |     46333.3 |         45000 |
 
-** Measures of Position                           :noslide:
+** Measures of Position                                              :slidex:
 
 + First quartile
 + Second quartile (median)
@@ -116,26 +134,9 @@ q#+TITLE: Descriptive Statistics
 + Quintiles
 + Percentiles
 
-** Measures of Dispersion                         :noslide:
+** Measures of Dispersion                                            :slidex:
 
-*** Range and other measures based on positions  :noslide:
-
-
-$range=max-min$
-
-#+RESULTS: range-code
-| min_salary | max_salary |  range |
-|------------+------------+--------|
-|      40000 |     850000 | 810000 |
-
-#+NAME: range-code
-#+begin_src R :results value :export results :colnames yes :hline
-    workers[,.(min_salary=min(salary),
-                max_salary=max(salary),
-                range=max(salary)-min(salary))]
-#+end_src
-
-*** Range and other measures based on positions  :noslide:
+*** Range and other measures based on positions                      :slidex:
 
 + Distance between any two positions (Deciles, Quintiles, Percentiles) can be used as a measure of dispersion.
 
@@ -166,8 +167,7 @@ $inter.quartile.range=Q3-Q1$
 #+end_src
 
 
-
-*** Variance, Standard Deviation and Coefficient of Variation
+*** Variance, Standard Deviation and Coefficient of Variation        :slidex:
 
 $variance=\frac{1}{n} \times \sum(x_{i}-x)^{2}$
 
@@ -201,8 +201,8 @@ $cov=\frac{standard.deviation}{mean}$
 | M   | 89680952381 |  299467.8 |       1.74 |
 | F   |    54500000 |    7382.4 |       0.16 |
 
-* Graphical Displays of Quantitative Information: Dispersion :noslide:
-** Histogram                                      :noslide:
+* Graphical Displays of Quantitative Information: Dispersion        :noslide:
+** Histogram                                                        :noslide:
 
 #+attr_html: :width 800px
 #+RESULTS: ccpc-wheat-hist1
@@ -252,7 +252,7 @@ $cov=\frac{standard.deviation}{mean}$
   hist(b$yield,main="Histogram of wheat yields",ylim=c(0,4000))
 #+END_SRC
 
-** Histogram with relative densities              :noslide:
+** Histogram with relative densities                                :noslide:
 
 #+attr_html: :width 600px
 #+RESULTS: ccpc-wheat-hist2
@@ -266,13 +266,13 @@ $cov=\frac{standard.deviation}{mean}$
   hist(b$yield,freq=F,main="Histogram of wheat yields",ylim=c(0,0.00040))
 #+END_SRC
 
-** Boxplot                                        :noslide:
+** Boxplot                                                          :noslide:
 
 + Invented by John Tukey in 1970
 + Many variations proposed since then, though the essential form and idea as remained intact.
 
 
-** Boxplot of wheat yields                        :noslide:
+** Boxplot of wheat yields                                          :noslide:
 
 #+RESULTS: ccpc-wheat-box1
 [[file:boxplotyield1.png]]
@@ -285,7 +285,7 @@ $cov=\frac{standard.deviation}{mean}$
   boxplot(b$yield,main="Boxplot of wheat yields")
 #+END_SRC
 
-** Violin plots                                   :noslide:
+** Violin plots                                                     :noslide:
 
 #+RESULTS: ccpc-wheat-vio1
 [[file:vioplotyield1.png]]
@@ -303,7 +303,7 @@ $cov=\frac{standard.deviation}{mean}$
 
 
 
-** Boxplots: Useful to identify extreme values    :noslide:
+** Boxplots: Useful to identify extreme values                      :noslide:
 
 
 #+RESULTS: ccpc-wheat-box2
@@ -317,7 +317,7 @@ $cov=\frac{standard.deviation}{mean}$
   boxplot(b$yield,main="Magnified tail of the boxplot",ylim=c(7000,25000))
 #+END_SRC
 
-** Boxplots: Useful for comparisons across categories :noslide:
+** Boxplots: Useful for comparisons across categories               :noslide:
 
 #+RESULTS: ccpc-crop-box3
 [[file:boxplotyield3.png]]
@@ -332,7 +332,7 @@ $cov=\frac{standard.deviation}{mean}$
     boxplot(yield~Crop_code,data=b,main="Boxplots of yields of various crops",las=3,ylim=c(0,8000),outline=F)
   #+END_SRC
 
-** Violin plots                                   :noslide:
+** Violin plots                                                     :noslide:
 
 #+RESULTS: ccpc-crop-vio
 [[file:vioplotyield3.png]]
@@ -351,89 +351,109 @@ $cov=\frac{standard.deviation}{mean}$
 
 * Graphical Displays of Quantitative Information: Common Pitfalls
 
-** Common uses of statistical graphics              :slide:
+** Common uses of statistical graphics                                :slide:
 + To show trends over time
 + To show mid-point variations across categories
 + To show composition
 + (less commonly, though more usefully) to show/analyse dispersion
 
-** Mis-representation                               :slide:
+** Mis-representation                                                 :slide:
 
 #+CAPTION: "and sometimes the fact that numbers have a magnitude as well as an order is simply forgotten"
+#+attr_html: :width 1200px
 [[file:graphics/tufte-insanity.png]]
 
-** Mis-representation                               :slide:
+** Mis-representation                                                 :slide:
 
 #+CAPTION: Another example borrowed from Tufte
+#+attr_html: :width 1200px
 [[file:graphics/tufte-fuel.png]]
 
-** Mis-representation                               :slide:
+** Mis-representation                                                 :slide:
 
 #+CAPTION: Tufte's graph on fuel economy of cars
 #+attr_html: :width 700px
 [[file:graphics/tufte-fuel2.png]]
 
-** Mis-representation                               :slide:
+** Mis-representation                                                 :slide:
 
 #+CAPTION: Nobel prizes awarded in science (National Science Foundation, 1974)
-#+attr_html: :width 600px
-[[file:graphics/nobel-wrong.png]]
+#+attr_html: :width 400px
+[[file:graphics/nobel-wrong.png]]-
 
-** Mis-representation                               :slide:
+** Mis-representation                                                 :slide:
 
 #+CAPTION: Nobel prizes awarded in science (corrected by Tufte)
 #+attr_org: :width 600px
 #+attr_html: :width 600px
 [[file:graphics/nobel-right.png]]
 
+** Public Distribution System in India during the Pandemic            :slide:
+
+[[file:tpds-wfp-thehindu.jpeg]]
+Source: The Hindu, https://www.thehindu.com/opinion/op-ed/lessons-from-indias-food-security-response/article62105748.ece
+
+** Covid Pandemic Second Wave                                         :slide:
+
+*** "The second wave of the pandemic has retreated almost as fast as it had peaked"
+
+[[file:covid-second-wave-thehindu-05072021.jpg]]
+Source: The Hindu, https://www.thehindu.com/news/cities/Delhi/rise-and-fall/article35139879.ece
+
+
 ** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
-#+attr_org: :width 1200px
+#+attr_org: :width 800px
 [[file:graphics/piketty1_o.png]]
 
 ** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
-#+attr_org: :width 1200px
+#+attr_org: :width 800px
 [[file:graphics/piketty1_c.png]]
 
 ** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
-#+attr_org: :width 1200px
+#+attr_org: :width 800px
 [[file:graphics/piketty2_o.png]]
 
 ** Mis-representation: illustrations from Thomas Piketty's work (source Noah Wright) :slide:
 
-#+attr_org: :width 1100px
+#+attr_org: :width 800px
 [[file:graphics/piketty2_c.png]]
 
-** The problem multiplied with the coming in of spreadsheets :slide:
+** The problem multiplied with the coming in of spreadsheets          :slide:
 
 #+ATTR_html: :width 700px
 [[file:graphics/chart1.png]]
 
+** The problem multiplied with the coming in of spreadsheets          :slide:
+
 #+ATTR_html: :width 700px
 [[file:graphics/chart2.png]]
+
+** The problem multiplied with the coming in of spreadsheets          :slide:
 
 #+ATTR_html: :width 700px
 [[file:graphics/chart3.png]]
 
+
 * Paul Krugman on Fiscal Austerity
 
-** What does this graph show?                       :slide:
+** What does this graph show?                                         :slide:
 
-#+attr_html: :width 1000px
+#+attr_html: :width 800px
 [[file:krugman1.png]]
 Source: [[https://www.nytimes.com/2018/11/02/opinion/the-perversion-of-fiscal-policy-slightly-wonkish.html]]
 
 
-** What did Paul Krugman say?                       :slide:
+** What did Paul Krugman say?                                         :slide:
 
 "Here’s what fiscal policy should do: it should support demand when the economy is weak, and it should pull that support back when the economy is strong. As John Maynard Keynes said, “The boom, not the slump, is the right time for austerity.” And up until 2010 the U.S. more or less followed that prescription. Since then, however, fiscal policy has become perverse: first austerity despite high unemployment, now expansion despite low unemployment.
 
 ** How could we better show the relationship between unemployment and fiscal austerity :slide:
 
 #+name: fixed-krugman-graph
-#+attr_html: :width 800px
+#+attr_html: :width 600px
 [[file:krugman2.png]]
 
 #+NAME: graph2
