@@ -1,11 +1,17 @@
 * Descriptive Statistics
 * Sampling Distributions of Estimators
 * Statistical Inference
-* Some important tests
+* Introduction to some important statistical tests
+* Correlation
 * ANOVA and Factor Analysis
 * Regressions
 ** Assumptions of CLRM
-** Ordinary Least Square Regressions
+** Ordinary Least Square Regression
+*** Estimation
+**** OLS estimators
+**** Properties of OLS Estimators
+*** Hypothesis testing
+*** Goodness of fit
 ** Multicollinearity
 ** Heteroscedasticity
 ** Autocorrelation

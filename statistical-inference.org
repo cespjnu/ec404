@@ -704,3 +704,34 @@ $H_{a}: \sigma_{women}^{2} \neq \sigma_{men}^{2}$
 - ratio of variances
 - 1.835174
 #+end_src
+
+** Explaining the F Statistic                                     :slide:
+
+$\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}$
+
+where
+
+$\overline{Y_{i}}=\frac{1}{J}\sum_{j=1}^{J}{Y_{ij}}$
+
+and
+
+$\overline{Y}=\frac{1}{IJ}\sum_{i=1}^{I}\sum_{j=1}^{J}Y_{ij}$
+
+
+$\therefore SS_{ToT}=SS_{W}+SS_{B}$
+
+
+** Explaining the F Statistic
+
+$E(X_{i}-\overline{X})^{2} = (\mu_{i}-\overline{\mu})^{2}+\frac{n-1}{n}\sigma^{2}$
+
+where
+
+$\overline{\mu}=\frac{1}{n}\sum_{i=1}^{n}\mu_{i}$
+
+
+** Explaining the F Statistic
+
+$E(SS_{W})=I(J-1)\sigma^{2}$
+
+$E(SS_{B})=J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}$
