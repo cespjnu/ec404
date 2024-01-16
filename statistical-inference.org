@@ -1,3 +1,4 @@
+#+OPTIONS: toc:nil num:nil
 #+STARTUP: hideall inlineimages hideblocks
 #+PROPERTY: header-args:R :session quant :eval never-export
 #+HTML_HEAD: <style>#content{max-width:1200px;} </style>
@@ -705,33 +706,141 @@ $H_{a}: \sigma_{women}^{2} \neq \sigma_{men}^{2}$
 - 1.835174
 #+end_src
 
-** Explaining the F Statistic                                     :slide:
 
-$\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}$
+* ANOVA
+
+** Model description                                                 :slide:
+
++ I :: treatment groups
++ J :: samples in each size (let us assume equal sample size for the sake of simplicity)
++ $Y_{i,j}$ :: $j^{th}$ observation of the $i^{th}$ treatment
+
+$Y_{i,j}= \mu+\alpha_{i}+\epsilon_{i,j}$
+
++ $\mu$ :: overall mean
++ $\alpha_{i}$ :: differential effect of the $i^{th}$ treatment
+  $\displaystyle\sum_{i=i}^{I}{\alpha_{i}}=0$
+
++ The expected response to $i^{th}$ treatment:
+$E(Y_{i,j})= \mu+\alpha_{i}$
+
+** Basic identity                                                    :slide:
+
+$\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}$
+
+
+$SS_{ToT}=SS_{W}+SS_{B}$
+
 
 where
 
-$\overline{Y_{i}}=\frac{1}{J}\sum_{j=1}^{J}{Y_{ij}}$
+$\displaystyle\overline{Y_{i}}=\frac{1}{J}\sum_{j=1}^{J}{Y_{ij}}$
 
 and
 
-$\overline{Y}=\frac{1}{IJ}\sum_{i=1}^{I}\sum_{j=1}^{J}Y_{ij}$
+$\displaystyle\overline{Y}=\frac{1}{IJ}\sum_{i=1}^{I}\sum_{j=1}^{J}Y_{ij}$
+
+** Proving the identity                                              :slide:
+
+$\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{[(Y_{ij}-\overline{Y_{i}})+(\overline{Y_{i}}-\overline{Y})]^{2}}$
+
+                $\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})(\overline{Y_{i}}-\overline{Y})$
+
+                $\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}(\overline{Y_{i}}-\overline{Y})\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})$
 
 
-$\therefore SS_{ToT}=SS_{W}+SS_{B}$
 
+$\displaystyle \because \sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})=0$
 
-** Explaining the F Statistic
+$\displaystyle \therefore \sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}$
 
-$E(X_{i}-\overline{X})^{2} = (\mu_{i}-\overline{\mu})^{2}+\frac{n-1}{n}\sigma^{2}$
+** Expectations of the Sums of Squares                               :slide:
+
+For $X_{i}$ where i=1,....,n, be independent random variables with
+$E[X_{i}]=\mu_{i}$ and $Var(X_{i})=\sigma^{2}$
+
+Then:
+
+$E(X_{i}-\overline{X})^{2}=(\mu_{i}-\overline\mu)^{2}+\frac{n-1}{n}\sigma^{2}$
 
 where
 
-$\overline{\mu}=\frac{1}{n}\sum_{i=1}^{n}\mu_{i}$
+$\displaystyle \overline{\mu}=\frac{1}{n}\sum_{i=1}^{n}{\mu_{i}}$
+
+*** Proof
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+
+$E(U^{2})=[E(U)]^{2}+Var(U)$ for any random variable U with a finite variance
+
+$[E(X_{i}-\overline{X})]^{2}=[E(X_{i})-E(\overline{X}))]^{2}$
+             $=(\mu_{i}-\overline{\mu})^{2}$
+
+$Var(X_{i}-\overline{X})=Var(X_{i})+Var(\overline{X})-2Cov(X{i},\overline{X})$
+
++ $Var(X_{i})=\sigma^{2}$
++ $Var(\overline{X})=\frac{1}{n}\sigma^{2}$
++ $Cov(X{i},\overline{X})=\frac{1}{n}\sigma^{2}$
+
+$Var(X_{i}-\overline{X})=\frac{n-1}{n}\sigma^{2}$
+
+** Expectation of Within Sums of Squares                             :slide:
+
+$\displaystyle E(SS_{W})=I(J-1)\sigma^{2}$
+
+*** Proof
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+
+$\displaystyle E(SS_{W})=\sum_{i=1}^{I}\sum_{j=1}^{J}E(Y_{ij}-\overline{Y_{i}})^{2}$
+
+        $\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{\frac{J-1}{J}\sigma^{2}}$
 
 
-** Explaining the F Statistic
+        $=I(J-1)\sigma^{2}$
 
-$E(SS_{W})=I(J-1)\sigma^{2}$
+(since $E(Y_{ij})=E(\overline Y_{i})=\mu+\alpha_{i}$)
 
-$E(SS_{B})=J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}$
+** Expectation of Between Sums of Squares                            :slide:
+
+$\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}$
+*** Proof
+:PROPERTIES:
+:VISIBILITY: folded
+:END:
+
+
+$\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{E(\overline{Y_{i}}-\overline{Y})^{2}$
+
+        $\displaystyle =J\sum_{i=1}^{I}\Big[\alpha_{i}^{2}+\frac{(I-1)\sigma^{2}}{IJ}\Big]$
+
+        $\displaystyle =J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}$
+
+
+** Estimating $\sigma^{2}$                                           :slide:
+
+Thus
+$\displaystyle s_{p}^{2}=\frac{SS_{W}}{I(J-1)}$ is an unbiased estimator of $\sigma^{2}$
+
+$\displaystyle SS_{W}=\sum_{i=1}^{I}(J-I)s_{i}^{2}$
+
+if all the $\alpha_{i}=0$, then $\displaystyle \frac{E(SS_{B})}{(I-1)}=\sigma^{2}$
+
+Thus, this should be the case:
+
+$\displaystyle \frac{SS_{W}}{I(J-1)} = \frac{SS_{B}}{(I-1)}$
+
+Since
+$\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}$
+
+If some of the $\alpha_{i} \ne 0$, $SS_{B}$ will be inflated
+
+** The test statistic                                                :slide:
+
+$F=\frac{SS_{B}/(I-1)}{SS_{W}/[I(J-1)]}$
+
+If the null hypothesis is true, the F statistic should be close to 1.
+
+If the null hypothesis is false, the F statistic would be inflated.
