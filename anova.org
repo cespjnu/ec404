@@ -9,13 +9,20 @@
 (org-show-animate '("Quantitative Methods, Part-III" "ANOVA: Analysis of Variance" "Vikas Rawal" "" "" ""))
 #+END_SRC
 
-* Equality of means of multiple groups
+* Equality of means of multiple groups                                :slide:
 
++ There are more than two samples/groups, and you want to test for equality of means among all the groups.
 
++ Say, there are four social groups: SC, ST, OBC and Others
+  + And you want to test if the average wage of workers belonging to these groups is same.
++ There are four different Covid vaccines which reduce the severity of impact Covid infection has on patients (say, measured in terms of drop in blood oxygen levels)
+  + And you want to test if all the vaccines are equally effective
++ Three states implemented three different social security programmes
+  + And you want to test if all the three interventions were equally effective (say, in terms of average income/consumption of beneficiaries)
 
 * Model description                                                   :slide:
 
-+ I :: treatment groups
++ I :: treatments/groups
 + J :: samples in each size (let us assume equal sample size for the sake of simplicity)
 + $Y_{i,j}$ :: $j^{th}$ observation of the $i^{th}$ treatment
 
@@ -31,7 +38,7 @@ $E(Y_{i,j})= \mu+\alpha_{i}$
 
 * Basic identity                                                      :slide:
 
-$\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}$
+$\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+J\sum_{i=1}^{I}{(\overline{Y}_{i}-\overline{Y})^{2}}$
 
 
 $SS_{ToT}=SS_{W}+SS_{B}$
