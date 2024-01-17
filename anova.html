@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-01-17 Wed 16:52 -->
+<!-- 2024-01-17 Wed 16:58 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ANOVA: Analysis of Variance</title>
@@ -230,9 +230,9 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">ANOVA: Analysis of Variance</h1>
-<div id="outline-container-orgcee23a1" class="outline-2">
-<h2 id="orgcee23a1">Equality of means of multiple groups</h2>
-<div class="outline-text-2" id="text-orgcee23a1">
+<div id="outline-container-org872c5c5" class="outline-2">
+<h2 id="org872c5c5">Equality of means of multiple groups</h2>
+<div class="outline-text-2" id="text-org872c5c5">
 <ul class="org-ul">
 <li>There are more than two samples/groups, and you want to test for equality of population means among all the groups.</li>
 </ul>
@@ -256,12 +256,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgcd30495" class="outline-2">
-<h2 id="orgcd30495">Intuition</h2>
-<div class="outline-text-2" id="text-orgcd30495">
+<div id="outline-container-orgd5fa629" class="outline-2">
+<h2 id="orgd5fa629">Intuition</h2>
+<div class="outline-text-2" id="text-orgd5fa629">
 
-<div id="org3f049fd" class="figure">
-<p><img src="anova-illustration.png" alt="anova-illustration.png" />
+<div id="org538d056" class="figure">
+<p><img src="https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/anova-illustration.png" alt="anova-illustration.png" />
 </p>
 </div>
 
@@ -274,9 +274,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org6eecbd1" class="outline-2">
-<h2 id="org6eecbd1">Model description</h2>
-<div class="outline-text-2" id="text-org6eecbd1">
+<div id="outline-container-orgdf28b08" class="outline-2">
+<h2 id="orgdf28b08">Model description</h2>
+<div class="outline-text-2" id="text-orgdf28b08">
 <dl class="org-dl">
 <dt>I</dt><dd>treatments/groups</dd>
 <dt>J</dt><dd>samples in each size (let us assume equal sample size for the sake of simplicity)</dd>
@@ -300,9 +300,9 @@ The model:
 </dl>
 </div>
 </div>
-<div id="outline-container-orge190bb1" class="outline-2">
-<h2 id="orge190bb1">Basic identity</h2>
-<div class="outline-text-2" id="text-orge190bb1">
+<div id="outline-container-orgdd4d30f" class="outline-2">
+<h2 id="orgdd4d30f">Basic identity</h2>
+<div class="outline-text-2" id="text-orgdd4d30f">
 <p>
 \(\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+J\sum_{i=1}^{I}{(\overline{Y}_{i}-\overline{Y})^{2}}\)
 </p>
@@ -317,9 +317,9 @@ and \(\displaystyle\overline{Y}=\frac{1}{IJ}\sum_{i=1}^{I}\sum_{j=1}^{J}Y_{ij}\)
 </p>
 </div>
 </div>
-<div id="outline-container-orgc2cd3b1" class="outline-2">
-<h2 id="orgc2cd3b1">Basic identity (Proof)</h2>
-<div class="outline-text-2" id="text-orgc2cd3b1">
+<div id="outline-container-orgaf760a9" class="outline-2">
+<h2 id="orgaf760a9">Basic identity (Proof)</h2>
+<div class="outline-text-2" id="text-orgaf760a9">
 <p>
 
 </p>
@@ -345,9 +345,9 @@ and \(\displaystyle\overline{Y}=\frac{1}{IJ}\sum_{i=1}^{I}\sum_{j=1}^{J}Y_{ij}\)
 </p>
 </div>
 </div>
-<div id="outline-container-orgf9c6d6e" class="outline-2">
-<h2 id="orgf9c6d6e">Expectations &#x2026;</h2>
-<div class="outline-text-2" id="text-orgf9c6d6e">
+<div id="outline-container-orgffc7cfd" class="outline-2">
+<h2 id="orgffc7cfd">Expectations &#x2026;</h2>
+<div class="outline-text-2" id="text-orgffc7cfd">
 <p>
 For \(X_{i}\) where i=1,&#x2026;.,n, be independent random variables with
 </p>
@@ -399,9 +399,9 @@ where
 </p>
 </div>
 </div>
-<div id="outline-container-org1f0bd26" class="outline-2">
-<h2 id="org1f0bd26">Expectation of Within Sums of Squares</h2>
-<div class="outline-text-2" id="text-org1f0bd26">
+<div id="outline-container-org56a5fb7" class="outline-2">
+<h2 id="org56a5fb7">Expectation of Within Sums of Squares</h2>
+<div class="outline-text-2" id="text-org56a5fb7">
 <ul class="org-ul">
 <li>Using \(E(X_{i}-\overline{X})^{2}=(\mu_{i}-\overline\mu)^{2}+\frac{n-1}{n}\sigma^{2}\)</li>
 <li>We can show that \(\displaystyle E(SS_{W})=I(J-1)\sigma^{2}\)</li>
@@ -439,9 +439,9 @@ Pooled variance (\(s_{p}^{2}\)) is an unbiased estimator of population variance.
 </p>
 </div>
 </div>
-<div id="outline-container-org196fc06" class="outline-2">
-<h2 id="org196fc06">Expectation of Between Sums of Squares</h2>
-<div class="outline-text-2" id="text-org196fc06">
+<div id="outline-container-orgcb0121c" class="outline-2">
+<h2 id="orgcb0121c">Expectation of Between Sums of Squares</h2>
+<div class="outline-text-2" id="text-orgcb0121c">
 <p>
 \(\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}\)
 </p>
@@ -481,9 +481,9 @@ Pooled variance (\(s_{p}^{2}\)) is an unbiased estimator of population variance.
 </p>
 </div>
 </div>
-<div id="outline-container-orgdebdc4f" class="outline-2">
-<h2 id="orgdebdc4f">Estimating \(\sigma^{2}\)</h2>
-<div class="outline-text-2" id="text-orgdebdc4f">
+<div id="outline-container-org17b6a68" class="outline-2">
+<h2 id="org17b6a68">Estimating \(\sigma^{2}\)</h2>
+<div class="outline-text-2" id="text-org17b6a68">
 <p>
 
 </p>
@@ -526,9 +526,9 @@ If some of the \(\alpha_{i} \ne 0\), \(SS_{B}\) will be inflated
 </p>
 </div>
 </div>
-<div id="outline-container-orgc649d87" class="outline-2">
-<h2 id="orgc649d87">The test statistic</h2>
-<div class="outline-text-2" id="text-orgc649d87">
+<div id="outline-container-orgc589ba1" class="outline-2">
+<h2 id="orgc589ba1">The test statistic</h2>
+<div class="outline-text-2" id="text-orgc589ba1">
 <p>
 \(H0: \alpha_{1} = \alpha_{2} = \alpha_{3} = ... = 0\)
 Ha: At least one \(\alpha \ne 0\)
@@ -552,9 +552,9 @@ If the null hypothesis is false, the F statistic would be inflated.
 </p>
 </div>
 </div>
-<div id="outline-container-orgfe6eb62" class="outline-2">
-<h2 id="orgfe6eb62">If sample sizes for all treatments are not equal</h2>
-<div class="outline-text-2" id="text-orgfe6eb62">
+<div id="outline-container-orgd05f52f" class="outline-2">
+<h2 id="orgd05f52f">If sample sizes for all treatments are not equal</h2>
+<div class="outline-text-2" id="text-orgd05f52f">
 <p>
 \(\displaystyle F=\frac{SS_{B}/(I-1)}{SS_{W}/\displaystyle \sum_{i=1}^{I}{(J_{i}-1)}}\)
 follows an F distribution with degrees of freedom \(\displaystyle \sum_{i=1}^{I}{(J_{i}-1)}}\) and I-1
@@ -564,7 +564,7 @@ follows an F distribution with degrees of freedom \(\displaystyle \sum_{i=1}^{I}
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Vikas Rawal</p>
-<p class="date">Created: 2024-01-17 Wed 16:52</p>
+<p class="date">Created: 2024-01-17 Wed 16:58</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

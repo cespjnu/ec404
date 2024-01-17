@@ -52,7 +52,7 @@
 :END:
 * Intuition                                                           :slide:
 
-[[file:anova-illustration.png]]
+[[https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/anova-illustration.png]]
 
 :Intuition:
 + Greater the variability between sample means of groups and smaller the variability within the sample means of groups, stronger is the evidence that the population means differ
