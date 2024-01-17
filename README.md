@@ -5,7 +5,7 @@
 ## [Introduction](../master/index.org)
 ## [Descriptive Statistics](../master/descriptive-statistics.org)
 ## [Introduction to Statistical Inference](../master/statistical-inference.org)
-## [Analysis of Variance](anova.pdf)
+## [Analysis of Variance](anova.org)
 
 ## Reading material
 
