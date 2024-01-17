@@ -5,7 +5,7 @@
 ## [Introduction](../master/index.org)
 ## [Descriptive Statistics](../master/descriptive-statistics.org)
 ## [Introduction to Statistical Inference](../master/statistical-inference.org)
-## [Analysis of Variance](anova.org)
+## [Analysis of Variance](https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/anova.pdf)
 
 ## Reading material
 
