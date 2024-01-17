@@ -5,6 +5,7 @@
 ## [Introduction](../master/index.org)
 ## [Descriptive Statistics](../master/descriptive-statistics.org)
 ## [Introduction to Statistical Inference](statistical-inference.html)
+## [Examples of Statistical Tests](statistical-tests-examples.html)
 ## [Analysis of Variance](anova.html)
 
 ## Reading material

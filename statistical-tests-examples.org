@@ -1,0 +1,337 @@
+#+TITLE: Tests of Significance
+#+SUBTITLE:
+#+AUTHOR: Vaishali Bansal
+#+LATEX_HEADER: \institute{12 and 15 January 2024}
+#+DATE: Centre for Economic Studies and Planning\\
+#+DATE: Jawaharlal Nehru University
+#+OPTIONS: toc:nil ^:{} H:1 _:{}
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [garamond]
+#+LaTeX_CLASS_OPTIONS: [10pt]
+#+PROPERTY: header-args:R :session quant :eval never-export
+#+BEAMER_THEME: CambridgeUS
+#+LATEX_HEADER: \newcommand{\rawalert}{\textcolor{beameralert}}
+#+BEAMER_INNER_THEME: circles
+#+BEAMER_FONT_THEME: serif
+#+BEAMER_OUTER_THEME: infolines
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LATEX_HEADER: \setbeamertemplate{footline}[P]{}
+#+LATEX_HEADER: \usepackage{tabulary,booktabs,xcolor,lmodern,graphicx,wrapfig,underscore,ulem}
+#+LATEX_HEADER: \usepackage{fontspec,xltxtra,polyglossia,setspace,soul}
+#+LATEX_HEADER:\usepackage{amsmath,comment,multirow,threeparttable,longtable,tabularx,float,url}
+#+LATEX_HEADER: \let\olditem\item
+#+LATEX_HEADER: \renewcommand{\item}{%
+#+LATEX_HEADER: \olditem\vspace{8pt}}
+#+LATEX_HEADER: \setlength{\abovecaptionskip}{4pt}
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+#+cite_export: biblatex authoryear/authoryear-comp
+
+
+* Introduction
+
++ In statistics, we are often making inferences about the population by looking at a part (sample) of the whole (population).
+
++ This gives rise to /uncertainty/; whether the inferences made using the sample data about the population are valid or not.
+
++ *Tests of significance* applied on observed sample data; allows us to measure this uncertainty.
+
+
+* Test of Significance
+
++ In a statistical test, we have a null hypothesis and an alternative hypothesis; both referring to the population.
+
++ The *null hypothesis* is typically a statement of `no difference' i.e. nothing is happening.
+  - For example: H_{0}: Mean(male wage) = Mean(female wage)
+
++ In contrast, the *alternative hypothesis* is a statement that something is happening which is of substantive interest.
+
+ - Two-sided: H_{1}: Mean(male wage) \neq Mean(female wage)
+ - One-sided: H_{1}: Mean(male wage) > Mean(female wage)
+
++ Using statistical tests we assess whether, based on sample data, we can reject *H_{0}* (Null Hypothesis) in favour of *H_{1}* (Alternative Hypothesis).
+
+
+* Test of Significance
+
++ Note; here we want to decide about population averages using sample averages
+  - so there is uncertainty involved; risks of making wrong decision
+
++ There are four possibilities involved in a decision:
+
++ Actually H_{0} is True; Do no reject H_{0}: *GREAT! No Error*
++ Actually H_{0} is True; Reject H_{0}: *Type I Error*
++ Actually H_{0} is False; Reject H_{0}: *HURRAY! No Error*
++ Actually H_{0} is False; Do not reject H_{0}: *Type II Error*
+
+* Types of Errors
+
++ Type I error occurs when we reject a /true/ null hypothesis.
++ Type II error occurs when we do not reject the null hypothesis when it is not true.
+
++ Typically, in a statistical test, we fix the probability of type I error (0.05 or 0.01 by convention) and then minimize the probability of type II error.
+  - Probability of Type I error is called the *level of significance (\alpha)*
+  - When H_{0} is rejected in favour of H_{1} at 1% level of significance it means that there is 1% probability that the decision to reject the null hypothesis is /wrong/.
+ - OR, the other way of saying is; the statistical test was significant at 1 per cent.
+
+
+
+* Statistical Tests
+
++ There is a wide range of statistical tests that help us reject or not reject our null hypothesis.
+
++ Examples of null hypothesis:
+ - whether or not population mean is equal to a given constant
+ - whether or not means of two groups are equal; these groups can be dependent or independent of each other
+ - whether or not proportions of a variable are equal for two groups
+
+* Which one to use when?                                           :noexport:
+
++ the choice of which one to use relies upon:
+  - the distribution of the data (normally distributed or skewed), and
+  - the variable of interest (continuous/categorical).
+
++ For every standard statistical test, there is a
+  - /test statistic/; a formula whose value is computed using the sample data.
+  - /probability distribution of the test statistic/ under the assumption that H_{0} is true; gives us the probability of observing the estimated t-statistic value.
+
+
+
+* Z - test
+
++ Suppose we want to test a hypothesis about mean of a normal population with *known* variance \sigma^{2}.
+
++ If $\overline{X}$ is the best estimator of \mu_{0}, the following is the best statistic that can be devised.
+\begin{equation*}Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$\end{equation*}
+
++ where: $\overline{X}$ = sample mean,  $\mu_{0}$ = population mean,
+  - $\sigma/\sqrt{n}$ = population standard deviation.
+
+* Z - test
+
++ For example:
+
+  - H_{0}: Sample mean is same as the population mean.
+  - H_{1}: Sample mean is not same as the population mean.
+
++ If the obtained Z value is more than the critical Z value, we reject the null hypothesis.
++ Because the population variance is usually never known, in reality, this test is never used.
+
+
+* Chi-square distribution
+
++ If Z is a standard normal random variable, the distribution of U = Z^{2} is called the chi-square distribution with 1 degree of freedom, denoted by \chi^{2}.
++ It is useful to note that if X ~ N (\mu, \sigma^{2}), then (X - \mu)/\sigma ~ N (0, 1),
+  - and therefore [(X − \mu)/\sigma]^{2} ~ \chi^{2}_{1} (with 1 degrees of freedom) .
+
++ Chi square distribution with 2 df = (Z_{1})^{2} + (Z_{2})^{2}
+
++ Chi square distribution with 3 df = (Z_{1})^{2} + (Z_{2})^{2} + (Z_{3})^{2} and so on.
+
++ *Distribution of \chi^{2}_{1} is the distribution of the /square of a standard normal variable/, and \chi^{2}_{m} is the distribution of the sum of squares of m independent standard normal variables.*
+
+* Chi-square distribution
+
+#+NAME: chisquare-code
+#+BEGIN_SRC R :results file graphics :exports results :file chisq.png :width 1200 :height 800  :res 200
+  library(ggplot2)
+  ggplot(data.frame(x = c(0, 20)),aes(x=x))+
+    stat_function(fun = dchisq, args = list(df = 1),aes(colour="k=01"))+
+    stat_function(fun = dchisq, args = list(df = 2),aes(colour="k=02"))+
+    stat_function(fun = dchisq, args = list(df = 3),aes(colour="k=03"))+
+    stat_function(fun = dchisq, args = list(df = 5),aes(colour="k=05"))+
+    stat_function(fun = dchisq, args = list(df = 7),aes(colour="k=07"))+
+    stat_function(fun = dchisq, args = list(df = 10),aes(colour="k=10"))+
+    scale_x_continuous("")+scale_y_continuous("Probability",limits=c(0,0.5))+theme_classic()+
+    scale_color_manual(name="df",values=c("red","blue","green","brown4","black","purple"))+
+    theme(legend.position=c(0.8,0.7))
+
+#+end_src
+
+#+attr_html: :width 800px
+#+RESULTS: chisquare-code
+[[https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/chisq.png]]
+
+
++ As degrees of freedom (\kappa) increases, the distribution looks more and more similar to a normal distribution.
+
+* Categorical Data: Chi-square Test
+
++ Chi-square tests are hypothesis tests with test statistics that follow a chi-square distribution under the null hypothesis.
+
++ *Chi-square test for Independence*: To determine if the categorical variables are related/dependent on each other.
+
+  + Null Hypothesis: H_{0}: The variables are independent.
+  + Alternate Hypothesis: H_{1}: The variables are related to each other.
+
++ The chi-square test of independence calculations are based on the observed frequencies, which are the numbers of observations in each category of variable.
+   - The input data is in the form of a table/matrix that contains the count value/frequency of the variables in the observation -- also called a contingency table.
+
++ The test compares the observed frequencies to the frequencies you would expect if the two variables are unrelated.
+  - When the variables are unrelated, the observed and expected frequencies will be similar.
+
+* Categorical Data: Chi-square Test
+
++ For example: Households in a locality are supposed to contribute for maintaining the locality garden. All households are randomly divided into three groups and three interventions are tried to assess if any intervention leads to them contributing. First group receives a phone call to explain the importance of having a nice locality garden, second group receives pamphlets with beautiful garden pictures; third is the control group.
+  - Variable 1: whether or not households contributes
+  - Variable 2: Type of intervention
+
++ H_{0}: The proportion of households that contribute is same for all interventions (two variables are unrelated).
++ H_{1}: The proportion of households that contribute is not same for all interventions (variables are related).
+
+* Categorical Data: Chi-square Test
+
++ Pearson’s chi-square (\chi^{2}) is the test statistic for the chi-square test of independence:
+
+  \begin{equation*}\chi^2 = \sum {\frac {(O-E)^2}{E}}$\end{equation*}
+
++ Where
+  - \chi^{2} is the chi-square test statistic
+  - O is the observed frequency in the contingency table
+  - E is the expected frequency; they are such that the proportions of one variable are the same for all values of the other variable.
+
++ The chi-square test statistic measures how much your observed frequencies differ from the frequencies you would expect if the two variables are unrelated.
+
+* Categorical Data: Chi-square Test
+
++ The obtained test statistic is compared to a /critical/ value from a chi-square distribution to decide whether it’s big enough to reject the null hypothesis that the two variables are unrelated.
+
++ The /critical/ value in a chi-square critical value table is found using:
+  - Degrees of freedom (/df/): (Number of categories in the first variable - 1) * (Number of categories in the second variable - 1)
+  - Significance level (\alpha)
+
+
+* Z - statistic
+
++ Suppose, we want to test a hypothesis about the population mean (\mu) of a normally distributed variable (X).
+  - H_{0}: \mu = \mu_{0}
+
++ We know, if,  X ~ N(\mu, \sigma^{2}),
+
++ then, $\overline{X}$ ~ N(\mu, \sigma^{2}/n)
+
++ Test statistic, if \sigma known, is
+  \begin{equation*} Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$\end{equation*}
+
+* t - statistic
+
++ If \sigma is not known, then the test statistic is given by:
+
+ \begin{equation*}t = {\frac {\overline{X}-\mu_{0}}{(s/ \sqrt{n})}}$\end{equation*}
+
++ where: $\overline{X}$ = sample mean,  $\mu_{0}$ = population mean,
+  - $s/\sqrt{n}$ = standard error
+    - s is the best estimator of \sigma
+
+* What is the distribution of this statistic?
+
++ By dividing the numerator and denominator by \sigma and rearranging the result, we get:
+
++ t = $\frac {(\overline{X}-\mu_{0}) \sqrt{n} / \sigma} {\sqrt{(n-1)s^{2}/(n-1)\sigma^{2}}}$
+
++ The numerator is the standard normal variable, Z, and the denominator is $(n-1)s^{2}/\sigma_{2}$ = \chi^{2}_{n-1}
+
++ t = $\frac { N(0,1) } {\sqrt{\chi^{2}_{n-1}/(n-1)}}$
+
++ *If Z ~ N(0, 1) and U ~ \chi^{2}_{n} and Z and U are independent, then the distribution of $Z / \sqrt{U/n}$ is called the t distribution with n degrees of freedom.*
+
+
+* Normal v/s t distribution
+
+#+NAME: tnorm-code
+#+BEGIN_SRC R :results file graphics :exports results :file tnorm.png :width 1200 :height 800  :res 200
+  library(ggplot2)
+  ggplot(data.frame(x = c(-4, 4)),aes(x=x))+
+    stat_function(fun = dnorm, args = list(mean = 0,sd=1),aes(colour="Normal distribution"))+
+    stat_function(fun = dt, args = list(df=1),aes(colour="t distribution"))+
+    scale_x_continuous("")+scale_y_continuous("Probability",limits=c(0,0.45))+theme_classic()+
+    scale_colour_discrete("")+
+    theme(legend.position=c(0.8,0.7))
+#+end_src
+
+#+ATTR_html: :width 800px
+#+RESULTS: tnorm-code
+[[https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/tnorm.png]]
+
++ As the degrees of freedom (total number of observations minus 1) increases, the t-distribution will get closer and closer to matching the normal distribution.
+
+
+* t-test: One sample
+
++ *One-sample t-test* is performed when a sample statistic is compared to a constant given value;
++ For example: H_{0}: Average wage of women is equal to Rs. 180.
+
+ \begin{equation*}t = {\frac {\overline{X}-\mu_{0}}{(s/ \sqrt{n})}}$\end{equation*}
+
++ If t_{obtained} > t_{critical}, H_{0} can be rejected.
+
+
+* t-test: Two sample
+
++ *Two sample un-paired t-test*; compares the averages/means of two independent or unrelated groups.
+
++ t = $\frac {(\overline{X_{1}}-\overline{X_{2}})} {\sqrt{(s^{2}_{1}/n_{1} + s^{2}_{2}/n_{2})}}$
++ $dof = n_{1} + n_{2} - 2$
+
++ For example:
+  - a pharmaceutical study where half of the subjects are assigned to the treatment group and other half are randomly assigned to the control group.
+  - compare mean wages of men and women workers in a population.
+
+
+* t-test: Two sample
+
++ *Two sample paired t-test*; compares the averages/means and standard deviations of two related groups
+  - related by being the same group of people, the same item, or being subjected to the same conditions
+
++ t = $\frac {\sum{(X_{1}-X_{2})}} {s/\sqrt{n}}$
++ $dof = n - 1$
+
++ For example:
+  - before and after effect of a pharmaceutical treatment on the same group of people
+  - body temperature using two different thermometers on the same group of participants.
+
+
+
+* F-statistic
++ Suppose, we want to test a hypothesis that compares the variances of two normal populations:
+  - H_{0}: \sigma^{2}_{1} = \sigma^{2}_{2},
+  - H_{1}: \sigma^{2}_{1} > \sigma^{2}_{2},
+
++ H_{0} can be tested by drawing a two samples of n_{1} and n_{2} sizes and estimating s^{2}_{1} and s^{2}_{2} of the respective variances.
+
++ The appropriate test statistic would be:
+
+  + $s^{2}_{1}/ s^{2}_{2}$ ~ $F_{n_{1}-1,n_{2}-1}$
+
+    - where s^{2} are variances of sample 1 and sample 2
+
+* F- distribution
+
++ The sampling distribution of the statistic is obtained by dividing the numerator by \sigma^{2}_{1} and denominator by \sigma^{2}_{2}; if H_{0} is true, then ratio will be unaffected.
+
+- F = $\frac {s^{2}_{1}/\sigma^{2}_{1}} {s^{2}_{2}/\sigma^{2}_{2}}$;
+
+- which is equivalent to;
+
+- F = $\frac {\chi^{2}_{n_{1}-1}/(n_{1}-1)} {\chi^{2}_{n_{2}-1}/(n_{2}-1)}$
+
+- *Let U and V be independent chi-square random variables with m and n degrees of freedom, respectively. The distribution of $W = \frac {U/m} {V/n}$ is called the F distribution with m and n degrees of freedom.*
+
+* F-distribution
+
+#+NAME: fdist-code
+#+BEGIN_SRC R :results file graphics :exports results :file fdist.png :width 1200 :height 800  :res 200
+  library(ggplot2)
+  ggplot(data.frame(x = c(0, 7)),aes(x=x))+
+    stat_function(fun = df, args = list(df1 = 3,df2=2),aes(colour="df1=3,df2=2"))+
+    stat_function(fun = df, args = list(df1 = 5,df2=6),aes(colour="df1=5,df2=6"))+
+    stat_function(fun = df, args = list(df1 = 12,df2=4),aes(colour="df1=12,df2=4"))+
+    stat_function(fun = df, args = list(df1 = 30,df2=2),aes(colour="df1=30,df2=2"))+
+    scale_x_continuous("")+scale_y_continuous("Probability",limits=c(0,0.7))+theme_classic()+
+    scale_color_manual(name="df",values=c("red","blue","green","brown4"))+
+    theme(legend.position=c(0.8,0.7))
+
+#+end_src
+
+#+attr_html: :width 800px
+#+RESULTS: fdist-code
+[[https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/fdist.png]]
