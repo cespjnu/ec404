@@ -52,6 +52,7 @@
 :END:
 * Intuition                                                           :slide:
 
+#+attr_html: :width 800px
 [[https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/anova-illustration.png]]
 
 :Intuition:
