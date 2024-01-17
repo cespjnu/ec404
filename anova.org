@@ -98,9 +98,9 @@ and $\displaystyle\overline{Y}=\frac{1}{IJ}\sum_{i=1}^{I}\sum_{j=1}^{J}Y_{ij}$
 
 $\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{[(Y_{ij}-\overline{Y_{i}})+(\overline{Y_{i}}-\overline{Y})]^{2}}$
 
-                $\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})(\overline{Y_{i}}-\overline{Y})$
+                $\displaystyle \sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})(\overline{Y_{i}}-\overline{Y})$
 
-                $\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}(\overline{Y_{i}}-\overline{Y})\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})$
+                $\displaystyle \sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}(\overline{Y_{i}}-\overline{Y})\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})$
 
 $\displaystyle \because \sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})=0$
 
