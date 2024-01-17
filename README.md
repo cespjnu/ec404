@@ -1,8 +1,6 @@
-# Lectures on Quantitative Methods for ACJ Students
+# Lectures on Quantitative Methods
 
-The links below are to files that were used during the lectures. They have the tables, graphs, and other statistical results, along with all the R programs that were used to create them. These files are displayed during the lectures.
-
-The files do not contain my explanations of these results, and most of what I speak during the class. If you want to know that, you have to come to the class.
+The links below are to files that were I use in lectures on quantitative methods. They have the tables, graphs, and other statistical results, along with all the R programs that were used to create them. These files are displayed during the lectures.
 
 ## [Introduction](../master/index.org)
 ## [Descriptive Statistics](../master/descriptive-statistics.org)
@@ -15,7 +13,7 @@ The files do not contain my explanations of these results, and most of what I sp
 
 + Making Data Meaningful (Part I and II): https://www.unece.org/stats/documents/writing/
 + Alan Agresti: "Statistics: The Art and Science of Learning from Data"
-+ [Optional] Alan Agresti: "Statistical Methods for the Social Sciences"
++ Alan Agresti: "Statistical Methods for the Social Sciences"
 
 ### For R programming
 
@@ -24,4 +22,3 @@ The files do not contain my explanations of these results, and most of what I sp
 + Introduction to data.table: https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html
 + Hadley Wikham: "ggplot2: Elegant Graphics for Data Analysis"
 + Winston Chang: R Graphics Cookbook
-
