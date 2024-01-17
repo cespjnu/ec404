@@ -245,4 +245,4 @@ If the null hypothesis is false, the F statistic would be inflated.
 * If sample sizes for all treatments are not equal                    :slide:
 
 $\displaystyle F=\frac{SS_{B}/(I-1)}{SS_{W}/\displaystyle \sum_{i=1}^{I}{(J_{i}-1)}}$
-follows an F distribution with degrees of freedom $\displaystyle \sum_{i=1}^{I}{(J_{i}-1)}}$ and I-1
+follows an F distribution with degrees of freedom $\displaystyle \sum_{i=1}^{I}{(J_{i}-1)}$ and I-1
