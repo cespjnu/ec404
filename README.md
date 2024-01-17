@@ -22,7 +22,7 @@ You may use any (or all) of the following:
 (or any other basic statistics book)
 
 ### For Econometrics
-+ Elements of Econometrics by Jan Kmenta (or any other basic econometrics book)
++ Elements of Econometrics by Jan Kmenta
 + Introduction to Econometrics by G S Maddala
 + Econometric Methods by Johnston
 
