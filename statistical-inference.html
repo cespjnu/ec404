@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-01-17 Wed 17:17 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Vikas Rawal" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<style>#content{max-width:1200px;} </style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<div id="outline-container-orgcebeba9" class="outline-2">
+<h2 id="orgcebeba9">Title slide&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-orgcebeba9">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp-slide">(org-show-animate '("Quantitative Methods, Part-II" "Introduction to Statistical Inference" "Vikas Rawal" "" "" ""))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org15ff755" class="outline-2">
+<h2 id="org15ff755">Sampling Distributions</h2>
+<div class="outline-text-2" id="text-org15ff755">
+</div>
+<div id="outline-container-org47c9a7d" class="outline-3">
+<h3 id="org47c9a7d">`Sampling Distributions of Sample Mean&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-org47c9a7d">
+
+<div id="org44cf678" class="figure">
+<p><img src="https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/bsample2.png" alt="bsample2.png" width="800px" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgd4a7bc2" class="outline-3">
+<h3 id="orgd4a7bc2">Sampling Distributions of Sample Median&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-orgd4a7bc2">
+
+<div id="org8ed1fb0" class="figure">
+<p><img src="https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/bsample2.png" alt="bsample2.png" width="800px" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgda02889" class="outline-3">
+<h3 id="orgda02889">Sampling Distributions&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-orgda02889">
+<ul class="org-ul">
+<li>\(Standard.error = \frac{\sigma}{\sqrt{n}}\)</li>
+</ul>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">Variable</th>
+<th scope="col" class="org-right">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">Standard deviation of population</td>
+<td class="org-right">130</td>
+</tr>
+
+<tr>
+<td class="org-right">Standard errors of samples of size</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-right">58</td>
+</tr>
+
+<tr>
+<td class="org-right">20</td>
+<td class="org-right">29</td>
+</tr>
+
+<tr>
+<td class="org-right">50</td>
+<td class="org-right">18</td>
+</tr>
+
+<tr>
+<td class="org-right">200</td>
+<td class="org-right">9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgfb15c92" class="outline-3">
+<h3 id="orgfb15c92">Sampling and Choice of Statistic</h3>
+<div class="outline-text-3" id="text-orgfb15c92">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">Settlement A</th>
+<th scope="col" class="org-left">Settlement B</th>
+<th scope="col" class="org-right">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">ACJPuram</td>
+<td class="org-left">9000</td>
+<td class="org-left">1000</td>
+<td class="org-right">10000</td>
+</tr>
+
+<tr>
+<td class="org-left">Sample-I</td>
+<td class="org-left">180</td>
+<td class="org-left">20</td>
+<td class="org-right">200</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">(2%)</td>
+<td class="org-left">(2%)</td>
+<td class="org-right">2%</td>
+</tr>
+
+<tr>
+<td class="org-left">Sample-II</td>
+<td class="org-left">100</td>
+<td class="org-left">100</td>
+<td class="org-right">200</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">1/90</td>
+<td class="org-left">1/10</td>
+<td class="org-right">2%</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Huts</td>
+<td class="org-left">Fancy concrete houses</td>
+<td class="org-right">Total</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-org2bda02f" class="outline-2">
+<h2 id="org2bda02f">Introduction to Hypothesis Testing</h2>
+<div class="outline-text-2" id="text-org2bda02f">
+</div>
+<div id="outline-container-org1783f75" class="outline-3">
+<h3 id="org1783f75">Transforming the Distribution to Standard Normal&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-org1783f75">
+<p>
+\(Z=\frac{x_{i}-\mu}{\sigma}\)
+</p>
+
+
+<div id="org0980f85" class="figure">
+<p><img src="https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/bsample3.png" alt="bsample3.png" width="1200px" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org38182e6" class="outline-3">
+<h3 id="org38182e6">Distribution of sample mean with unknown population variance&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-org38182e6">
+
+<div id="org11643c0" class="figure">
+<p><img src="https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/bsample5.png" alt="bsample5.png" width="1200px" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb2a57c3" class="outline-3">
+<h3 id="orgb2a57c3">Finding an appropriate statistic</h3>
+<div class="outline-text-3" id="text-orgb2a57c3">
+</div>
+<div id="outline-container-orgc69b144" class="outline-4">
+<h4 id="orgc69b144">Chi-square (\(\chi^{2}\)) distribution</h4>
+<div class="outline-text-4" id="text-orgc69b144">
+<ul class="org-ul">
+<li>\(\chi^{2}\) distribution with k degrees of freedom is the distribution of a sum of the squares of k independent standard normal random variables.
+
+<ul class="org-ul">
+<li><p>
+if \(X\) is normally distributed with mean \(\mu\) and variance \({\displaystyle \sigma^{2}}\), then:
+</p>
+
+<p>
+\(V=(\frac{X - \mu}{\sigma})^{2}=Z^{2}\)
+</p>
+
+<p>
+is distributed as a \(\chi^{2}\) distribution with 1 degree of freedom.
+</p></li>
+
+<li>The degrees of freedom in the  \(\chi^{2}\) distribution are equal to the number of standard normal random variables being squared and summed. So, the degrees of freedom increase as the sample size increases.</li>
+
+<li>Properties
+<ul class="org-ul">
+<li>It is a right-skewed distribution.</li>
+<li>Its mean is equal to the degrees of freedom, and its variance is equal to twice the degrees of freedom.</li>
+<li>It is defined only for non-negative values.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgb886c03" class="outline-4">
+<h4 id="orgb886c03">Student&rsquo;s-t distribution</h4>
+<div class="outline-text-4" id="text-orgb886c03">
+<ul class="org-ul">
+<li>William Gosset&rsquo;s 1908 Biometrika paper written with a pseudonym Student.</li>
+
+<li>t-distribution with df degrees of freedom
+<ul class="org-ul">
+<li><p>
+If \(Z \sim N(0,1)\) and \(U \sim \chi^{2}_{df}\) are independent then the ratio
+</p>
+
+<p>
+\(\frac{Z}{\sqrt{\frac{U}{df}}} \sim t_{df}\)
+</p></li>
+</ul></li>
+
+<li>Properties:
+<ul class="org-ul">
+<li>It is a bell-shaped distribution that is symmetric around 0.</li>
+<li>Its mean is equal to 0, and its variance is equal to df/(df-2) for df &gt; 2.</li>
+<li>It has heavier tails than the normal distribution.</li>
+<li>For \(df=1\), it is a standard Cauchy distribution</li>
+<li>For \(df \rightarrow \infty, \thickmuskip t_{df} \rightarrow N(0,1)\)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf425a7f" class="outline-3">
+<h3 id="orgf425a7f">The idea of statistical significance&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-orgf425a7f">
+</div>
+<div id="outline-container-orgb260f1c" class="outline-4">
+<h4 id="orgb260f1c">Key components&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-orgb260f1c">
+<ul class="org-ul">
+<li>Priors/Assumptions</li>
+<li>Hypotheses</li>
+<li>Test statistic</li>
+<li>p-value</li>
+<li>Inference</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc48845d" class="outline-4">
+<h4 id="orgc48845d">Priors/Assumptions&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-orgc48845d">
+<ul class="org-ul">
+<li>Scale: discrete/quantitative</li>
+<li>Use of randomisation in generating data</li>
+<li>Population distribution
+<ul class="org-ul">
+<li>Various assumptions may have to be made, usually on the basis of prior information or the sample data, about the underlying population distribution</li>
+<li>For example, about the population variance</li>
+</ul></li>
+<li>Sample size</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6a62204" class="outline-4">
+<h4 id="org6a62204">The null and the alternative hypotheses&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-org6a62204">
+<dl class="org-dl">
+<dt>Null hypothesis (\(H_{0}\))</dt><dd>Statement that the parameter takes a particular value. Usually to capture no effect or no difference.</dd>
+<dt>Alternative hypothesis (\(H_{a}\))</dt><dd>Statement that the parameter does not take this value.</dd>
+<dt>(no term)</dt><dd>For example
+<ul class="org-ul">
+<li>For population mean taking a particular value (\(\mu_{0}\))
+<dl class="org-dl">
+<dt>H<sub>0</sub></dt><dd>\(\mu = \mu_{0}\)</dd>
+<dt>H<sub>a</sub></dt><dd>\(\mu \ne \mu_{0}\)</dd>
+</dl></li>
+<li>For the difference of population means of two groups (say, men and women) being equal to a particular value (\(\mu_{0}\))
+<dl class="org-dl">
+<dt>H<sub>0</sub></dt><dd>\(\mu_{a} - \mu_{b} = \mu_{0}\)</dd>
+<dt>H<sub>a</sub></dt><dd>\(\mu_{a} - \mu_{b} \ne \mu_{0}\)</dd>
+</dl></li>
+<li>For population mean taking a value higher than a particular value (\(\mu_{0}\))
+<dl class="org-dl">
+<dt>H<sub>0</sub></dt><dd>\(\mu > \mu_{0}\)</dd>
+<dt>H<sub>a</sub></dt><dd>\(\mu \ngtr \mu_{0}\)</dd>
+</dl></li>
+</ul></dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-org26be983" class="outline-4">
+<h4 id="org26be983">Test statistic&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-org26be983">
+<ul class="org-ul">
+<li>The difference between the estimate of the test statistic and the parameter value in \(H_{0}\) in terms of number of standard error units.</li>
+
+<li>For example
+<ul class="org-ul">
+<li><p>
+For testing that population mean takes a particular value (\(\mu_{0}\))
+</p>
+
+<p>
+\(t=\frac{\bar{y}-\mu{0}}{\frac{s}{\sqrt{n}}}\)
+</p></li>
+
+<li><p>
+For the population means of two groups (say, men and women) being equal
+</p>
+
+<p>
+\(t=\frac{\bar{y_{a}}-\bar{y_{b}}}{\frac{s}{\sqrt{n}}}\)
+</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org556dc66" class="outline-4">
+<h4 id="org556dc66">p-value&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-org556dc66">
+<ul class="org-ul">
+<li>We construct the distribution of the test statistic assuming that \(H_{0}\) is true.</li>
+<li>Given the probability distribution, we find out the probability that the test statistic may take the estimated value.</li>
+<li>This is the p-value.</li>
+<li>It gives us the probability that the test statistic equals the observed value or a value even more extreme (in the direction predicted by \(H_{a}\)).</li>
+<li>The smaller the p-value, stronger is the evidence against \(H_{0}\).</li>
+<li>Essentially, we are saying that the data are very unusual if \(H_{0}\) is true.</li>
+<li>The probability at which we reject \(H_{0}\) (usually 0.05 or less) is called the \(\alpha-level\) of the test.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org07ff045" class="outline-4">
+<h4 id="org07ff045">Type I and Type II errors&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-org07ff045">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">Reject \(H_{0}\)</th>
+<th scope="col" class="org-left">Do not reject \(H_{0}\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">\(H_{0}\) is true</td>
+<td class="org-left">Type I Error</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">\(H_{0}\) is false</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Type II Error</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>\(\alpha-level\) is the probability of Type I error.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2442b64" class="outline-4">
+<h4 id="org2442b64">Chasing the p-values&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h4>
+<div class="outline-text-4" id="text-org2442b64">
+<ul class="org-ul">
+<li>\(H_{0}\) may tell a story</li>
+<li>Even if \(H_{0}\) is rejected, the effect may be small</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Vikas Rawal</p>
+<p class="date">Created: 2024-01-17 Wed 17:17</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

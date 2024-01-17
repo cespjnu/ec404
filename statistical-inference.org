@@ -13,8 +13,9 @@
 
 ** `Sampling Distributions of Sample Mean           :slide:
 
+#+attr_html: :width 800px
 #+RESULTS: sampling2
-[[file:bsample2.png]]
+[[https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/bsample2.png]]
 
 
 #+NAME: sampling2
@@ -113,8 +114,9 @@
 
 ** Sampling Distributions of Sample Median          :slide:
 
+#+attr_html: :width 800px
 #+RESULTS: sampling-median
-[[file:bsample2.png]]
+[[https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/bsample2.png]]
 
 
 #+NAME: sampling-median
@@ -257,9 +259,10 @@
 
 $Z=\frac{x_{i}-\mu}{\sigma}$
 
+#+attr_html: :width 1200px
 #+attr_org: :width 1200px
 #+RESULTS: sampling3
-[[file:bsample3.png]]
+[[https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/bsample3.png]]
 
 #+NAME: sampling3
 #+BEGIN_SRC R :results file graphics :exports results :file bsample3.png :width 1200 :height 800  :res 200
@@ -340,7 +343,7 @@ $Z=\frac{x_{i}-\mu}{\sigma}$
 #+attr_org: :width 1200px
 #+attr_html: :width 1200px
 #+RESULTS: sampling5
-[[file:bsample5.png]]
+[[https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/bsample5.png]]
 
 #+NAME: sampling5
 #+BEGIN_SRC R :results file graphics :exports results :file bsample5.png :width 1200 :height 800  :res 200
@@ -587,260 +590,3 @@ $Z=\frac{x_{i}-\mu}{\sigma}$
 
 + $H_{0}$ may tell a story
 + Even if $H_{0}$ is rejected, the effect may be small
-
-
-** T Test for means                                 :slide:
-
-***  Testing if the mean is different from a specified value (say zero) :slide:
-
-$H_{0}: \mu = 0$
-
-$H_{a}: \mu \neq 0$
-
-#+name: ttest1
-#+begin_src R :results output list org
-  readRDS("plfsdata/plfsacjdata.rds")->worker
-  worker$standardwage->worker$wage
-  worker->t9
-  t.test(t9$wage)
-#+end_src
-
-#+RESULTS: ttest1
-#+begin_src org
-- One Sample t-test
-- data:  t9$wage
-- t = 432.99, df = 37634, p-value < 0.00000000000000022
-- alternative hypothesis: true mean is not equal to 0
-- 95 percent confidence interval:
-- 289.7136 292.3484
-- sample estimates:
-- mean of x
-- 291.031
-#+end_src
-
-
-*** Testing equality of means                      :slide:
-
-
-$H_{0}: \mu_{women} = \mu_{men}$
-
-$H_{a}: \mu_{women} \neq \mu_{men}$
-
-
-#+name: ttest2
-#+begin_src R :results output list org
-  subset(worker,sex!=3)->t9
-  factor(t9$sex)->t9$sex
-  t.test(wage~sex,data=t9)
-#+end_src
-
-#+RESULTS: ttest2
-#+begin_src org
-- Error in subset(worker, sex != 3) : object 'worker' not found
-- Error in factor(t9$sex) : object 't9' not found
-- Error in eval(m$data, parent.frame()) : object 't9' not found
-#+end_src
-
-** Z Test for equality of proportions               :slide:
-
-
-
-$H_{0}: p_{women} = p_{men}$
-
-$H_{a}: p_{women} \neq p_{men}$
-
-
-#+name: proptest1
-#+begin_src R :results output list org
-  subset(worker,sex!=3)->t9
-  as.numeric(t9$gen_edu_level)->t9$gen_edu_level
-  factor(t9$sex)->t9$sex
-  t9[gen_edu_level>=8,.(schooled=length(fsu)),.(sex)]->a
-  t9[,.(all=length(fsu)),.(sex)]->b
-  prop.test(a$schooled,b$all)
-#+end_src
-
-
-#+CAPTION: Results of test for equality of proportions of men and women who have passed secondary school
-#+RESULTS: proptest1
-#+begin_src org
-- 2-sample test for equality of proportions with continuity correction
-- data:  a$schooled out of b$all
-- X-squared = 847.73, df = 1, p-value < 0.00000000000000022
-- alternative hypothesis: two.sided
-- 95 percent confidence interval:
-- -0.1694726 -0.1525728
-- sample estimates:
-- prop 1     prop 2
-- 0.09245986 0.25348253
-#+end_src
-
-
-** F Test for equality of variances                 :slide:
-
-
-
-$H_{0}: \sigma_{women}^{2} = \sigma_{men}^{2}$
-
-$H_{a}: \sigma_{women}^{2} \neq \sigma_{men}^{2}$
-
-
-#+name: ftest1
-#+begin_src R :results output list org
-  subset(worker,sex!=3)->t9
-  factor(t9$sex)->t9$sex
-  var.test(wage~sex,data=t9)
-#+end_src
-
-#+RESULTS: ftest1
-#+begin_src org
-- F test to compare two variances
-- data:  wage by sex
-- F = 1.8352, num df = 30652, denom df = 6975, p-value <
-- 0.00000000000000022
-- alternative hypothesis: true ratio of variances is not equal to 1
-- 95 percent confidence interval:
-- 1.768532 1.903506
-- sample estimates:
-- ratio of variances
-- 1.835174
-#+end_src
-
-
-* ANOVA
-
-** Model description                                                 :slide:
-
-+ I :: treatment groups
-+ J :: samples in each size (let us assume equal sample size for the sake of simplicity)
-+ $Y_{i,j}$ :: $j^{th}$ observation of the $i^{th}$ treatment
-
-$Y_{i,j}= \mu+\alpha_{i}+\epsilon_{i,j}$
-
-+ $\mu$ :: overall mean
-+ $\alpha_{i}$ :: differential effect of the $i^{th}$ treatment
-  $\displaystyle\sum_{i=i}^{I}{\alpha_{i}}=0$
-
-+ The expected response to $i^{th}$ treatment:
-$E(Y_{i,j})= \mu+\alpha_{i}$
-
-** Basic identity                                                    :slide:
-
-$\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}$
-
-
-$SS_{ToT}=SS_{W}+SS_{B}$
-
-
-where
-
-$\displaystyle\overline{Y_{i}}=\frac{1}{J}\sum_{j=1}^{J}{Y_{ij}}$
-
-and
-
-$\displaystyle\overline{Y}=\frac{1}{IJ}\sum_{i=1}^{I}\sum_{j=1}^{J}Y_{ij}$
-
-** Proving the identity                                              :slide:
-
-$\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{[(Y_{ij}-\overline{Y_{i}})+(\overline{Y_{i}}-\overline{Y})]^{2}}$
-
-                $\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})(\overline{Y_{i}}-\overline{Y})$
-
-                $\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}(\overline{Y_{i}}-\overline{Y})\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})$
-
-
-
-$\displaystyle \because \sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})=0$
-
-$\displaystyle \therefore \sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}$
-
-** Expectations of the Sums of Squares                               :slide:
-
-For $X_{i}$ where i=1,....,n, be independent random variables with
-$E[X_{i}]=\mu_{i}$ and $Var(X_{i})=\sigma^{2}$
-
-Then:
-
-$E(X_{i}-\overline{X})^{2}=(\mu_{i}-\overline\mu)^{2}+\frac{n-1}{n}\sigma^{2}$
-
-where
-
-$\displaystyle \overline{\mu}=\frac{1}{n}\sum_{i=1}^{n}{\mu_{i}}$
-
-*** Proof
-:PROPERTIES:
-:VISIBILITY: folded
-:END:
-
-$E(U^{2})=[E(U)]^{2}+Var(U)$ for any random variable U with a finite variance
-
-$[E(X_{i}-\overline{X})]^{2}=[E(X_{i})-E(\overline{X}))]^{2}$
-             $=(\mu_{i}-\overline{\mu})^{2}$
-
-$Var(X_{i}-\overline{X})=Var(X_{i})+Var(\overline{X})-2Cov(X{i},\overline{X})$
-
-+ $Var(X_{i})=\sigma^{2}$
-+ $Var(\overline{X})=\frac{1}{n}\sigma^{2}$
-+ $Cov(X{i},\overline{X})=\frac{1}{n}\sigma^{2}$
-
-$Var(X_{i}-\overline{X})=\frac{n-1}{n}\sigma^{2}$
-
-** Expectation of Within Sums of Squares                             :slide:
-
-$\displaystyle E(SS_{W})=I(J-1)\sigma^{2}$
-
-*** Proof
-:PROPERTIES:
-:VISIBILITY: folded
-:END:
-
-$\displaystyle E(SS_{W})=\sum_{i=1}^{I}\sum_{j=1}^{J}E(Y_{ij}-\overline{Y_{i}})^{2}$
-
-        $\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{\frac{J-1}{J}\sigma^{2}}$
-
-
-        $=I(J-1)\sigma^{2}$
-
-(since $E(Y_{ij})=E(\overline Y_{i})=\mu+\alpha_{i}$)
-
-** Expectation of Between Sums of Squares                            :slide:
-
-$\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}$
-*** Proof
-:PROPERTIES:
-:VISIBILITY: folded
-:END:
-
-
-$\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{E(\overline{Y_{i}}-\overline{Y})^{2}$
-
-        $\displaystyle =J\sum_{i=1}^{I}\Big[\alpha_{i}^{2}+\frac{(I-1)\sigma^{2}}{IJ}\Big]$
-
-        $\displaystyle =J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}$
-
-
-** Estimating $\sigma^{2}$                                           :slide:
-
-Thus
-$\displaystyle s_{p}^{2}=\frac{SS_{W}}{I(J-1)}$ is an unbiased estimator of $\sigma^{2}$
-
-$\displaystyle SS_{W}=\sum_{i=1}^{I}(J-I)s_{i}^{2}$
-
-if all the $\alpha_{i}=0$, then $\displaystyle \frac{E(SS_{B})}{(I-1)}=\sigma^{2}$
-
-Thus, this should be the case:
-
-$\displaystyle \frac{SS_{W}}{I(J-1)} = \frac{SS_{B}}{(I-1)}$
-
-Since
-$\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}$
-
-If some of the $\alpha_{i} \ne 0$, $SS_{B}$ will be inflated
-
-** The test statistic                                                :slide:
-
-$F=\frac{SS_{B}/(I-1)}{SS_{W}/[I(J-1)]}$
-
-If the null hypothesis is true, the F statistic should be close to 1.
-
-If the null hypothesis is false, the F statistic would be inflated.
