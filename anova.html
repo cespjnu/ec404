@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-01-17 Wed 16:52 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ANOVA: Analysis of Variance</title>
+<meta name="author" content="Vikas Rawal" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<style>#content{max-width:1200px;} </style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">ANOVA: Analysis of Variance</h1>
+<div id="outline-container-orgcee23a1" class="outline-2">
+<h2 id="orgcee23a1">Equality of means of multiple groups</h2>
+<div class="outline-text-2" id="text-orgcee23a1">
+<ul class="org-ul">
+<li>There are more than two samples/groups, and you want to test for equality of population means among all the groups.</li>
+</ul>
+<ul class="org-ul">
+<li>Example 1: there are four social groups: SC, ST, OBC and Others
+<ul class="org-ul">
+<li>And you want to test if the average wage of workers belonging to these groups is same.</li>
+</ul></li>
+</ul>
+<ul class="org-ul">
+<li>Example 2: There are four different Covid vaccines which reduce the severity of impact Covid infection has on patients (say, measured in terms of drop in blood oxygen levels)
+<ul class="org-ul">
+<li>And you want to test if all the vaccines are equally effective</li>
+</ul></li>
+</ul>
+<ul class="org-ul">
+<li>Example 3: Three states implemented three different social security programmes
+<ul class="org-ul">
+<li>And you want to test if all the three interventions were equally effective (say, in terms of average income/consumption of beneficiaries)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgcd30495" class="outline-2">
+<h2 id="orgcd30495">Intuition</h2>
+<div class="outline-text-2" id="text-orgcd30495">
+
+<div id="org3f049fd" class="figure">
+<p><img src="anova-illustration.png" alt="anova-illustration.png" />
+</p>
+</div>
+
+<ul class="org-ul">
+<li>Greater the variability between sample means of groups and smaller the variability within the sample means of groups, stronger is the evidence that the population means differ</li>
+<li>We create a test statistic that is ratio of estimates of &ldquo;between group variance&rdquo; and &ldquo;within group variance&rdquo;</li>
+<li>The estimator for within group variance is an unbiased estimator of population variance irrespective of weather H0 is true or not.</li>
+<li>Between group estimator is unbiased only if H0 is true, and in that case, yields a value close to the value of the within group estimate.</li>
+<li>So, we expect the ratio to be close to 1 if H0 is true. It will be higher than 1 if H0 is false.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6eecbd1" class="outline-2">
+<h2 id="org6eecbd1">Model description</h2>
+<div class="outline-text-2" id="text-org6eecbd1">
+<dl class="org-dl">
+<dt>I</dt><dd>treatments/groups</dd>
+<dt>J</dt><dd>samples in each size (let us assume equal sample size for the sake of simplicity)</dd>
+<dt>\(Y_{i,j}\)</dt><dd>\(j^{th}\) observation of the \(i^{th}\) treatment</dd>
+</dl>
+<ul class="org-ul">
+<li><p>
+The model:
+</p>
+
+<p>
+\(Y_{i,j}= \mu+\alpha_{i}+\epsilon_{i,j}\)
+</p></li>
+</ul>
+<dl class="org-dl">
+<dt>\(\mu\)</dt><dd>overall mean</dd>
+<dt>\(\alpha_{i}\)</dt><dd>differential effect of the \(i^{th}\) treatment</dd>
+<dt>(no term)</dt><dd>The effect of the treatment is normalised so that: \(\displaystyle\sum_{i=i}^{I}{\alpha_{i}}=0\)</dd>
+<dt>(no term)</dt><dd>\(\epsilon_{i,j}\) are the random errors which are assumed to be independent, normally distributed with zero mean and variance \(\sigma^{2}\)</dd>
+<dt>(no term)</dt><dd>The expected response to \(i^{th}\) treatment:   \(E(Y_{i,j})= \mu+\alpha_{i}\)</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-orge190bb1" class="outline-2">
+<h2 id="orge190bb1">Basic identity</h2>
+<div class="outline-text-2" id="text-orge190bb1">
+<p>
+\(\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+J\sum_{i=1}^{I}{(\overline{Y}_{i}-\overline{Y})^{2}}\)
+</p>
+
+
+<p>
+\(SS_{ToT}=SS_{W}+SS_{B}\)
+</p>
+<p>
+where \(\displaystyle\overline{Y_{i}}=\frac{1}{J}\sum_{j=1}^{J}{Y_{ij}}\)
+and \(\displaystyle\overline{Y}=\frac{1}{IJ}\sum_{i=1}^{I}\sum_{j=1}^{J}Y_{ij}\)
+</p>
+</div>
+</div>
+<div id="outline-container-orgc2cd3b1" class="outline-2">
+<h2 id="orgc2cd3b1">Basic identity (Proof)</h2>
+<div class="outline-text-2" id="text-orgc2cd3b1">
+<p>
+
+</p>
+
+<p>
+\(\displaystyle\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{[(Y_{ij}-\overline{Y_{i}})+(\overline{Y_{i}}-\overline{Y})]^{2}}\)
+</p>
+
+<p>
+\(\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})(\overline{Y_{i}}-\overline{Y})\)
+</p>
+
+<p>
+\(\displaystyle =\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}+2\sum_{i=1}^{I}(\overline{Y_{i}}-\overline{Y})\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})\)
+</p>
+
+<p>
+\(\displaystyle \because \sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})=0\)
+</p>
+
+<p>
+\(\displaystyle \therefore \sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y})^{2}}=\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{ij}-\overline{Y_{i}})^{2}}+\sum_{i=1}^{I}\sum_{j=1}^{J}{(Y_{i}-\overline{Y})^{2}}\)
+</p>
+</div>
+</div>
+<div id="outline-container-orgf9c6d6e" class="outline-2">
+<h2 id="orgf9c6d6e">Expectations &#x2026;</h2>
+<div class="outline-text-2" id="text-orgf9c6d6e">
+<p>
+For \(X_{i}\) where i=1,&#x2026;.,n, be independent random variables with
+</p>
+
+<p>
+\(E[X_{i}]=\mu_{i}\), and
+\(Var(X_{i})=\sigma^{2}\)
+</p>
+<p>
+It can be shown that:
+</p>
+
+<p>
+\(E(X_{i}-\overline{X})^{2}=(\mu_{i}-\overline\mu)^{2}+\frac{n-1}{n}\sigma^{2}\)
+</p>
+
+<p>
+where
+</p>
+
+<p>
+\(\displaystyle \overline{\mu}=\frac{1}{n}\sum_{i=1}^{n}{\mu_{i}}\)
+</p>
+<p>
+
+</p>
+
+<p>
+\(E(U^{2})=[E(U)]^{2}+Var(U)\) for any random variable U with a finite variance
+</p>
+
+<p>
+\([E(X_{i}-\overline{X})]^{2}=[E(X_{i})-E(\overline{X}))]^{2}\)
+             \(=(\mu_{i}-\overline{\mu})^{2}\)
+</p>
+
+<p>
+\(Var(X_{i}-\overline{X})=Var(X_{i})+Var(\overline{X})-2Cov(X{i},\overline{X})\)
+</p>
+
+<ul class="org-ul">
+<li>\(Var(X_{i})=\sigma^{2}\)</li>
+<li>\(Var(\overline{X})=\frac{1}{n}\sigma^{2}\)</li>
+<li>\(Cov(X{i},\overline{X})=\frac{1}{n}\sigma^{2}\)</li>
+</ul>
+
+<p>
+\(Var(X_{i}-\overline{X})=\frac{n-1}{n}\sigma^{2}\)
+</p>
+</div>
+</div>
+<div id="outline-container-org1f0bd26" class="outline-2">
+<h2 id="org1f0bd26">Expectation of Within Sums of Squares</h2>
+<div class="outline-text-2" id="text-org1f0bd26">
+<ul class="org-ul">
+<li>Using \(E(X_{i}-\overline{X})^{2}=(\mu_{i}-\overline\mu)^{2}+\frac{n-1}{n}\sigma^{2}\)</li>
+<li>We can show that \(\displaystyle E(SS_{W})=I(J-1)\sigma^{2}\)</li>
+</ul>
+<p>
+
+</p>
+
+<p>
+\(\displaystyle E(SS_{W})=\sum_{i=1}^{I}\sum_{j=1}^{J}E(Y_{ij}-\overline{Y_{i}})^{2}\)
+</p>
+
+<p>
+\(\because E(Y_{ij})=E(\overline{Y_{i}})=\mu+\alpha_{i}\)
+</p>
+
+<p>
+\(\displaystyle E(SS_{W})=\sum_{i=1}^{I}\sum_{j=1}^{J}{\frac{J-1}{J}\sigma^{2}}\)
+</p>
+
+<p>
+\(=I(J-1)\sigma^{2}\)
+</p>
+<p>
+Pooled variance (\(s_{p}^{2}\)) is an unbiased estimator of population variance.
+</p>
+
+<p>
+\(\displaystyle s_{p}^{2}=\frac{SS_{W}}{I(J-1)}\) is an unbiased estimator of \(\sigma^{2}\)
+</p>
+
+
+<p>
+\(\displaystyle SS_{W}=\sum_{i=1}^{I}(J-I)s_{i}^{2}\)
+</p>
+</div>
+</div>
+<div id="outline-container-org196fc06" class="outline-2">
+<h2 id="org196fc06">Expectation of Between Sums of Squares</h2>
+<div class="outline-text-2" id="text-org196fc06">
+<p>
+\(\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}\)
+</p>
+<p>
+\(\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{E(\overline{Y_{i}}-\overline{Y})^{2}\)
+</p>
+
+<ul class="org-ul">
+<li>Using \(E(X_{i}-\overline{X})^{2}=(\mu_{i}-\overline\mu)^{2}+\frac{n-1}{n}\sigma^{2}\)</li>
+</ul>
+
+<p>
+\(\displaystyle E(\overline{Y_{i}}-\overline{Y})^{2}=\Big[E(\overline{Y_{i}})-\frac{1}{I}\sum_{i=i}^{I}{E(\overline{Y_{i}})]^{2}]+\frac{I-1}{I}\frac{\sigma^{2}}{J}\)
+</p>
+
+
+<p>
+\(\displaystyle = [\mu+\alpha_{i}-\frac{1}{I}\sum_{i=1}^{I}{(\mu+\alpha_{i})}]^{2}+\frac{I-1}{I}\frac{\sigma^{2}}{J}\)
+</p>
+
+<p>
+\(\displaystyle = [\mu+\alpha_{i}-\frac{1}{I}I\mu-\frac{1}{I}\sum_{i=1}^{I}{\alpha_{i}}]^{2}+\frac{I-1}{I}\frac{\sigma^{2}}{J}\)
+</p>
+
+<p>
+\(\displaystyle = \alpha_{i}^{2}+\frac{(I-1)\sigma^{2}}{IJ}\), since \(\displaystyle \sum_{i=1}^{I}{\alpha_{i}=0}\) and \(\mu\) s cancel out
+</p>
+
+
+<p>
+\(\displaystyle \therefore E(SS_{B})=J\sum_{i=1}^{I}\Big[\alpha_{i}^{2}+\frac{(I-1)\sigma^{2}}{IJ}\Big]\)
+</p>
+
+
+<p>
+\(\displaystyle =J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}\)
+</p>
+</div>
+</div>
+<div id="outline-container-orgdebdc4f" class="outline-2">
+<h2 id="orgdebdc4f">Estimating \(\sigma^{2}\)</h2>
+<div class="outline-text-2" id="text-orgdebdc4f">
+<p>
+
+</p>
+
+<p>
+Pooled variance (Sp square) of all samples is an unbiased estimator of population variance.
+</p>
+
+<p>
+\(\displaystyle s_{p}^{2}=\frac{SS_{W}}{I(J-1)}\) is an unbiased estimator of \(\sigma^{2}\)
+</p>
+
+<p>
+\(\displaystyle SS_{W}=\sum_{i=1}^{I}(J-I)s_{i}^{2}\)
+</p>
+
+<p>
+
+</p>
+
+<p>
+if all the \(\alpha_{i}=0\), then \(\displaystyle \frac{E(SS_{B})}{(I-1)}=\sigma^{2}\)
+</p>
+
+<p>
+Thus, this should be the case:
+</p>
+
+<p>
+\(\displaystyle \frac{SS_{W}}{I(J-1)} = \frac{SS_{B}}{(I-1)}\)
+</p>
+
+<p>
+Since
+\(\displaystyle E(SS_{B})=J\sum_{i=1}^{I}{\alpha_{i}^{2}}+(I-1)\sigma^{2}\)
+</p>
+
+<p>
+If some of the \(\alpha_{i} \ne 0\), \(SS_{B}\) will be inflated
+</p>
+</div>
+</div>
+<div id="outline-container-orgc649d87" class="outline-2">
+<h2 id="orgc649d87">The test statistic</h2>
+<div class="outline-text-2" id="text-orgc649d87">
+<p>
+\(H0: \alpha_{1} = \alpha_{2} = \alpha_{3} = ... = 0\)
+Ha: At least one \(\alpha \ne 0\)
+</p>
+
+
+<p>
+\(F=\frac{SS_{B}/(I-1)}{SS_{W}/[I(J-1)]}\)
+</p>
+
+<p>
+follows an F distribution with degrees of freedom I-1 and I(J-1)
+</p>
+
+<p>
+If the null hypothesis is true, the F statistic should be close to 1.
+</p>
+
+<p>
+If the null hypothesis is false, the F statistic would be inflated.
+</p>
+</div>
+</div>
+<div id="outline-container-orgfe6eb62" class="outline-2">
+<h2 id="orgfe6eb62">If sample sizes for all treatments are not equal</h2>
+<div class="outline-text-2" id="text-orgfe6eb62">
+<p>
+\(\displaystyle F=\frac{SS_{B}/(I-1)}{SS_{W}/\displaystyle \sum_{i=1}^{I}{(J_{i}-1)}}\)
+follows an F distribution with degrees of freedom \(\displaystyle \sum_{i=1}^{I}{(J_{i}-1)}}\) and I-1
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Vikas Rawal</p>
+<p class="date">Created: 2024-01-17 Wed 16:52</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
