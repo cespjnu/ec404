@@ -102,7 +102,7 @@
 
 + If $\overline{X}$ is the best estimator of \mu_{0}, the following is the best statistic that can be devised.
 
-$Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
+  $Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
 
 + where: $\overline{X}$ = sample mean,  $\mu_{0}$ = population mean,
   - $\sigma/\sqrt{n}$ = population standard deviation.
@@ -183,10 +183,10 @@ $Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
 
 + Pearson’s chi-square (\chi^{2}) is the test statistic for the chi-square test of independence:
 
-  \begin{equation*}\chi^2 = \sum {\frac {(O-E)^2}{E}}$\end{equation*}
+  $\displaystyle \chi^{2} = \sum{\frac{(O-E)^2}{E}}$
 
 + Where
-  - \chi^{2} is the chi-square test statistic
+  - $\chi^{2}$ is the chi-square test statistic
   - O is the observed frequency in the contingency table
   - E is the expected frequency; they are such that the proportions of one variable are the same for all values of the other variable.
 
@@ -206,13 +206,13 @@ $Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
 + Suppose, we want to test a hypothesis about the population mean (\mu) of a normally distributed variable (X).
   - H_{0}: \mu = \mu_{0}
 
-+ We know, if,  X ~ N(\mu, \sigma^{2}),
++ We know, if,  $X ~ N(\mu, \sigma^{2})$,
 
-+ then, $\overline{X}$ ~ N(\mu, \sigma^{2}/n)
++ then, $\overline{X} ~ N(\mu, \sigma^{2}/n)$
 
 + Test statistic, if \sigma known, is
 
-  $Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
+  $Z = {\frac{\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
 
 * t - statistic
 
