@@ -102,10 +102,10 @@
 
 + If $\overline{X}$ is the best estimator of \mu_{0}, the following is the best statistic that can be devised.
 
-  $Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
+  $\displaystyle Z = {\frac{\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
 
 + where: $\overline{X}$ = sample mean,  $\mu_{0}$ = population mean,
-  - $\sigma/\sqrt{n}$ = population standard deviation.
+  - $\displaystyle \frac{\sigma}{\sqrt{n}}$ = population standard deviation.
 
 * Z - test
 
