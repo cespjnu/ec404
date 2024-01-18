@@ -18,7 +18,7 @@
 #+LATEX_HEADER: \setbeamertemplate{footline}[P]{}
 #+LATEX_HEADER: \usepackage{tabulary,booktabs,xcolor,lmodern,graphicx,wrapfig,underscore,ulem}
 #+LATEX_HEADER: \usepackage{fontspec,xltxtra,polyglossia,setspace,soul}
-#+LATEX_HEADER:\usepackage{amsmath,comment,multirow,threeparttable,longtable,tabularx,float,url}
+#+LATEX_HEADER: \usepackage{amsmath,comment,multirow,threeparttable,longtable,tabularx,float,url}
 #+LATEX_HEADER: \let\olditem\item
 #+LATEX_HEADER: \renewcommand{\item}{%
 #+LATEX_HEADER: \olditem\vspace{8pt}}
@@ -101,7 +101,8 @@
 + Suppose we want to test a hypothesis about mean of a normal population with *known* variance \sigma^{2}.
 
 + If $\overline{X}$ is the best estimator of \mu_{0}, the following is the best statistic that can be devised.
-\begin{equation*}Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$\end{equation*}
+
+$Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
 
 + where: $\overline{X}$ = sample mean,  $\mu_{0}$ = population mean,
   - $\sigma/\sqrt{n}$ = population standard deviation.
@@ -210,13 +211,14 @@
 + then, $\overline{X}$ ~ N(\mu, \sigma^{2}/n)
 
 + Test statistic, if \sigma known, is
-  \begin{equation*} Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$\end{equation*}
+
+  $Z = {\frac {\overline{X}-\mu_{0}}{(\sigma/ \sqrt{n})}}$
 
 * t - statistic
 
 + If \sigma is not known, then the test statistic is given by:
 
- \begin{equation*}t = {\frac {\overline{X}-\mu_{0}}{(s/ \sqrt{n})}}$\end{equation*}
+ $t = {\frac {\overline{X}-\mu_{0}}{(s/ \sqrt{n})}}$
 
 + where: $\overline{X}$ = sample mean,  $\mu_{0}$ = population mean,
   - $s/\sqrt{n}$ = standard error
@@ -260,7 +262,7 @@
 + *One-sample t-test* is performed when a sample statistic is compared to a constant given value;
 + For example: H_{0}: Average wage of women is equal to Rs. 180.
 
- \begin{equation*}t = {\frac {\overline{X}-\mu_{0}}{(s/ \sqrt{n})}}$\end{equation*}
+ $t = {\frac {\overline{X}-\mu_{0}}{(s/ \sqrt{n})}}$
 
 + If t_{obtained} > t_{critical}, H_{0} can be rejected.
 
@@ -269,7 +271,7 @@
 
 + *Two sample un-paired t-test*; compares the averages/means of two independent or unrelated groups.
 
-+ t = $\frac {(\overline{X_{1}}-\overline{X_{2}})} {\sqrt{(s^{2}_{1}/n_{1} + s^{2}_{2}/n_{2})}}$
++ $t = \frac{(\overline{X_{1}}-\overline{X_{2}})}{\sqrt{(s^{2}_{1}/n_{1} + s^{2}_{2}/n_{2})}}$
 + $dof = n_{1} + n_{2} - 2$
 
 + For example:
@@ -282,7 +284,7 @@
 + *Two sample paired t-test*; compares the averages/means and standard deviations of two related groups
   - related by being the same group of people, the same item, or being subjected to the same conditions
 
-+ t = $\frac {\sum{(X_{1}-X_{2})}} {s/\sqrt{n}}$
++ t = $\frac{\sum{(X_{1}-X_{2})}}{s/\sqrt{n}}$
 + $dof = n - 1$
 
 + For example:
@@ -308,11 +310,11 @@
 
 + The sampling distribution of the statistic is obtained by dividing the numerator by \sigma^{2}_{1} and denominator by \sigma^{2}_{2}; if H_{0} is true, then ratio will be unaffected.
 
-- F = $\frac {s^{2}_{1}/\sigma^{2}_{1}} {s^{2}_{2}/\sigma^{2}_{2}}$;
+- F = $\frac{s^{2}_{1}/\sigma^{2}_{1}}{s^{2}_{2}/\sigma^{2}_{2}}$;
 
 - which is equivalent to;
 
-- F = $\frac {\chi^{2}_{n_{1}-1}/(n_{1}-1)} {\chi^{2}_{n_{2}-1}/(n_{2}-1)}$
+- F = $\frac{\chi^{2}_{n_{1}-1}/(n_{1}-1)}{\chi^{2}_{n_{2}-1}/(n_{2}-1)}$
 
 - *Let U and V be independent chi-square random variables with m and n degrees of freedom, respectively. The distribution of $W = \frac {U/m} {V/n}$ is called the F distribution with m and n degrees of freedom.*
 
