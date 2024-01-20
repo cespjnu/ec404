@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-01-20 Sat 12:32 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Statistical Association between Variables</title>
+<meta name="author" content="Vikas Rawal" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<style>#content{max-width:1200px;} </style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Statistical Association between Variables</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org5e3f1f7">1. Deterministic/Exact vs Stochastic/Non-exact Relationships&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#orgd866bb8">2. Association and Causality&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a>
+<ul>
+<li><a href="#org7ca72f9">2.1. Explanatory and explained variables</a></li>
+<li><a href="#orgdf2b713">2.2. Statistical association and causality</a></li>
+</ul>
+</li>
+<li><a href="#orgf8da99b">3. The Classical Linear Regression Model&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#org0ed4ca6">4. Why linear?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#org767b6b7">5. Assumptions of the CLRM&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#orgb64dc3c">6. Then what?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#orgfd07e19">7. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#org62ac5c1">8. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#org7f30842">9. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#org115ef99">10. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#org9f506ea">11. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+<li><a href="#org1068b11">12. Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a>
+<ul>
+<li><a href="#org10e974b">12.1. Sum of Squares of Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org5e3f1f7" class="outline-2">
+<h2 id="org5e3f1f7"><span class="section-number-2">1.</span> Deterministic/Exact vs Stochastic/Non-exact Relationships&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Unpredictable nature of human responses</li>
+<li>Large number of unmeasured and unmeasurable variables</li>
+<li>Measurement errors</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd866bb8" class="outline-2">
+<h2 id="orgd866bb8"><span class="section-number-2">2.</span> Association and Causality&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org7ca72f9" class="outline-3">
+<h3 id="org7ca72f9"><span class="section-number-3">2.1.</span> Explanatory and explained variables</h3>
+</div>
+
+<div id="outline-container-orgdf2b713" class="outline-3">
+<h3 id="orgdf2b713"><span class="section-number-3">2.2.</span> Statistical association and causality</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>Statistical association does not imply a causal relationship.
+<ul class="org-ul">
+<li>Association may be a result of causal relationship in either direction, or a bi-direction causal relationship.</li>
+<li>Association between two variables may be a result of causal relationship both have with other variables.</li>
+<li>Association may be spurious.</li>
+</ul></li>
+<li>Explanatory variables may not always be a cause, and the explained variables may not be the effect.</li>
+<li>Can we use time to capture causation?
+<ul class="org-ul">
+<li>Some advanced methods have been developed to empirically point at causation
+<ul class="org-ul">
+<li>Granger causality uses the time dimension to differentiate between cause and effect: if prior values of x can predict future values of y, then x is argued to be causing y</li>
+</ul></li>
+<li>But even predicting future effect does not necessarily establish causal relationship.</li>
+</ul></li>
+<li>We need a theoretical mechanism, consistent with empirical evidence and other related mechanisms, to establish causation.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf8da99b" class="outline-2">
+<h2 id="orgf8da99b"><span class="section-number-2">3.</span> The Classical Linear Regression Model&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-3">
+<p>
+\(Y = \alpha + \beta X + \mu\)
+</p>
+
+<p>
+A multiple variable regression would take the form:
+</p>
+
+
+<p>
+\(Y = \alpha + \beta_{a} X_{a} + \beta_{b} X_{b} + \beta_{c} X_{c} + \mu\)
+</p>
+</div>
+</div>
+<div id="outline-container-org0ed4ca6" class="outline-2">
+<h2 id="org0ed4ca6"><span class="section-number-2">4.</span> Why linear?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>Simplicity</li>
+<li>The slope is the constant marginal effect x has on y.</li>
+<li>You can often convert non-linear equations into linear models with some transformation.</li>
+</ul>
+
+<ul class="org-ul">
+<li>If, \(Y=e^{a+bX}\), then \(log(Y)=a+bX\) is a linear relationship between log(Y) and X.</li>
+<li>A relationship such as \(Y=a+bX^{2}\) can be considered linear between $Y and \(X^{2}\)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org767b6b7" class="outline-2">
+<h2 id="org767b6b7"><span class="section-number-2">5.</span> Assumptions of the CLRM&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-5">
+<ol class="org-ol">
+<li>Zero mean. \(E(\mu_{i})=0\) for all i.</li>
+<li>Common variance. \(var(\mu_{i})=\sigma^{2}\)</li>
+<li>Independence. \(cov(\mu_{i},\mu_{j})=0\) for all \(i \ne j\)</li>
+<li>Normality. \(\mu \sim IN(0,\sigma^2)\) For all i.
+(IN: Independent, Normal)</li>
+<li>\(X_{i}\) are not stochastic, and not all zero.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgb64dc3c" class="outline-2">
+<h2 id="orgb64dc3c"><span class="section-number-2">6.</span> Then what?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-6">
+<p>
+\(Y = \alpha + \beta X + \mu\)
+</p>
+
+<p>
+\(\because E(\mu_{i})=0\)
+</p>
+
+<p>
+\(E(Y_{i})=\alpha + \beta X_{i}\)
+</p>
+
+<p>
+The sample equation is:
+</p>
+
+<p>
+\(Y_i = \hat\alpha + \hat\beta X_{i} + \hat\mu_{i}\)
+</p>
+
+<p>
+where
+</p>
+
+<ul class="org-ul">
+<li>\(\hat\alpha\) is an estimator of \(\alpha\)</li>
+<li>\(\hat\beta\) is an estimator of \(\beta\)</li>
+<li>\(\hat\mu_i\) are the residuals</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgfd07e19" class="outline-2">
+<h2 id="orgfd07e19"><span class="section-number-2">7.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li><p>
+Based on the idea that the total sum of squares of residuals should be minimum. That is, you find the model estimators that are expected to maximise the explanatory power of your model.
+</p>
+
+<p>
+\(\displaystyle \min (Q=\sum(\mu_{i}^{2})=\sum_{i=1}^{n}{(Y_{i}-\hat\alpha-\hat\beta X_{i})}^{2})\)
+</p></li>
+<li>To minimise Q, we differentiate w.r.t \(\hat\alpha\) and \(\hat\beta\)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org62ac5c1" class="outline-2">
+<h2 id="org62ac5c1"><span class="section-number-2">8.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-8">
+<ul class="org-ul">
+<li><p>
+Differentiate w.r.t. \(\hat \alpha\)
+</p>
+
+<p>
+\(\frac{\delta Q}{\delta \hat\alpha}=\sum 2(Y_{i}-\hat\alpha-\hat\beta X_{i})(-1) = 0\)
+</p>
+
+<p>
+\(\implies \sum Y_{i} = n\hat\alpha + \hat\beta\sum X_{i}\)
+</p>
+
+<p>
+or
+</p>
+
+<p>
+\(\bar Y = \hat\alpha + \hat\beta \bar X\)
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7f30842" class="outline-2">
+<h2 id="org7f30842"><span class="section-number-2">9.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-9">
+<ul class="org-ul">
+<li><p>
+Differentiate w.r.t. \(\hat \beta\)
+</p>
+
+<p>
+\(\frac{\delta Q}{\delta \hat\beta}=\sum 2(Y_{i}-\hat\alpha-\hat\beta X_{i})(-X_{i}) = 0\)
+</p>
+
+<p>
+\(\displaystyle \implies \sum Y_{i}X_{i} = \hat\alpha\sum X_{i} + \hat\beta\sum X_{i}^{2}\)
+</p>
+
+<p>
+or
+</p>
+
+<p>
+\(\displaystyle \sum Y_{i}X_{i} = (\bar Y - \hat\beta \bar X)\sum X_{i} + \hat\beta\sum X_{i}^{2}\)
+</p></li>
+</ul>
+
+
+<p>
+\(\displaystyle = n \bar X ( \bar Y - \hat\beta \bar X) + \hat\beta\sum X_{i}^{2}\)
+</p>
+</div>
+</div>
+<div id="outline-container-org115ef99" class="outline-2">
+<h2 id="org115ef99"><span class="section-number-2">10.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-10">
+<p>
+\(\because \sum(X_{i}-\bar X)(Y_{i}-\bar Y) = \sum Y_{i}X_{i} - n\bar X \bar Y\)
+</p>
+
+<p>
+and \(\sum(X_i-\bar X)^{2} = \sum X_{i}^{2}-n\bar X^{2}\)
+</p>
+
+
+<p>
+\(\hat\beta = \frac{\sum(X_{i}-\bar X)(Y_{i}-\bar Y)}{\sum(X_i-\bar X)^{2}}\)
+</p>
+
+<p>
+\(\hat\alpha = \bar Y - \hat\beta \bar X\)
+</p>
+</div>
+</div>
+<div id="outline-container-org9f506ea" class="outline-2">
+<h2 id="org9f506ea"><span class="section-number-2">11.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-11">
+<p>
+If
+\(x_{i}=(X_{i}-\bar X)\)
+</p>
+
+<p>
+and
+\(y_{i}=(Y_{i}-\bar Y)\),
+</p>
+
+<p>
+\(\hat\beta = \frac{\sum x_{i}y_{i}}{x_{i}^{2}}\)
+</p>
+</div>
+</div>
+<div id="outline-container-org1068b11" class="outline-2">
+<h2 id="org1068b11"><span class="section-number-2">12.</span> Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-12">
+<p>
+\(\frac{\delta Q}{\delta \hat\alpha}=\sum 2(Y_{i}-\hat\alpha-\hat\beta X_{i})(-1) = 0\)
+</p>
+
+<p>
+\(\implies \sum\hat\mu_{i}=0\) and \(\sum x_{i}\hat\mu_{i}=0\)
+</p>
+</div>
+<div id="outline-container-org10e974b" class="outline-3">
+<h3 id="org10e974b"><span class="section-number-3">12.1.</span> Sum of Squares of Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-12-1">
+<p>
+\(RSS=\sum(Y_{i}-\hat\alpha - \hat\beta X_{i})^{2}\)
+</p>
+
+<ul class="org-ul">
+<li>Replacing the value of \(\hat\alpha\)</li>
+</ul>
+
+<p>
+\(RSS=\sum[Y_{i}-\bar Y - \hat\beta(X_{i}-\bar X)]^{2}\)
+</p>
+
+<p>
+\(=\sum(Y_i-\bar Y)^{2}+\hat\beta^{2}\sum(X_{i}-\bar X)^{2}-2\hat\beta\sum(Y_{i}-\bar Y)(X_{i}-\bar X)\)
+</p>
+
+
+<p>
+\(=\sum(Y_i-\bar Y)^{2}-\hat\beta\sum(Y_{i}-\bar Y)(X_{i}-\bar X)\)
+</p>
+
+<p>
+\(=TSS-ESS\)
+</p>
+
+<p>
+\(r^{2}=\frac{ESS}{TSS}=\frac{TSS-RSS}{TSS}\)
+</p>
+
+<ul class="org-ul">
+<li>Is a simple measure of Goodness of Fit of a regression.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Vikas Rawal</p>
+<p class="date">Created: 2024-01-20 Sat 12:32</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

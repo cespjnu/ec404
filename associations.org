@@ -1,8 +1,172 @@
-#+TITLE: Correlation and Regressions
+#+TITLE: Statistical Association between Variables
 #+PROPERTY: header-args:R :session acj :eval never-export
 #+STARTUP: hideall inlineimages hideblocks
 #+HTML_HEAD: <style>#content{max-width:1200px;} </style>
 
+* Deterministic/Exact vs Stochastic/Non-exact Relationships           :slide:
+
++ Unpredictable nature of human responses
++ Large number of unmeasured and unmeasurable variables
++ Measurement errors
+
+* Association and Causality                                           :slide:
+
+** Explanatory and explained variables
+
+** Statistical association and causality
+
++ Statistical association does not imply a causal relationship.
+  + Association may be a result of causal relationship in either direction, or a bi-direction causal relationship.
+  + Association between two variables may be a result of causal relationship both have with other variables.
+  + Association may be spurious.
++ Explanatory variables may not always be a cause, and the explained variables may not be the effect.
++ Can we use time to capture causation?
+  + Some advanced methods have been developed to empirically point at causation
+    + Granger causality uses the time dimension to differentiate between cause and effect: if prior values of x can predict future values of y, then x is argued to be causing y
+  + But even predicting future effect does not necessarily establish causal relationship.
++ We need a theoretical mechanism, consistent with empirical evidence and other related mechanisms, to establish causation.
+
+
+* The Classical Linear Regression Model                               :slide:
+
+$Y = \alpha + \beta X + \mu$
+
+A multiple variable regression would take the form:
+
+
+$Y = \alpha + \beta_{a} X_{a} + \beta_{b} X_{b} + \beta_{c} X_{c} + \mu$
+
+
+* Why linear?                                                         :slide:
+
++ Simplicity
++ The slope is the constant marginal effect x has on y.
++ You can often convert non-linear equations into linear models with some transformation.
+
+:Examples:
++ If, $Y=e^{a+bX}$, then $log(Y)=a+bX$ is a linear relationship between log(Y) and X.
++ A relationship such as $Y=a+bX^{2}$ can be considered linear between $Y and $X^{2}$
+:End:
+
+
+* Assumptions of the CLRM                                             :slide:
+
+1. Zero mean. $E(\mu_{i})=0$ for all i.
+2. Common variance. $var(\mu_{i})=\sigma^{2}$
+3. Independence. $cov(\mu_{i},\mu_{j})=0$ for all $i \ne j$
+4. Normality. $\mu \sim IN(0,\sigma^2)$ For all i.
+   (IN: Independent, Normal)
+5. $X_{i}$ are not stochastic, and not all zero.
+
+
+* Then what?                                                          :slide:
+
+$Y = \alpha + \beta X + \mu$
+
+$\because E(\mu_{i})=0$
+
+$E(Y_{i})=\alpha + \beta X_{i}$
+
+The sample equation is:
+
+$Y_i = \hat\alpha + \hat\beta X_{i} + \hat\mu_{i}$
+
+where
+
++ $\hat\alpha$ is an estimator of $\alpha$
++ $\hat\beta$ is an estimator of $\beta$
++ $\hat\mu_i$ are the residuals
+
+* The Least Square Estimators                                         :slide:
+
++ Based on the idea that the total sum of squares of residuals should be minimum. That is, you find the model estimators that are expected to maximise the explanatory power of your model.
+
+  $\displaystyle \min (Q=\sum(\mu_{i}^{2})=\sum_{i=1}^{n}{(Y_{i}-\hat\alpha-\hat\beta X_{i})}^{2})$
++ To minimise Q, we differentiate w.r.t $\hat\alpha$ and $\hat\beta$
+* The Least Square Estimators                                         :slide:
+
+  + Differentiate w.r.t. $\hat \alpha$
+
+    $\frac{\delta Q}{\delta \hat\alpha}=\sum 2(Y_{i}-\hat\alpha-\hat\beta X_{i})(-1) = 0$
+
+    $\implies \sum Y_{i} = n\hat\alpha + \hat\beta\sum X_{i}$
+
+    or
+
+    $\bar Y = \hat\alpha + \hat\beta \bar X$
+
+* The Least Square Estimators                                         :slide:
+
+  + Differentiate w.r.t. $\hat \beta$
+
+    $\frac{\delta Q}{\delta \hat\beta}=\sum 2(Y_{i}-\hat\alpha-\hat\beta X_{i})(-X_{i}) = 0$
+
+    $\displaystyle \implies \sum Y_{i}X_{i} = \hat\alpha\sum X_{i} + \hat\beta\sum X_{i}^{2}$
+
+    or
+
+    $\displaystyle \sum Y_{i}X_{i} = (\bar Y - \hat\beta \bar X)\sum X_{i} + \hat\beta\sum X_{i}^{2}$
+
+
+                          $\displaystyle = n \bar X ( \bar Y - \hat\beta \bar X) + \hat\beta\sum X_{i}^{2}$
+
+* The Least Square Estimators                                         :slide:
+
+
+$\because \sum(X_{i}-\bar X)(Y_{i}-\bar Y) = \sum Y_{i}X_{i} - n\bar X \bar Y$
+
+and $\sum(X_i-\bar X)^{2} = \sum X_{i}^{2}-n\bar X^{2}$
+
+
+     $\hat\beta = \frac{\sum(X_{i}-\bar X)(Y_{i}-\bar Y)}{\sum(X_i-\bar X)^{2}}$
+
+    $\hat\alpha = \bar Y - \hat\beta \bar X$
+
+* The Least Square Estimators                                         :slide:
+If
+$x_{i}=(X_{i}-\bar X)$
+
+and
+$y_{i}=(Y_{i}-\bar Y)$,
+
+    $\hat\beta = \frac{\sum x_{i}y_{i}}{x_{i}^{2}}$
+
+
+
+* Residuals                                                           :slide:
+
+$\frac{\delta Q}{\delta \hat\alpha}=\sum 2(Y_{i}-\hat\alpha-\hat\beta X_{i})(-1) = 0$
+
+$\implies \sum\hat\mu_{i}=0$ and $\sum x_{i}\hat\mu_{i}=0$
+
+** Sum of Squares of Residuals                                       :slide:
+
+$RSS=\sum(Y_{i}-\hat\alpha - \hat\beta X_{i})^{2}$
+
++ Replacing the value of $\hat\alpha$
+
+$RSS=\sum[Y_{i}-\bar Y - \hat\beta(X_{i}-\bar X)]^{2}$
+
+            $=\sum(Y_i-\bar Y)^{2}+\hat\beta^{2}\sum(X_{i}-\bar X)^{2}-2\hat\beta\sum(Y_{i}-\bar Y)(X_{i}-\bar X)$
+
+
+            $=\sum(Y_i-\bar Y)^{2}-\hat\beta\sum(Y_{i}-\bar Y)(X_{i}-\bar X)$
+
+            $=TSS-ESS$
+
+  $r^{2}=\frac{ESS}{TSS}=\frac{TSS-RSS}{TSS}$
+
+  + Is a simple measure of Goodness of Fit of a regression.
+
+* Properties of the OLS Estimators                                 :noexport:
+
+1. OLS estimators are unbiased.
+   $E(\hat\beta)=\beta$
+2. OLS estimators have lowest variance among all linear estimators
+
+
+
+* Illustrations                                                    :noexport:
 
 #+NAME: sassociation1
 #+BEGIN_SRC R :results output list org
@@ -27,7 +191,7 @@
 - 95 percent confidence interval:
 - 0.1726625 0.1921962
 - sample estimates:
-- cor 
+- cor
 - 0.1824473
 - Pearson's product-moment correlation
 - data:  worker$wage and worker$age
@@ -36,7 +200,7 @@
 - 95 percent confidence interval:
 - 0.03819950 0.05835859
 - sample estimates:
-- cor 
+- cor
 - 0.04828396
 #+end_src
 
@@ -65,10 +229,10 @@
 - age
 - years_edu, data = worker)
 - Residuals:
-- Min      1Q  Median      3Q     Max 
-- -292.30  -74.80  -14.61   57.25 2170.72 
+- Min      1Q  Median      3Q     Max
+- -292.30  -74.80  -14.61   57.25 2170.72
 - Coefficients:
-- Estimate Std. Error t value            Pr(>|t|)    
+- Estimate Std. Error t value            Pr(>|t|)
 - (Intercept) 327.62380    3.44462   95.11 <0.0000000000000002 ***
 - sex         -97.04291    1.67477  -57.94 <0.0000000000000002 ***
 - age           1.38151    0.05526   25.00 <0.0000000000000002 ***
@@ -76,7 +240,7 @@
 - ---
 - Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 - Residual standard error: 121.9 on 37631 degrees of freedom
-- Multiple R-squared:  0.1261,	Adjusted R-squared:  0.126 
+- Multiple R-squared:  0.1261,  Adjusted R-squared:  0.126
 - F-statistic:  1809 on 3 and 37631 DF,  p-value: < 0.00000000000000022
 - Call:
 - lm(formula = wage ~ sex
@@ -87,10 +251,10 @@
 - religion
 - quarter, data = worker)
 - Residuals:
-- Min      1Q  Median      3Q     Max 
-- -315.65  -72.11  -14.15   52.51 2140.20 
+- Min      1Q  Median      3Q     Max
+- -315.65  -72.11  -14.15   52.51 2140.20
 - Coefficients:
-- Estimate Std. Error t value             Pr(>|t|)    
+- Estimate Std. Error t value             Pr(>|t|)
 - (Intercept)   257.94757    3.99129  64.628 < 0.0000000000000002 ***
 - sex           -86.56036    1.65149 -52.414 < 0.0000000000000002 ***
 - age             1.23305    0.05423  22.735 < 0.0000000000000002 ***
@@ -101,10 +265,10 @@
 - social_group9  36.39078    2.37599  15.316 < 0.0000000000000002 ***
 - religion2      15.28020    1.88933   8.088 0.000000000000000626 ***
 - religion3      70.06425    3.05735  22.917 < 0.0000000000000002 ***
-- religion4       0.90753    4.34322   0.209             0.834486    
-- religion5       9.92952   16.27422   0.610             0.541774    
+- religion4       0.90753    4.34322   0.209             0.834486
+- religion5       9.92952   16.27422   0.610             0.541774
 - religion6     -27.61440    5.46808  -5.050 0.000000443610331942 ***
-- religion7     -28.12453   44.72117  -0.629             0.529427    
+- religion7     -28.12453   44.72117  -0.629             0.529427
 - religion9      22.53928    5.90700   3.816             0.000136 ***
 - quarterQ2      11.19254    1.98958   5.626 0.000000018618898647 ***
 - quarterQ3      15.15791    1.89871   7.983 0.000000000000001465 ***
@@ -113,7 +277,7 @@
 - ---
 - Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 - Residual standard error: 118.3 on 37616 degrees of freedom
-- Multiple R-squared:  0.1778,	Adjusted R-squared:  0.1774 
+- Multiple R-squared:  0.1778,  Adjusted R-squared:  0.1774
 - F-statistic: 451.8 on 18 and 37616 DF,  p-value: < 0.00000000000000022
 - Call:
 - lm(formula = wage ~ sex
@@ -125,24 +289,24 @@
 - quarter
 - state, data = worker)
 - Residuals:
-- Min      1Q  Median      3Q     Max 
-- -421.28  -53.87   -3.68   47.22 1919.02 
+- Min      1Q  Median      3Q     Max
+- -421.28  -53.87   -3.68   47.22 1919.02
 - Coefficients:
-- Estimate Std. Error t value             Pr(>|t|)    
+- Estimate Std. Error t value             Pr(>|t|)
 - (Intercept)    444.01115    4.77338  93.018 < 0.0000000000000002 ***
 - sex            -90.39577    1.35581 -66.673 < 0.0000000000000002 ***
-- age              0.09864    0.04447   2.218             0.026552 *  
+- age              0.09864    0.04447   2.218             0.026552 *
 - years_edu        0.78564    0.12845   6.116  0.00000000096630021 ***
 - sector2         20.38448    1.17589  17.335 < 0.0000000000000002 ***
 - social_group2    8.16327    1.89780   4.301  0.00001701239040995 ***
 - social_group3    7.00001    1.82389   3.838             0.000124 ***
 - social_group9   14.48824    2.02081   7.170  0.00000000000076649 ***
-- religion2        3.06706    1.61097   1.904             0.056937 .  
-- religion3        3.99327    3.09503   1.290             0.196982    
-- religion4        1.21196    4.75423   0.255             0.798784    
-- religion5       18.31698   13.00836   1.408             0.159112    
-- religion6       11.40087    4.59791   2.480             0.013158 *  
-- religion7        1.18490   35.69842   0.033             0.973522    
+- religion2        3.06706    1.61097   1.904             0.056937 .
+- religion3        3.99327    3.09503   1.290             0.196982
+- religion4        1.21196    4.75423   0.255             0.798784
+- religion5       18.31698   13.00836   1.408             0.159112
+- religion6       11.40087    4.59791   2.480             0.013158 *
+- religion7        1.18490   35.69842   0.033             0.973522
 - religion9       22.95917    4.86976   4.715  0.00000243003135992 ***
 - quarterQ2       10.21411    1.58877   6.429  0.00000000013002120 ***
 - quarterQ3       16.82258    1.51923  11.073 < 0.0000000000000002 ***
@@ -150,17 +314,17 @@
 - quarterQ5       33.08983    1.95044  16.965 < 0.0000000000000002 ***
 - state02        -68.16250    5.62831 -12.111 < 0.0000000000000002 ***
 - state03        -96.24984    5.63379 -17.084 < 0.0000000000000002 ***
-- state04        -71.16512   23.87015  -2.981             0.002872 ** 
+- state04        -71.16512   23.87015  -2.981             0.002872 **
 - state05       -115.06098    7.55209 -15.236 < 0.0000000000000002 ***
 - state06        -69.65578    5.27142 -13.214 < 0.0000000000000002 ***
 - state07        -46.63160   13.00126  -3.587             0.000335 ***
 - state08        -93.14096    4.86947 -19.128 < 0.0000000000000002 ***
 - state09       -130.45617    4.11177 -31.728 < 0.0000000000000002 ***
-- state1         -14.79943    6.61379  -2.238             0.025249 *  
+- state1         -14.79943    6.61379  -2.238             0.025249 *
 - state10       -111.30326    4.22934 -26.317 < 0.0000000000000002 ***
-- state11        -30.89194   13.71763  -2.252             0.024329 *  
+- state11        -30.89194   13.71763  -2.252             0.024329 *
 - state12        -69.11195    8.17680  -8.452 < 0.0000000000000002 ***
-- state13        -23.54944   16.54163  -1.424             0.154557    
+- state13        -23.54944   16.54163  -1.424             0.154557
 - state14        -58.14358    5.19732 -11.187 < 0.0000000000000002 ***
 - state15        -67.54526    6.62181 -10.200 < 0.0000000000000002 ***
 - state16        -45.92342    5.48738  -8.369 < 0.0000000000000002 ***
@@ -173,29 +337,29 @@
 - state22       -172.27146    4.70857 -36.587 < 0.0000000000000002 ***
 - state23       -161.52791    4.12939 -39.117 < 0.0000000000000002 ***
 - state24       -145.44044    4.54569 -31.995 < 0.0000000000000002 ***
-- state25        -63.12764   47.32958  -1.334             0.182281    
+- state25        -63.12764   47.32958  -1.334             0.182281
 - state26       -102.84861   30.08812  -3.418             0.000631 ***
 - state27       -142.91329    3.89854 -36.658 < 0.0000000000000002 ***
 - state28        -84.41173    4.12350 -20.471 < 0.0000000000000002 ***
 - state29       -100.69647    4.08499 -24.650 < 0.0000000000000002 ***
 - state3        -121.25472    6.44927 -18.801 < 0.0000000000000002 ***
-- state30         25.50491   11.26961   2.263             0.023632 *  
+- state30         25.50491   11.26961   2.263             0.023632 *
 - state31        112.13284   13.52131   8.293 < 0.0000000000000002 ***
 - state32        146.37176    4.10836  35.628 < 0.0000000000000002 ***
 - state33        -40.33733    3.97872 -10.138 < 0.0000000000000002 ***
 - state34        -61.09002    6.25575  -9.765 < 0.0000000000000002 ***
-- state35         17.72228    8.72443   2.031             0.042227 *  
+- state35         17.72228    8.72443   2.031             0.042227 *
 - state36        -85.02720    4.53862 -18.734 < 0.0000000000000002 ***
-- state4         -68.28980   27.50122  -2.483             0.013027 *  
+- state4         -68.28980   27.50122  -2.483             0.013027 *
 - state5        -144.20165    8.92408 -16.159 < 0.0000000000000002 ***
 - state6         -71.93804    8.39931  -8.565 < 0.0000000000000002 ***
-- state7         -41.36610   17.62915  -2.346             0.018958 *  
+- state7         -41.36610   17.62915  -2.346             0.018958 *
 - state8        -103.71783    6.46870 -16.034 < 0.0000000000000002 ***
 - state9        -152.19543    5.27778 -28.837 < 0.0000000000000002 ***
 - ---
 - Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 - Residual standard error: 94.36 on 37572 degrees of freedom
-- Multiple R-squared:  0.4771,	Adjusted R-squared:  0.4763 
+- Multiple R-squared:  0.4771,  Adjusted R-squared:  0.4763
 - F-statistic:   553 on 62 and 37572 DF,  p-value: < 0.00000000000000022
 #+end_src
 
