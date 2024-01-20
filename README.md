@@ -7,6 +7,7 @@
 ## [Introduction to Statistical Inference](statistical-inference.html)
 ## [Examples of Statistical Tests](statistical-tests-examples.html)
 ## [Analysis of Variance](anova.html)
+## [Statistical Associations](associations.html)
 
 ## Reading material
 
