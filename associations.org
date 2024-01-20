@@ -1,6 +1,8 @@
 #+TITLE: Statistical Association between Variables
-#+PROPERTY: header-args:R :session acj :eval never-export
+#+HTML_HEAD: <style>#content{max-width:1200px;} </style>
+#+OPTIONS: toc:nil num:nil
 #+STARTUP: hideall inlineimages hideblocks
+#+PROPERTY: header-args:R :session quant :eval never-export
 #+HTML_HEAD: <style>#content{max-width:1200px;} </style>
 
 * Deterministic/Exact vs Stochastic/Non-exact Relationships           :slide:

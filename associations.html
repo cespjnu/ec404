@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-01-20 Sat 12:32 -->
+<!-- 2024-01-20 Sat 12:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Statistical Association between Variables</title>
@@ -194,6 +194,7 @@
   .org-svg { }
 </style>
 <style>#content{max-width:1200px;} </style>
+<style>#content{max-width:1200px;} </style>
 <script>
   window.MathJax = {
     tex: {
@@ -230,37 +231,9 @@
 <body>
 <div id="content" class="content">
 <h1 class="title">Statistical Association between Variables</h1>
-<div id="table-of-contents" role="doc-toc">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents" role="doc-toc">
-<ul>
-<li><a href="#org5e3f1f7">1. Deterministic/Exact vs Stochastic/Non-exact Relationships&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#orgd866bb8">2. Association and Causality&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a>
-<ul>
-<li><a href="#org7ca72f9">2.1. Explanatory and explained variables</a></li>
-<li><a href="#orgdf2b713">2.2. Statistical association and causality</a></li>
-</ul>
-</li>
-<li><a href="#orgf8da99b">3. The Classical Linear Regression Model&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#org0ed4ca6">4. Why linear?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#org767b6b7">5. Assumptions of the CLRM&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#orgb64dc3c">6. Then what?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#orgfd07e19">7. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#org62ac5c1">8. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#org7f30842">9. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#org115ef99">10. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#org9f506ea">11. The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-<li><a href="#org1068b11">12. Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a>
-<ul>
-<li><a href="#org10e974b">12.1. Sum of Squares of Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div id="outline-container-org5e3f1f7" class="outline-2">
-<h2 id="org5e3f1f7"><span class="section-number-2">1.</span> Deterministic/Exact vs Stochastic/Non-exact Relationships&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-org6ee539c" class="outline-2">
+<h2 id="org6ee539c">Deterministic/Exact vs Stochastic/Non-exact Relationships&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-org6ee539c">
 <ul class="org-ul">
 <li>Unpredictable nature of human responses</li>
 <li>Large number of unmeasured and unmeasurable variables</li>
@@ -268,17 +241,17 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd866bb8" class="outline-2">
-<h2 id="orgd866bb8"><span class="section-number-2">2.</span> Association and Causality&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgc62129b" class="outline-2">
+<h2 id="orgc62129b">Association and Causality&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-orgc62129b">
 </div>
-<div id="outline-container-org7ca72f9" class="outline-3">
-<h3 id="org7ca72f9"><span class="section-number-3">2.1.</span> Explanatory and explained variables</h3>
+<div id="outline-container-org300b03c" class="outline-3">
+<h3 id="org300b03c">Explanatory and explained variables</h3>
 </div>
 
-<div id="outline-container-orgdf2b713" class="outline-3">
-<h3 id="orgdf2b713"><span class="section-number-3">2.2.</span> Statistical association and causality</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-org792ab1b" class="outline-3">
+<h3 id="org792ab1b">Statistical association and causality</h3>
+<div class="outline-text-3" id="text-org792ab1b">
 <ul class="org-ul">
 <li>Statistical association does not imply a causal relationship.
 <ul class="org-ul">
@@ -300,9 +273,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-orgf8da99b" class="outline-2">
-<h2 id="orgf8da99b"><span class="section-number-2">3.</span> The Classical Linear Regression Model&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org7244942" class="outline-2">
+<h2 id="org7244942">The Classical Linear Regression Model&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-org7244942">
 <p>
 \(Y = \alpha + \beta X + \mu\)
 </p>
@@ -317,9 +290,9 @@ A multiple variable regression would take the form:
 </p>
 </div>
 </div>
-<div id="outline-container-org0ed4ca6" class="outline-2">
-<h2 id="org0ed4ca6"><span class="section-number-2">4.</span> Why linear?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org1a6fa50" class="outline-2">
+<h2 id="org1a6fa50">Why linear?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-org1a6fa50">
 <ul class="org-ul">
 <li>Simplicity</li>
 <li>The slope is the constant marginal effect x has on y.</li>
@@ -332,9 +305,9 @@ A multiple variable regression would take the form:
 </ul>
 </div>
 </div>
-<div id="outline-container-org767b6b7" class="outline-2">
-<h2 id="org767b6b7"><span class="section-number-2">5.</span> Assumptions of the CLRM&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org91a096a" class="outline-2">
+<h2 id="org91a096a">Assumptions of the CLRM&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-org91a096a">
 <ol class="org-ol">
 <li>Zero mean. \(E(\mu_{i})=0\) for all i.</li>
 <li>Common variance. \(var(\mu_{i})=\sigma^{2}\)</li>
@@ -345,9 +318,9 @@ A multiple variable regression would take the form:
 </ol>
 </div>
 </div>
-<div id="outline-container-orgb64dc3c" class="outline-2">
-<h2 id="orgb64dc3c"><span class="section-number-2">6.</span> Then what?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-orgf813dfe" class="outline-2">
+<h2 id="orgf813dfe">Then what?&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-orgf813dfe">
 <p>
 \(Y = \alpha + \beta X + \mu\)
 </p>
@@ -379,9 +352,9 @@ where
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfd07e19" class="outline-2">
-<h2 id="orgfd07e19"><span class="section-number-2">7.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org1975367" class="outline-2">
+<h2 id="org1975367">The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-org1975367">
 <ul class="org-ul">
 <li><p>
 Based on the idea that the total sum of squares of residuals should be minimum. That is, you find the model estimators that are expected to maximise the explanatory power of your model.
@@ -394,9 +367,9 @@ Based on the idea that the total sum of squares of residuals should be minimum. 
 </ul>
 </div>
 </div>
-<div id="outline-container-org62ac5c1" class="outline-2">
-<h2 id="org62ac5c1"><span class="section-number-2">8.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org7d1d77a" class="outline-2">
+<h2 id="org7d1d77a">The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-org7d1d77a">
 <ul class="org-ul">
 <li><p>
 Differentiate w.r.t. \(\hat \alpha\)
@@ -420,9 +393,9 @@ or
 </ul>
 </div>
 </div>
-<div id="outline-container-org7f30842" class="outline-2">
-<h2 id="org7f30842"><span class="section-number-2">9.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-org65dfb43" class="outline-2">
+<h2 id="org65dfb43">The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-org65dfb43">
 <ul class="org-ul">
 <li><p>
 Differentiate w.r.t. \(\hat \beta\)
@@ -451,9 +424,9 @@ or
 </p>
 </div>
 </div>
-<div id="outline-container-org115ef99" class="outline-2">
-<h2 id="org115ef99"><span class="section-number-2">10.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-10">
+<div id="outline-container-orgaa69400" class="outline-2">
+<h2 id="orgaa69400">The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-orgaa69400">
 <p>
 \(\because \sum(X_{i}-\bar X)(Y_{i}-\bar Y) = \sum Y_{i}X_{i} - n\bar X \bar Y\)
 </p>
@@ -472,9 +445,9 @@ and \(\sum(X_i-\bar X)^{2} = \sum X_{i}^{2}-n\bar X^{2}\)
 </p>
 </div>
 </div>
-<div id="outline-container-org9f506ea" class="outline-2">
-<h2 id="org9f506ea"><span class="section-number-2">11.</span> The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-11">
+<div id="outline-container-org941f2d9" class="outline-2">
+<h2 id="org941f2d9">The Least Square Estimators&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-org941f2d9">
 <p>
 If
 \(x_{i}=(X_{i}-\bar X)\)
@@ -490,9 +463,9 @@ and
 </p>
 </div>
 </div>
-<div id="outline-container-org1068b11" class="outline-2">
-<h2 id="org1068b11"><span class="section-number-2">12.</span> Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
-<div class="outline-text-2" id="text-12">
+<div id="outline-container-org40b2655" class="outline-2">
+<h2 id="org40b2655">Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-org40b2655">
 <p>
 \(\frac{\delta Q}{\delta \hat\alpha}=\sum 2(Y_{i}-\hat\alpha-\hat\beta X_{i})(-1) = 0\)
 </p>
@@ -501,9 +474,9 @@ and
 \(\implies \sum\hat\mu_{i}=0\) and \(\sum x_{i}\hat\mu_{i}=0\)
 </p>
 </div>
-<div id="outline-container-org10e974b" class="outline-3">
-<h3 id="org10e974b"><span class="section-number-3">12.1.</span> Sum of Squares of Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h3>
-<div class="outline-text-3" id="text-12-1">
+<div id="outline-container-org6def923" class="outline-3">
+<h3 id="org6def923">Sum of Squares of Residuals&#xa0;&#xa0;&#xa0;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-org6def923">
 <p>
 \(RSS=\sum(Y_{i}-\hat\alpha - \hat\beta X_{i})^{2}\)
 </p>
@@ -542,7 +515,7 @@ and
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Vikas Rawal</p>
-<p class="date">Created: 2024-01-20 Sat 12:32</p>
+<p class="date">Created: 2024-01-20 Sat 12:36</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
