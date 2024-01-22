@@ -79,13 +79,15 @@ where
 + $\hat\beta$ is an estimator of $\beta$
 + $\hat\mu_i$ are the residuals
 
-* The Least Square Estimators                                         :slide:
+* The Least Square Estimators
+** The Least Square Estimators                                       :slide:
 
 + Based on the idea that the total sum of squares of residuals should be minimum. That is, you find the model estimators that are expected to maximise the explanatory power of your model.
 
   $\displaystyle \min (Q=\sum(\mu_{i}^{2})=\sum_{i=1}^{n}{(Y_{i}-\hat\alpha-\hat\beta X_{i})}^{2})$
 + To minimise Q, we differentiate w.r.t $\hat\alpha$ and $\hat\beta$
-* The Least Square Estimators                                         :slide:
+
+** The Least Square Estimators                                       :slide:
 
   + Differentiate w.r.t. $\hat \alpha$
 
@@ -97,7 +99,7 @@ where
 
     $\bar Y = \hat\alpha + \hat\beta \bar X$
 
-* The Least Square Estimators                                         :slide:
+** The Least Square Estimators                                       :slide:
 
   + Differentiate w.r.t. $\hat \beta$
 
@@ -112,7 +114,7 @@ where
 
                           $\displaystyle = n \bar X ( \bar Y - \hat\beta \bar X) + \hat\beta\sum X_{i}^{2}$
 
-* The Least Square Estimators                                         :slide:
+** The Least Square Estimators                                       :slide:
 
 
 $\because \sum(X_{i}-\bar X)(Y_{i}-\bar Y) = \sum Y_{i}X_{i} - n\bar X \bar Y$
@@ -124,7 +126,7 @@ and $\sum(X_i-\bar X)^{2} = \sum X_{i}^{2}-n\bar X^{2}$
 
     $\hat\alpha = \bar Y - \hat\beta \bar X$
 
-* The Least Square Estimators                                         :slide:
+** The Least Square Estimators                                       :slide:
 If
 $x_{i}=(X_{i}-\bar X)$
 
@@ -134,14 +136,13 @@ $y_{i}=(Y_{i}-\bar Y)$,
     $\hat\beta = \frac{\sum x_{i}y_{i}}{x_{i}^{2}}$
 
 
-
-* Residuals                                                           :slide:
+** Residuals                                                         :slide:
 
 $\frac{\delta Q}{\delta \hat\alpha}=\sum 2(Y_{i}-\hat\alpha-\hat\beta X_{i})(-1) = 0$
 
 $\implies \sum\hat\mu_{i}=0$ and $\sum x_{i}\hat\mu_{i}=0$
 
-** Sum of Squares of Residuals                                       :slide:
+*** Sum of Squares of Residuals                                     :slide:
 
 $RSS=\sum(Y_{i}-\hat\alpha - \hat\beta X_{i})^{2}$
 
@@ -160,13 +161,148 @@ $RSS=\sum[Y_{i}-\bar Y - \hat\beta(X_{i}-\bar X)]^{2}$
 
   + Is a simple measure of Goodness of Fit of a regression.
 
-* Properties of the OLS Estimators                                 :noexport:
+
+* Properties of the OLS Estimators
+** Properties of the OLS Estimators                                  :slide:
 
 1. OLS estimators are unbiased.
-   $E(\hat\beta)=\beta$
-2. OLS estimators have lowest variance among all linear estimators
+   + $E(\hat\alpha)=\alpha$
+   + $E(\hat\beta)=\beta$
+
+:Proof:
+
+$\hat\beta=\frac{\sum x_{i}y_{i}}{\sum x_{i}^2} = \sum c_{i}y_{i}$
+
+where $x_{i}$ and $y_{i}$ are deviations of $X_{i}$ and $Y_{i}$ from their means.
+
+and $c_{i}=\frac{x_{i}}{\sum x_{i}^2}$
+
+$E(\hat\beta)=\sum c_{i}E(y_{i})$
+
+    $=\sum(\frac{x_{i}}{\sum x_{i}^2}){\beta x_{i}}$ ($\because E(\mu_{i})=0$)
+
+    $=\beta\frac{\sum x_{i}^2}{\sum x_{i}^2} = \beta$
+
+:End:
+
+** Properties of the OLS Estimators                                  :slide:
+
+   + $\displaystyle var(\hat\beta) = \frac{\sigma^2}{\sum(X_{i}-\bar X)^{2}}$
+
+   :Proof:
+
+    $\hat\beta = \frac{\sum(X_{i}-\bar X)(Y_{i}-\bar Y)}{\sum(X_i-\bar X)^{2}}=\frac{\sum(X_{i}-\bar X)Y_{i}-\sum(X_{i}-\bar X)\bar Y)}{\sum(X_i-\bar X)^{2}}$
+
+      $=\sum{c_{i}y_{i}}$
+
+    where $c_{i}=\frac{X_{i}-\bar{X}}{\sum{(X_{i}-\bar{X})^{2}}}$
+
+    $var(\hat{\beta})=\sum{c_{i}^{2}\sigma^{2}} = \frac{\sigma^{2}}{\sum{(X_{i}-\bar{X})^{2}}}$
 
 
+:End:
+
+   + $\displaystyle var(\hat\alpha)=\sigma^2(\frac{1}{n}+\frac{\bar X^2}{\sum(X_{i}-\bar X)^{2}})$
+
+   :Proof:
+   $\hat{\alpha}=\bar{Y}-\hat{\beta}\bar{X}$
+
+        = $\frac{1}{n}\sum{Y_{i}}-\bar{X}\frac{\sum(X_{i}-\bar{X})Y_{i}}{\sum(X_{i}-\bar{X})^{2}}}$
+
+        $=\sum{d_{i}y_{i}}$
+
+   where $d_{i}=\frac{1}{n}-\frac{\bar{X}(X_{i}-\bar{X})}{\sum{(X_{i}-\bar{X})^{2}}}$
+
+   ... as for $var(\hat{\beta})$
+
+   :End:
+
+   + $cov(\hat\alpha, \hat\beta)=\sigma^{2}(\frac{-\bar X}{\sum(X_{i}-\bar X)^{2}})$
+
+   :Proof:
+
+   Following from earlier proofs
+
+   $cov(\hat{\alpha},\hat{\beta})=\sum{c_{i}d_{i}\sigma^{2}}$
+   :End:
+
+** Properties of the OLS Estimators                                  :slide:
+
+2. OLS estimators have lowest variance among all unbiased linear estimators.
+
+:ProofStep1:
+
+Consider another unbiased linear estimator $\tilde{\beta}=\sum{d_{i}Y_{i}}$ with $E(\tilde{\beta})=\beta$
+
+$\sum{d_{i}}{X_{i}}=1$
+
+Since Y_{i} are independent and have a common variance $\sigma^{2}$
+
+$var(\tilde{\beta})=\sum{d_{i}^{2}\sigma^{2}}$
+
+:End:
+
+:ProofStep2:
+
+We have to minimise $var(\tilde{\beta})$ subject to the condition that $\sum{d_{i}}{X_{i}}=1$
+
+min. $\sum{d_{i}^{2}}-\lambda(\sum{d_{i}X_{i}}-1)$ where $\lambda$ is the Lagrandian multiplier
+
+Differentiating w.r.t. $d_{i}$ and equating to 0
+
+$2d_{i}-\lambda X_{i}=0$
+
+$d_{i}=\frac{\lambda}{2}X_{i}$
+
+Thus, $\sum{d_{i}X_{i}=\frac{\lambda}{2}{\sum{X_{i}^{2}}}}$
+
+Since  $\sum{d_{i}}{X_{i}}=1$, $\lambda = \frac{2}{\sum{X_{i}^{2}}}$
+
+$d_{i}=\frac{\lambda}{2}X_{i}=\frac{X_{i}}{\sum{X_{i}^{2}}}$
+:End:
+
++ Gause Markov Theorem :: OLS Estimators are the Best Linear Unbiased Estimators.
+
++ It can be shown that, if  $\mu \sim IN(0,\sigma^2)$ For all i, OLS estimators have lowest variance among all linear+non-linear unbiased estimators.
+** Properties of the OLS Estimators                                  :slide:
+
+3. It follows from above:
+
+   + $\frac{\hat\beta-\beta}{\sqrt(\sigma^{2}/\sum(X_{i}-\bar X)^{2})}\sim N(0,1)$
+
+   + $RSS/\sigma^{2} \sim \chi_{n-2}^{2}$
+
+** Properties of the OLS Estimators                                  :slide:
+
+4. But $\sigma^{2}$ is unknown
+
+   $\hat\sigma^{2}=\frac{RSS}{n-2}$
+
+   $\hat\sigma^{2}=\frac{RSS}{n-(k+1)}$ in a multivariate regression with k independent variables
+
+** Properties of the OLS Estimators                                  :slide:
+
+5. t-statistic
+
+   $\frac{\hat\beta-\beta}{\sqrt(\sigma^{2}/\sum(X_{i}-\bar X)^{2})}/\sqrt(\frac{RSS}{(n-2)\sigma^{2}}) \sim t_{n-2}$
+
+
+   $\frac{\hat\beta-\beta}{\sqrt(\hat\sigma^{2}/\sum(X_{i}-\bar X)^{2})}\sim t_{n-2}$
+
+   + $\displaystyle \frac{\hat\beta-\beta}{SE(\hat\beta)}\sim t_{n-2}$
+   + $\displaystyle \frac{\hat\alpha-\alpha}{SE(\hat\alpha)}\sim t_{n-2}$
+
+* Multivariate Regressions                                            :slide:
+
+$Y_{i}=\alpha+\beta_{1}X_{1i}+\beta_{2}X_{2i}+\mu_{i}$
+
+$var(\hat{\beta_{1}})=\frac{\sigma^{2}}{\sum{(X_{1i}-\bar{X_{1}})^{1}(1-r_{12}^{2})}}$
+
+$var(\hat{\beta_{2}})=\frac{\sigma^{2}}{\sum{(X_{2i}-\bar{X_{2}})^{2}(1-r_{12}^{2})}}$
+
+In a k-variable regression
+
+$var(\hat{\beta_{k}})=\frac{\sigma^{2}}{RSS_{t}}$
 
 * Illustrations                                                    :noexport:
 
