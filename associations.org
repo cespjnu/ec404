@@ -5,13 +5,13 @@
 #+PROPERTY: header-args:R :session quant :eval never-export
 #+HTML_HEAD: <style>#content{max-width:1200px;} </style>
 
-* Deterministic/Exact vs Stochastic/Non-exact Relationships           :slide:
+* Deterministic/Exact vs Stochastic/Non-exact Relationships :slide:
 
 + Unpredictable nature of human responses
 + Large number of unmeasured and unmeasurable variables
 + Measurement errors
 
-* Association and Causality                                           :slide:
+* Association and Causality                          :slide:
 
 ** Explanatory and explained variables
 
@@ -29,7 +29,7 @@
 + We need a theoretical mechanism, consistent with empirical evidence and other related mechanisms, to establish causation.
 
 
-* The Classical Linear Regression Model                               :slide:
+* The Classical Linear Regression Model              :slide:
 
 $Y = \alpha + \beta X + \mu$
 
@@ -39,7 +39,7 @@ A multiple variable regression would take the form:
 $Y = \alpha + \beta_{a} X_{a} + \beta_{b} X_{b} + \beta_{c} X_{c} + \mu$
 
 
-* Why linear?                                                         :slide:
+* Why linear?                                        :slide:
 
 + Simplicity
 + The slope is the constant marginal effect x has on y.
@@ -51,7 +51,7 @@ $Y = \alpha + \beta_{a} X_{a} + \beta_{b} X_{b} + \beta_{c} X_{c} + \mu$
 :End:
 
 
-* Assumptions of the CLRM                                             :slide:
+* Assumptions of the CLRM                            :slide:
 
 1. Zero mean. $E(\mu_{i})=0$ for all i.
 2. Common variance. $var(\mu_{i})=\sigma^{2}$
@@ -61,7 +61,7 @@ $Y = \alpha + \beta_{a} X_{a} + \beta_{b} X_{b} + \beta_{c} X_{c} + \mu$
 5. $X_{i}$ are not stochastic, and not all zero.
 
 
-* Then what?                                                          :slide:
+* Then what?                                         :slide:
 
 $Y = \alpha + \beta X + \mu$
 
@@ -80,14 +80,14 @@ where
 + $\hat\mu_i$ are the residuals
 
 * The Least Square Estimators
-** The Least Square Estimators                                       :slide:
+** The Least Square Estimators                      :slide:
 
 + Based on the idea that the total sum of squares of residuals should be minimum. That is, you find the model estimators that are expected to maximise the explanatory power of your model.
 
   $\displaystyle \min (Q=\sum(\mu_{i}^{2})=\sum_{i=1}^{n}{(Y_{i}-\hat\alpha-\hat\beta X_{i})}^{2})$
 + To minimise Q, we differentiate w.r.t $\hat\alpha$ and $\hat\beta$
 
-** The Least Square Estimators                                       :slide:
+** The Least Square Estimators                      :slide:
 
   + Differentiate w.r.t. $\hat \alpha$
 
@@ -99,7 +99,7 @@ where
 
     $\bar Y = \hat\alpha + \hat\beta \bar X$
 
-** The Least Square Estimators                                       :slide:
+** The Least Square Estimators                      :slide:
 
   + Differentiate w.r.t. $\hat \beta$
 
@@ -114,7 +114,7 @@ where
 
                           $\displaystyle = n \bar X ( \bar Y - \hat\beta \bar X) + \hat\beta\sum X_{i}^{2}$
 
-** The Least Square Estimators                                       :slide:
+** The Least Square Estimators                      :slide:
 
 
 $\because \sum(X_{i}-\bar X)(Y_{i}-\bar Y) = \sum Y_{i}X_{i} - n\bar X \bar Y$
@@ -126,7 +126,7 @@ and $\sum(X_i-\bar X)^{2} = \sum X_{i}^{2}-n\bar X^{2}$
 
     $\hat\alpha = \bar Y - \hat\beta \bar X$
 
-** The Least Square Estimators                                       :slide:
+** The Least Square Estimators                      :slide:
 If
 $x_{i}=(X_{i}-\bar X)$
 
@@ -136,13 +136,13 @@ $y_{i}=(Y_{i}-\bar Y)$,
     $\hat\beta = \frac{\sum x_{i}y_{i}}{x_{i}^{2}}$
 
 
-** Residuals                                                         :slide:
+** Residuals                                        :slide:
 
 $\frac{\delta Q}{\delta \hat\alpha}=\sum 2(Y_{i}-\hat\alpha-\hat\beta X_{i})(-1) = 0$
 
 $\implies \sum\hat\mu_{i}=0$ and $\sum x_{i}\hat\mu_{i}=0$
 
-*** Sum of Squares of Residuals                                     :slide:
+*** Sum of Squares of Residuals                    :slide:
 
 $RSS=\sum(Y_{i}-\hat\alpha - \hat\beta X_{i})^{2}$
 
@@ -157,13 +157,15 @@ $RSS=\sum[Y_{i}-\bar Y - \hat\beta(X_{i}-\bar X)]^{2}$
 
             $=TSS-ESS$
 
-  $r^{2}=\frac{ESS}{TSS}=\frac{TSS-RSS}{TSS}$
+  $R^{2}=\frac{ESS}{TSS}=\frac{TSS-RSS}{TSS}$
 
   + Is a simple measure of Goodness of Fit of a regression.
 
+$Adjusted\quad R^{2}=1-\frac{n-1}{n-k-1}(1-R^{2})$
+
 
 * Properties of the OLS Estimators
-** Properties of the OLS Estimators                                  :slide:
+** Properties of the OLS Estimators                 :slide:
 
 1. OLS estimators are unbiased.
    + $E(\hat\alpha)=\alpha$
@@ -185,7 +187,7 @@ $E(\hat\beta)=\sum c_{i}E(y_{i})$
 
 :End:
 
-** Properties of the OLS Estimators                                  :slide:
+** Properties of the OLS Estimators                 :slide:
 
    + $\displaystyle var(\hat\beta) = \frac{\sigma^2}{\sum(X_{i}-\bar X)^{2}}$
 
@@ -232,7 +234,7 @@ $E(\hat\beta)=\sum c_{i}E(y_{i})$
    $cov(\hat{\alpha},\hat{\beta})=\sum{c_{i}d_{i}\sigma^{2}}$
    :End:
 
-** Properties of the OLS Estimators                                  :slide:
+** Properties of the OLS Estimators                 :slide:
 
 2. OLS estimators have lowest variance among all unbiased linear estimators.
 
@@ -270,7 +272,7 @@ $d_{i}=\frac{\lambda}{2}X_{i}=\frac{X_{i}}{\sum{X_{i}^{2}}}$
 + Gause Markov Theorem :: OLS Estimators are the Best Linear Unbiased Estimators.
 
 + It can be shown that, if  $\mu \sim IN(0,\sigma^2)$ For all i, OLS estimators have lowest variance among all linear+non-linear unbiased estimators.
-** Properties of the OLS Estimators                                  :slide:
+** Properties of the OLS Estimators                 :slide:
 
 3. It follows from above:
 
@@ -278,7 +280,7 @@ $d_{i}=\frac{\lambda}{2}X_{i}=\frac{X_{i}}{\sum{X_{i}^{2}}}$
 
    + $RSS/\sigma^{2} \sim \chi_{n-2}^{2}$
 
-** Properties of the OLS Estimators                                  :slide:
+** Properties of the OLS Estimators                 :slide:
 
 4. But $\sigma^{2}$ is unknown
 
@@ -286,7 +288,7 @@ $d_{i}=\frac{\lambda}{2}X_{i}=\frac{X_{i}}{\sum{X_{i}^{2}}}$
 
    $\hat\sigma^{2}=\frac{RSS}{n-(k+1)}$ in a multivariate regression with k independent variables
 
-** Properties of the OLS Estimators                                  :slide:
+** Properties of the OLS Estimators                 :slide:
 
 5. t-statistic
 
@@ -298,7 +300,7 @@ $d_{i}=\frac{\lambda}{2}X_{i}=\frac{X_{i}}{\sum{X_{i}^{2}}}$
    + $\displaystyle \frac{\hat\beta-\beta}{SE(\hat\beta)}\sim t_{n-2}$
    + $\displaystyle \frac{\hat\alpha-\alpha}{SE(\hat\alpha)}\sim t_{n-2}$
 
-* Multivariate Regressions                                            :slide:
+* Multivariate Regressions                           :slide:
 
 $Y_{i}=\alpha+\beta_{1}X_{1i}+\beta_{2}X_{2i}+\mu_{i}$
 
@@ -310,11 +312,11 @@ In a k-variable regression
 
 $var(\hat{\beta_{k}})=\frac{\sigma^{2}}{RSS_{t}}$
 
-* The F-test for Overall Significance/ANOVA                           :slide:
+* The F-test for Overall Significance/ANOVA          :slide:
 
 + Tests the overall significance of the regression.
 
-** The one variable regression                                       :slide:
+** The one variable regression                      :slide:
 
 + $RSS/\sigma^{2} \sim \chi_{n-2}^{2}$
 + $ESS/\sigma^{2} \sim \chi_1^{2}$ if $\beta=0$
@@ -329,7 +331,7 @@ $var(\hat{\beta_{k}})=\frac{\sigma^{2}}{RSS_{t}}$
 | Residual     | RSS=$S_{yy}-\hat{\beta}S_{xy}$                       | n-2 | RSS/(n-2) |                           |
 | Total        | TSS=$S_{yy}$                                | n-1 |           |                           |
 
-** the k variable regression                                         :slide:
+** the k variable regression                        :slide:
 
 | Source       | Sum of                         | DF    | Mean square                                     | F                               |
 | of variation | squares                        |       |                                                 |                                 |
@@ -339,12 +341,12 @@ $var(\hat{\beta_{k}})=\frac{\sigma^{2}}{RSS_{t}}$
 | Total        | $S_{yy}$                           | n-1   |                                                   |                 |
 
 
-* Heteroscedasticity                                                  :slide:
+* Heteroscedasticity                                 :slide:
 
 + The least square estimators are unbiased but inefficient.
 + The estimates of variances are biased, and thus the usual tests of significance are invalid.
 
-* Heteroscedasticity                                               :noexport:
+* Heteroscedasticity                              :noexport:
 
 $Y_{i}=\beta X_{i}+u_{i}$
 
@@ -358,7 +360,7 @@ $\therefore E(\hat{\beta})$
 
 
 
-* Illustrations                                                    :noexport:
+* Illustrations                                   :noexport:
 
 #+NAME: sassociation1
 #+BEGIN_SRC R :results output list org
@@ -619,14 +621,22 @@ $\therefore E(\hat{\beta})$
 
 
   sample(1:nrow(worker),20, replace=FALSE)->a1
-  worker[a1,]->s1
-  s1[sex==1,.(standardwage,monthly_expenditure,sex)]->s1
+  worker[sex==1][a1,]->s1
+  s1[,.(standardwage,monthly_expenditure)]->s1
 
-  ggplot(s1,aes(x=standardwage,y=monthly_expenditure))+geom_point()+facet_wrap(~sex)
+  worker[,standardwage:=round(standardwage)]
 
-  mean(s1$wage)->t0
+  worker[standardwage %in% c(96,112,200,222,250,300323,369,373,400,411,449,520,533)]->worker
+
+  worker[,wagecat:=factor(standardwage)]
+
+
+  ggplot(worker,aes(x=monthly_expenditure))+geom_density()+coord_flip()+facet_wrap(~wagecat,nrow=1)
+
+  density()
+
   for (i in c(1:9999)) {
-    sample(1:nrow(worker),20, replace=FALSE)->a1
+    sample(1:nrow(worker),20, replace=FALSE)->
     worker[a1,]->s1
     c(t0,mean(s1$wage))->t0
   }

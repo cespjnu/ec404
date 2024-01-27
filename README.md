@@ -8,6 +8,7 @@
 ## [Examples of Statistical Tests](statistical-tests-examples.html)
 ## [Analysis of Variance](anova.html)
 ## [Statistical Associations](associations.html)
+### [Example](https://media.githubusercontent.com/media/cespjnu/ec404/cesp-ec404/regression_example.xlsx)
 
 ## Reading material
 
