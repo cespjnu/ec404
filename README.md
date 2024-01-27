@@ -27,9 +27,10 @@ You may use any (or all) of the following:
 + Elements of Econometrics by Jan Kmenta
 + Introduction to Econometrics by G S Maddala
 + Econometric Methods by Johnston
-
++
 (or any other basic econometrics book)
 
 ### Other interesting stuff
 + Making Data Meaningful (Part I and II): https://www.unece.org/stats/documents/writing/
 + The Art of Statistics: Learning from Data by David Spiegelhalter
++ Econometrics and Data Analysis for Developing Countries: Chandan Mukherjee, Howard White and Marc Wuyts
