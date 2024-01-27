@@ -207,13 +207,19 @@ $E(\hat\beta)=\sum c_{i}E(y_{i})$
    :Proof:
    $\hat{\alpha}=\bar{Y}-\hat{\beta}\bar{X}$
 
-        = $\frac{1}{n}\sum{Y_{i}}-\bar{X}\frac{\sum(X_{i}-\bar{X})Y_{i}}{\sum(X_{i}-\bar{X})^{2}}}$
+        = $\frac{1}{n} \sum{Y_{i}}-\bar{X}\frac{\sum(X_{i}-\bar{X})Y_{i}}{\sum(X_{i}-\bar{X})^{2}}$
 
         $=\sum{d_{i}y_{i}}$
 
    where $d_{i}=\frac{1}{n}-\frac{\bar{X}(X_{i}-\bar{X})}{\sum{(X_{i}-\bar{X})^{2}}}$
 
-   ... as for $var(\hat{\beta})$
+   $\displaystyle var(\hat{\alpha})=\sum{d_{i}^{2}\sigma^{2}} = \sigma^{2}{\sum[{\frac{1}{n^{2}}+(\frac{\bar{X}}{\sum{(X_{i}-\bar{X})^{2}}}})^{2}(X_{i}-\bar{X})^{2}}-\frac{2}{n} \frac{\bar{X}}{\sum{(X_{i}-\bar{X})^{2}}}(X_{i}-\bar{X})]$
+
+   $\because \sum{X_{i}-\bar{X}}=0$
+
+   and $\sum{\frac{1}{n^{2}}}=\frac{1}{n}$
+
+   $\displaystyle var(\hat\alpha)=\sigma^2(\frac{1}{n}+\frac{\bar X^2}{\sum(X_{i}-\bar X)^{2}})$
 
    :End:
 
@@ -303,6 +309,54 @@ $var(\hat{\beta_{2}})=\frac{\sigma^{2}}{\sum{(X_{2i}-\bar{X_{2}})^{2}(1-r_{12}^{
 In a k-variable regression
 
 $var(\hat{\beta_{k}})=\frac{\sigma^{2}}{RSS_{t}}$
+
+* The F-test for Overall Significance/ANOVA                           :slide:
+
++ Tests the overall significance of the regression.
+
+** The one variable regression                                       :slide:
+
++ $RSS/\sigma^{2} \sim \chi_{n-2}^{2}$
++ $ESS/\sigma^{2} \sim \chi_1^{2}$ if $\beta=0$
++ $\frac{ESS/1}{RSS/n-2} \sim F_{n-2}^{1}$ ($\sigma$ cancel out) if $\beta=0$
+
++ In a one variable regression, this is just the square of t-statistic.
+
+| Source       | Sum of                                  | DF  | Mean      | F                         |
+| of variation | squares                                 |     | square    |                           |
+|--------------+-----------------------------------------+-----+-----------+---------------------------|
+| x            | ESS=$\hat{\beta}S_{xy}$                              | 1   | ESS/1     | $\frac{ESS/1}{RSS/(n-2)}$               |
+| Residual     | RSS=$S_{yy}-\hat{\beta}S_{xy}$                       | n-2 | RSS/(n-2) |                           |
+| Total        | TSS=$S_{yy}$                                | n-1 |           |                           |
+
+** the k variable regression                                         :slide:
+
+| Source       | Sum of                         | DF    | Mean square                                     | F                               |
+| of variation | squares                        |       |                                                 |                                 |
+|--------------+--------------------------------+-------+-------------------------------------------------+---------------------------------|
+| Regression   | $R^{2}S_{yy}$                      | k     | $R^{2}S_{yy}/k=MS_{1}$                         | F=MS_{1}/MS_{2}                 |
+| Residual     | $(1-R^{2})S_{yy}$              | n-k-1 | $\frac{(1-R^{2})S_{yy}}{(n-k-1)}=MS_{2}$                       |                               |
+| Total        | $S_{yy}$                           | n-1   |                                                   |                 |
+
+
+* Heteroscedasticity                                                  :slide:
+
++ The least square estimators are unbiased but inefficient.
++ The estimates of variances are biased, and thus the usual tests of significance are invalid.
+
+* Heteroscedasticity                                               :noexport:
+
+$Y_{i}=\beta X_{i}+u_{i}$
+
+$\hat{\beta}=\frac{\sum{x_{i}y_{i}}}{\sum{x_{i}^{2}}}=\beta+\frac{\sum{x_{i}u_{i}}}{\sum{x_{i}^{2}}}$
+
+If $E{u_{i}}=0$ and u_{i} are independent of x_{i},
+
+$E(\frac{\sum{x_{i}u_{i}}}{\sum{x_{i}^{2}}})=0$
+
+$\therefore E(\hat{\beta})$
+
+
 
 * Illustrations                                                    :noexport:
 
@@ -548,3 +602,39 @@ $var(\hat{\beta_{k}})=\frac{\sigma^{2}}{RSS_{t}}$
 |        2 |   1 | 20363 | 0.664306919387988 |
 |        3 |   1 |  3224 | 0.105177307278244 |
 |        3 |   2 |   232 | 0.033256880733945 |
+
+
+* Illustration
+
+#+NAME: regressions
+#+BEGIN_SRC R :results file graphics :exports results :file .png :width 2100 :height 1100  :res 300
+  library(data.table)
+  library(ggplot2)
+  readRDS("plfsdata/plfsacjdata.rds")->worker
+  worker$standardwage->worker$wage
+  factor(worker$social_group)->worker$social_group
+  factor(worker$religion)->worker$religion
+  factor(as.numeric(worker$state))->worker$state
+  factor(worker$sector)->worker$sector
+
+
+  sample(1:nrow(worker),20, replace=FALSE)->a1
+  worker[a1,]->s1
+  s1[sex==1,.(standardwage,monthly_expenditure,sex)]->s1
+
+  ggplot(s1,aes(x=standardwage,y=monthly_expenditure))+geom_point()+facet_wrap(~sex)
+
+  mean(s1$wage)->t0
+  for (i in c(1:9999)) {
+    sample(1:nrow(worker),20, replace=FALSE)->a1
+    worker[a1,]->s1
+    c(t0,mean(s1$wage))->t0
+  }
+
+#+end_src
+
+
+#+NAME: temp
+#+BEGIN_SRC R :results value :exports results :hlines :colnames yes
+  s1
+#+end_src
